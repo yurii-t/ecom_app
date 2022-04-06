@@ -1,3 +1,4 @@
+import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -109,7 +110,9 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                                 onPrimary: Colors.white,
                                 minimumSize: const Size(327, 64),
                               ),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>  VerificationVWidget()));
+                      },
                       child: const Text('Send Verification Code',
                       style: TextStyle(
                         fontSize: 17,
