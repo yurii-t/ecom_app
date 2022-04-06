@@ -16,8 +16,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
  // double _bottom = 10.0;
  // double _right = 10.0;
   double _left = 150;
-  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1
-);
+  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
    // yellowColor = const Color(0xFF7B944);
   @override
   Widget build(BuildContext context) {
@@ -120,7 +119,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                               minimumSize: const Size(239, 48),
                             ),
                             
-                            child: const Text('Get Started',style: TextStyle(fontSize: 17),),
+                            child: const Text('Get Started',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w700),),
                            
                             
                             )
