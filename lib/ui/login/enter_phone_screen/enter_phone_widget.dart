@@ -1,4 +1,5 @@
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -16,6 +17,16 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'UA';
   PhoneNumber number = PhoneNumber(isoCode: 'UA');
+
+
+// TextEditingController phoneController = TextEditingController(text: "+923028997122");
+//   TextEditingController otpController = TextEditingController();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  bool otpVisibility = false;
+
+  String verificationID = "";
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +99,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 autoValidateMode: AutovalidateMode.disabled,
                 selectorTextStyle: TextStyle(color: Colors.black,fontSize: 19),
                 initialValue: number,
-                textFieldController: controller,
+                textFieldController: controller,// controller,
                 formatInput: true,
                 keyboardType: TextInputType.phone,
                     //TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -111,7 +122,11 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                                 minimumSize: const Size(327, 64),
                               ),
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>  VerificationVWidget()));
+                        
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>  VerificationVWidget(
+                          phone:controller.text,
+
+                        )));
                       },
                       child: const Text('Send Verification Code',
                       style: TextStyle(
@@ -142,4 +157,33 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
       ),
     );
   }
+
+//  void loginWithPhone() async {
+//     auth.verifyPhoneNumber(
+//       phoneNumber: phoneController.text,
+//       verificationCompleted: (PhoneAuthCredential credential) async {
+//         await auth.signInWithCredential(credential).then((value){
+         
+//           print("You are logged in successfully");
+//         }
+         
+//         );
+//       },
+//       verificationFailed: (FirebaseAuthException e) {
+//         print(e.message);
+        
+//       },
+//       codeSent: (String verificationId, int? resendToken) {
+//         otpVisibility = true;
+//         verificationID = verificationId;
+//         setState(() {});
+//       },
+//       codeAutoRetrievalTimeout: (String verificationId) {
+
+//       },
+//     );
+//   }
+
+  
 }
+
