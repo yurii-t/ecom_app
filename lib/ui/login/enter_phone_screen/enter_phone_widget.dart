@@ -124,7 +124,8 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                       onPressed: (){
                         
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>  VerificationVWidget(
-                          phone:controller.text,
+                         // phone:controller.text,
+                          phone:number.phoneNumber.toString(),
 
                         )));
                       },

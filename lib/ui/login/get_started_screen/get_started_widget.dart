@@ -1,3 +1,4 @@
+import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -106,7 +107,8 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                           const SizedBox(height: 32,),
                           ElevatedButton(
                             onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
+                            //  Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>  HomeWidget()));
                               // setState(() {
                               //   _top=0;
                               // //  _right=200;
