@@ -67,7 +67,8 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
               ),
     
                 Positioned (
-                  top: 560,
+                  ////
+                  top:  560,
                 //  bottom: 0,
                   child: Container(
                     height:291,
@@ -97,6 +98,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                               ]
                             )
                            ),
+                          ///////////////
                            const SizedBox(height: 24,),
                           const Text("Lorem Ipsum is simply dummy text of the  printing and typesetting industry",
                           textAlign: TextAlign.center,
