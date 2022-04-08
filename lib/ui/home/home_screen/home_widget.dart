@@ -1,246 +1,223 @@
+import 'dart:math';
+
+import 'package:ecom_app/ui/cart/cart_screen/cart_widget.dart';
+import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
+import 'package:ecom_app/ui/home/home_screen/home_screen_content_widget.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
+import 'package:ecom_app/ui/profile/favorite_screen/favorite_widget.dart';
+import 'package:ecom_app/ui/profile/profile_screen/profile_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeWidget extends StatefulWidget {
-  HomeWidget({Key? key}) : super(key: key);
+  const HomeWidget({Key? key}) : super(key: key);
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-   
-   Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
-   int _selectedTab =0;
+  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
+  int _selectedTab = 0;
 
-   void onSelectedTab(int index){
-    if(_selectedTab == index) return;
-    setState(() {
-      _selectedTab = index;
-    });
-
-  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO( 244, 243, 244, 1),
-        body: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: AlignmentDirectional.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 132,
-                 
-                 decoration: const BoxDecoration(
-                    color:Colors.purple,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0)),
-                     gradient: LinearGradient(
-                      colors: [Color.fromRGBO(52, 40, 60, 1),Color.fromRGBO(132, 95, 161, 1),],
+          backgroundColor: const Color.fromRGBO(244, 243, 244, 1),
+          body: IndexedStack(
+            index: _selectedTab,
+            children: [
+              HomeScreenContentWidget(),
+              CatalogueWidget(),
+              FavoriteWidget(),
+              ProfileWidget()
+            ],
+          ),
+          bottomNavigationBar: Stack(clipBehavior: Clip.none, children: [
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: 87,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(24)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 19, top: 12, right: 135),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedTab = 0;
+                          });
+                        }, // => onSelectedTab,
+                        splashColor: Colors.red,
+                        highlightColor: Colors.blue,
+                        child: _selectedTab == 0
+                            ? Column(
+                                children: const [
+                                  Icon(Icons.home),
+                                  Text('Home')
+                                ],
+                              )
+                            : Column(
+                                children: const [
+                                  Icon(Icons.home_outlined),
+                                  Text('Home')
+                                ],
+                              ),
+                      ),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedTab = 1;
+                            });
+                          },
+                          splashColor: Colors.red,
+                          highlightColor: Colors.green,
+                          child: _selectedTab == 1
+                              ? Column(
+                                  children: const [
+                                    Icon(Icons.category_outlined),
+                                    Text('Catalogue')
+                                  ],
+                                )
+                              : Column(
+                                  children: const [
+                                    Icon(Icons.category),
+                                    Text('Catalogue')
+                                  ],
+                                )),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedTab = 2;
+                          });
+                        },
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: _selectedTab == 2
+                            ? Column(
+                                children: const [
+                                  Icon(Icons.favorite_outline),
+                                  Text('Favorite')
+                                ],
+                              )
+                            : Column(
+                                children: const [
+                                  Icon(Icons.favorite),
+                                  Text('Favorite')
+                                ],
+                              ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedTab = 3;
+                          });
+                        },
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: _selectedTab == 3
+                            ? Column(
+                                children: const [
+                                  Icon(Icons.person_outline),
+                                  Text('Profile')
+                                ],
+                              )
+                            : Column(
+                                children: const [
+                                  Icon(Icons.person),
+                                  Text('Profile')
+                                ],
+                              ),
+                      ),
+                    ],
+                  ),
+                )),
+            Positioned(
+              left: 273,
+              bottom: 42,
+              child: GestureDetector(
+                onTap: () => Navigator.push(
+                    context, SlideRightRoute(page: CartWidget())),
+                child: Container(
+                  width: 116,
+                  height: 56,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                        bottomLeft: Radius.circular(80)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(52, 40, 60, 1),
+                        Color.fromRGBO(132, 95, 161, 1),
+                      ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      ),
                     ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16,right: 16),
+                  ),
+                  child: Center(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.menu,color: Colors.white,),
-                        RichText(
-                        
-                            text:const TextSpan(
-                              style: TextStyle( fontWeight: FontWeight.w700,fontSize: 18),
-                              children:[
-                                 TextSpan(text: 'My',style:TextStyle( color:Colors.yellow)),
-                                 TextSpan(text: 'Shop',style:TextStyle( color:Colors.white)),
-                              ]
-                            )
-                           ),
-                        Icon(Icons.notifications_outlined,color: Colors.white),
+                        const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.white,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              ' \$239.50',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 11),
+                            ),
+                            Text('2 items',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 11)),
+                          ],
+                        )
                       ],
                     ),
                   ),
                 ),
-                Positioned(
-                   top: 108,
-                  
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20,right: 20),
-                    child: SizedBox(
-                      width: 375,
-                      height: 44,
-                      child: TextField(
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
-                          prefixIcon: Icon(Icons.search),
-                          hintText: 'What are you looking for',
-                         
-                        ),
-                        
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 34,),
-            Padding(
-              padding: const EdgeInsets.only(left: 16,right: 16),
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [ Container(
-                  width: 343,
-                  height: 88,
-                   decoration: const BoxDecoration(
-                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage('images/img_gal.jpg'),
-                      )
-                      ),
-                    
-                ),
-                Padding(
-                   padding: const EdgeInsets.only(left: 18,top: 14,right: 177),
-                  child: Column(
-                    children: [
-                      Text('Fashion Sale',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 25,
-                      ),
-                      ),
-                      Row(
-                        children: [
-                          Text('See More',
-                          style: TextStyle(
-                        color: yellowColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                          ),
-                          Icon(Icons.chevron_right,color: yellowColor,)
-                        ],
-                      )
-                    ],
-                  ),
-                )
-
-                ]
               ),
             ),
-             SizedBox(height: 24,),
-            Padding(
-              padding: const EdgeInsets.only(left: 16,right: 16,),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                
-                children: [
-                  Text('Catalogue',
-                  style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700
-                  ),),
-                 
-                  Row(
-                          children: [
-                            Text('See All',
-                            
-                            style: TextStyle(
-                          color: Color.fromRGBO(155, 155, 155, 1),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        ),
-                            ),
-                            Icon(Icons.chevron_right,color: Color.fromRGBO(155, 155, 155, 1),)
-                          ],
-                        )
-                ],
-              ),
-            ),
-            SizedBox(height: 16,),
-
-            SizedBox(
-              height:100 ,
-              
-              child: ListView.builder(
-                itemCount: 5,
-               // itemExtent: 88,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context,int index){
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 88,
-                      height: 88,
-                      decoration: const BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('images/img_gal.jpg'),
-                        )
-                        ),
-                        child: Center(
-                          child: Text('Phones',style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                  );
-                }
-            ),
-            ),
-
-            SizedBox(height: 32,),
-             Padding(
-               padding: const EdgeInsets.only(left:16.0),
-               child: Align(
-                 alignment: Alignment.centerLeft,
-                 child: Text('Featured',
-                 
-                 style: TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.w700)),
-               ),
-             ),
-             SizedBox(height: 16,),
-
-
-
-
-            ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.red,),label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.cable),label: 'Catalogue'),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite_border),label: 'Favorite'),
-            BottomNavigationBarItem(icon: Icon(Icons.portrait),label: 'Profile'),
-          ])
-        // Stack(
-        //   children: [
-        //     Container(
-        //       width: MediaQuery.of(context).size.width,
-        //       height: 375,
-        //       decoration: const BoxDecoration(
-        //         color: Colors.white,
-        //         borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0)),
-                     
-        //       ),
-        //       child: Row(
-        //         children: [
-        //           Icon(Icons.home),
-        //         ],
-        //       ),
-        //     )
-        //   ],
-        // ),
-      ),
-     
+          ])),
     );
   }
+}
+
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({required this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
 }
