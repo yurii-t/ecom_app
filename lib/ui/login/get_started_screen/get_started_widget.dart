@@ -1,10 +1,11 @@
+import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class GetStartedWidget extends StatefulWidget {
-  GetStartedWidget({Key? key}) : super(key: key);
+  const GetStartedWidget({Key? key}) : super(key: key);
 
   @override
   State<GetStartedWidget> createState() => _GetStartedWidgetState();
@@ -16,8 +17,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
   // double _bottom = 10.0;
   // double _right = 10.0;
   double _left = 150;
-  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
-  // yellowColor = const Color(0xFF7B944);
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,7 +47,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
               width: 269,
               height: 146,
               decoration: BoxDecoration(
-                color: Colors.yellow.withOpacity(0.7),
+                color: AppColors.yellowColor.withOpacity(0.7),
                 borderRadius:
                     const BorderRadius.only(topLeft: Radius.circular(300.0)),
               ),
@@ -62,18 +62,19 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
               height: 291,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                color: Colors.purple,
+                //color: Colors.purple,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40.0),
                     topRight: Radius.circular(40.0)),
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(52, 40, 60, 1),
-                    Color.fromRGBO(132, 95, 161, 1),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
+                  gradient: AppColors.purpleGradient,
+                // LinearGradient(
+                //   colors: [
+                //     Color.fromRGBO(52, 40, 60, 1),
+                //     Color.fromRGBO(132, 95, 161, 1),
+                //   ],
+                //   begin: Alignment.centerLeft,
+                //   end: Alignment.centerRight,
+                // ),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -89,7 +90,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                             children: [
                           TextSpan(
                               text: 'My',
-                              style: TextStyle(color: Colors.yellow)),
+                              style: TextStyle(color: AppColors.yellowColor)),
                           TextSpan(
                               text: 'Shop',
                               style: TextStyle(color: Colors.white)),
@@ -107,11 +108,11 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        //  Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeWidget()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => HomeWidget()));
                         // setState(() {
                         //   _top=0;
                         // //  _right=200;
@@ -120,7 +121,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                         // });
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: yellowColor,
+                        primary: AppColors.yellowColor,
                         onPrimary: Colors.white,
                         minimumSize: const Size(239, 48),
                       ),

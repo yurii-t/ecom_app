@@ -1,3 +1,4 @@
+import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class EnterPhoneWidget extends StatefulWidget {
 }
 
 class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
-  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
+  
 
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'UA';
@@ -52,14 +53,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 color: Colors.purple,
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(300.0)),
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(52, 40, 60, 1),
-                    Color.fromRGBO(132, 95, 161, 1),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
+                gradient: AppColors.purpleGradient,
               ),
             ),
             const SizedBox(
@@ -90,7 +84,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 onInputValidated: (bool value) {
                   print(value);
                 },
-                selectorConfig: SelectorConfig(
+                selectorConfig: const SelectorConfig(
                   selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                   setSelectorButtonAsPrefixIcon: true,
                   leadingPadding: 20,
@@ -98,18 +92,18 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 ),
                 hintText: '(99) 999 99 99',
                 maxLength: 10,
-                textStyle: TextStyle(fontSize: 19),
+                textStyle: const TextStyle(fontSize: 19),
 
                 spaceBetweenSelectorAndTextField: 0,
                 ignoreBlank: true,
                 autoValidateMode: AutovalidateMode.disabled,
-                selectorTextStyle: TextStyle(color: Colors.black, fontSize: 19),
+                selectorTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
                 initialValue: number,
                 textFieldController: controller, // controller,
                 formatInput: true,
                 keyboardType: TextInputType.phone,
                 //TextInputType.numberWithOptions(signed: true, decimal: true),
-                inputBorder: OutlineInputBorder(
+                inputBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
               ),
             ),
@@ -126,7 +120,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: yellowColor,
+                  primary: AppColors.yellowColor,
                   onPrimary: Colors.white,
                   minimumSize: const Size(327, 64),
                 ),
@@ -141,7 +135,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 },
                 child: const Text(
                   'Send Verification Code',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700,color: AppColors.darkGreyTextColor),
                 )),
             const SizedBox(
               height: 24,
@@ -154,7 +148,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
-                        color: Color.fromRGBO(155, 155, 155, 1),
+                        color: AppColors.greyTextColor,
                       ))),
             )
           ],

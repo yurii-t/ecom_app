@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/pin_verification_body_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,15 +10,15 @@ import 'package:flutter/widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationVWidget extends StatefulWidget {
-  String phone;
-  VerificationVWidget({Key? key, required this.phone}) : super(key: key);
+  final String phone;
+  const VerificationVWidget({Key? key, required this.phone}) : super(key: key);
 
   @override
   State<VerificationVWidget> createState() => _VerificationVWidgetState();
 }
 
 class _VerificationVWidgetState extends State<VerificationVWidget> {
-  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
+  
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formphonedKey = GlobalKey<FormState>();
 
@@ -57,7 +58,8 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
             .then((value) {
           if (value.user != null) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeWidget()));
+                context, MaterialPageRoute(builder: (context) => const HomeWidget()));
+          
           }
         });
       },
@@ -119,17 +121,10 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                 ),
               ),
               decoration: const BoxDecoration(
-                color: Colors.purple,
+                
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(300.0)),
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(52, 40, 60, 1),
-                    Color.fromRGBO(132, 95, 161, 1),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
+                gradient: AppColors.purpleGradient
               ),
             ),
             const SizedBox(
@@ -143,7 +138,7 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w400,
-                  color: Color.fromRGBO(96, 90, 101, 1),
+                  color: AppColors.darkGreyTextColor,
                 ),
               ),
             ),
@@ -154,10 +149,10 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                   Expanded(
                     child: Text(
                       widget.phone, //'+380991234567',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
-                          color: Colors.black),
+                          color: AppColors.darkTextColor),
                     ),
                   ),
                   TextButton(
@@ -168,7 +163,7 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: Color.fromRGBO(52, 40, 62, 1),
+                            color: AppColors.darkTextColor,
                             decoration: TextDecoration.underline,
                           )))
                 ],
@@ -196,7 +191,7 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                     fieldWidth: 40,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 100),
+                  animationDuration: const Duration(milliseconds: 100),
                   //backgroundColor: Colors.blue.shade50,
                   enableActiveFill: false,
                   errorAnimationController: errorController,
@@ -226,7 +221,7 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: yellowColor,
+                  primary: AppColors.yellowColor,
                   onPrimary: Colors.white,
                   minimumSize: const Size(327, 64),
                 ),
@@ -241,7 +236,8 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeWidget()));
+                                builder: (context) => const HomeWidget()));
+                       
                       }
                     });
                   } catch (e) {
@@ -267,7 +263,7 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
-                        color: Color.fromRGBO(155, 155, 155, 1),
+                        color: AppColors.greyTextColor,
                       ))),
             )
           ],

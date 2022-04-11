@@ -1,6 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreenContentWidget extends StatefulWidget {
   const HomeScreenContentWidget({Key? key}) : super(key: key);
@@ -10,7 +13,14 @@ class HomeScreenContentWidget extends StatefulWidget {
 }
 
 class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
-  Color yellowColor = const Color.fromRGBO(231, 185, 68, 1);
+  
+    int _sliderCurrent = 0;
+  final CarouselController _sliderController = CarouselController();
+  final List<String> imgSlider =[
+    'images/img_gal.jpg',
+    'images/img_content.png',
+    'images/catalogue_img.png',
+    'images/content_img1.png'];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,26 +33,20 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                     width: MediaQuery.of(context).size.width,
                     height: 132,
                     decoration: const BoxDecoration(
-                      color: Colors.purple,
                       
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(52, 40, 60, 1),
-                          Color.fromRGBO(132, 95, 161, 1),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+                      
+                      gradient: AppColors.purpleGradient,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                          ),
+                          SvgPicture.asset('icons/menu_alt_2_1.svg'),
+                          // const Icon(
+                          //   Icons.menu,
+                          //   color: Colors.white,
+                          // ),
                           RichText(
                               text: const TextSpan(
                                   style: TextStyle(
@@ -51,13 +55,14 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                   children: [
                                 TextSpan(
                                     text: 'My',
-                                    style: TextStyle(color: Colors.yellow)),
+                                    style: TextStyle(color:AppColors.yellowColor)),
                                 TextSpan(
                                     text: 'Shop',
                                     style: TextStyle(color: Colors.white)),
                               ])),
-                          const Icon(Icons.notifications_outlined,
-                              color: Colors.white),
+                          // const Icon(Icons.notifications_outlined,
+                          //     color: Colors.white),
+                          SvgPicture.asset('icons/bell_1.svg'),
                         ],
                       ),
                     ),
@@ -91,16 +96,112 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Stack(alignment: AlignmentDirectional.center, children: [
-                  Container(
+
+
+                  SizedBox(
                     width: 343,
                     height: 88,
-                    decoration: const BoxDecoration(
+                    child:// Column(children: [
+                          CarouselSlider.builder(
+                            itemCount: imgSlider.length,
+                            carouselController: _sliderController,
+                            options: CarouselOptions(
+                              viewportFraction: 1,
+                                autoPlay: true,
+                                enlargeCenterPage: false,
+                               // aspectRatio: 2.0,
+                                onPageChanged: (index, reason) {
+                    setState(() {
+                      _sliderCurrent = index;
+                    });
+                     
+                                }
+                                
+                                ),
+                               itemBuilder: (context, index,realIdx){
+                            return   Container(
+                    width: 343,
+                    height: 88,
+                    decoration:  BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('images/img_gal.jpg'),
-                        )),
+                          fit: BoxFit.cover,
+                          image: AssetImage(imgSlider[index]),
+                        )
+                        ),
+                            );
+                          }, 
+                          ),
+                      //     Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: imgSlider.asMap().entries.map((entry) {
+                      //         return GestureDetector(
+                      //           onTap: () => _sliderController.animateToPage(entry.key),
+                      //           child: Container(
+                      //             width: 12.0,
+                      //             height: 12.0,
+                      //             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      //             decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      // color: (Theme.of(context).brightness == Brightness.dark
+                      //         ? Colors.white
+                      //         : Colors.black)
+                      //     .withOpacity(_sliderCurrent == entry.key ? 0.9 : 0.4)),
+                      //           ),
+                      //         );
+                      //       }).toList(),
+                      //     )
+                       // ]),
                   ),
+
+                   Positioned(
+                     top:75,
+                     child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: imgSlider.asMap().entries.map((entry) {
+                                return GestureDetector(
+                                  onTap: () => _sliderController.animateToPage(entry.key),
+                                  child: Container(
+                                    width: 62.0,
+                                    height: 2.0,
+                                    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                    decoration: BoxDecoration(
+                       // shape: BoxShape.rectangle,
+                       borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.white)
+                            .withOpacity(_sliderCurrent == entry.key ? 0.9 : 0.4)),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                   ),
+
+        //           Container(
+        //             width: 343,
+        //             height: 88,
+        //             decoration: const BoxDecoration(
+        //                 borderRadius: BorderRadius.all(Radius.circular(8)),
+        //                 // image: DecorationImage(
+        //                 //   fit: BoxFit.fill,
+        //                 //   image: AssetImage('images/img_gal.jpg'),
+        //                 //)
+        //                 ),
+        //                 child: CarouselSlider.builder(
+        //                   itemCount: imgSlider.length,
+        //                   itemBuilder: (context, index,realIdx){
+        //                     return Center(child: Image.asset(imgSlider[index],
+        //                     fit: BoxFit.fill,width: 343,height: 88,)
+        //                     );
+        //                   }, 
+        //                   options: CarouselOptions(
+        //   autoPlay: true,
+        //   aspectRatio: 2.0,
+        //   enlargeCenterPage: true,
+        // ),
+        // ),
+             //     ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 18, top: 14, right: 177),
@@ -115,18 +216,18 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                           ),
                         ),
                         Row(
-                          children: [
+                          children:const [
                             Text(
                               'See More',
                               style: TextStyle(
-                                color: yellowColor,
+                                color: AppColors.yellowColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 12,
                               ),
                             ),
                             Icon(
                               Icons.chevron_right,
-                              color: yellowColor,
+                              color: AppColors.yellowColor,
                             )
                           ],
                         )
@@ -158,21 +259,21 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CatalogueWidget()));
+                                builder: (context) => const CatalogueWidget()));
                       },
                       child: Row(
                         children:const [
                            Text(
                             'See All',
                             style: TextStyle(
-                              color:  Color.fromRGBO(155, 155, 155, 1),
+                              color:  AppColors.greyTextColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 12,
                             ),
                           ),
                            Icon(
                             Icons.chevron_right,
-                            color: Color.fromRGBO(155, 155, 155, 1),
+                            color:  AppColors.greyTextColor,
                           )
                         ],
                       ),
@@ -278,14 +379,7 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(40),
                                           bottomRight: Radius.circular(40)),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromRGBO(210, 58, 58, 1),
-                                          Color.fromRGBO(244, 151, 99, 1),
-                                        ],
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                      ),
+                                      gradient: AppColors.orangeGradient,
                                     ),
                                     child: const Center(
                                         child:  Text(
@@ -301,7 +395,8 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                   top: 145,
                                   //right: 0,
                                   left: 110,
-                                  child: ElevatedButton(
+                                   child:
+                                  ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: Colors.white,
                                         shape: const CircleBorder(),
@@ -310,21 +405,26 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                      
 
                                       onPressed: () {},
-                                      child: ShaderMask(
-                                          shaderCallback: (Rect bounds) {
-                                            return const LinearGradient(
-                                              colors: [
-                                                 Color.fromRGBO(52, 40, 60, 1),
-                                                 Color.fromRGBO(132, 95, 161, 1),
-                                              ],
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                            ).createShader(bounds);
-                                          },
-                                          child: const Icon(
-                                            Icons.favorite_outline,
-                                            size: 15,
-                                          ))),
+                                      child: SvgPicture.asset('icons/heart11.svg',color: Colors.purple), 
+                                      // ShaderMask(
+                                      //     shaderCallback: (Rect bounds) {
+                                      //       return AppColors.purpleGradient.createShader(bounds);
+                                      //       // const LinearGradient(
+                                      //       //   colors: [
+                                      //       //      Color.fromRGBO(52, 40, 60, 1),
+                                      //       //      Color.fromRGBO(132, 95, 161, 1),
+                                      //       //   ],
+                                      //       //   begin: Alignment.centerLeft,
+                                      //       //   end: Alignment.centerRight,
+                                      //       // ).createShader(bounds);
+                                      //     },
+                                      //       child:SvgPicture.asset('icons/heart.svg',), 
+                                      //     //const Icon(
+                                      //     //   Icons.favorite_outline,
+                                      //     //   size: 15,
+                                      //   //  )
+                                      //     )
+                                          ),
                                 )
                               ],
                             ),
@@ -342,27 +442,27 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                       Icon(
                                         Icons.star,
                                         size: 12,
-                                        color: Color.fromRGBO(242, 153, 74, 1),
+                                        color: AppColors.starIconColor,
                                       ),
                                       Icon(
                                         Icons.star,
                                         size: 12,
-                                        color: Color.fromRGBO(242, 153, 74, 1),
+                                        color: AppColors.starIconColor,
                                       ),
                                       Icon(
                                         Icons.star,
                                         size: 12,
-                                        color: Color.fromRGBO(242, 153, 74, 1),
+                                        color: AppColors.starIconColor,
                                       ),
                                       Icon(
                                         Icons.star,
                                         size: 12,
-                                        color: Color.fromRGBO(242, 153, 74, 1),
+                                        color: AppColors.starIconColor,
                                       ),
                                       Icon(
                                         Icons.star,
                                         size: 12,
-                                        color: Color.fromRGBO(242, 153, 74, 1),
+                                        color: AppColors.starIconColor,
                                       ),
                                     ],
                                   ),
