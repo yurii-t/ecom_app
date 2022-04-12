@@ -31,7 +31,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             index: _selectedTab,
             children: [
               const HomeScreenContentWidget(),
-              const CatalogueWidget(),
+               const CatalogueWidget(),
               FavoriteWidget(),
               ProfileWidget()
             ],

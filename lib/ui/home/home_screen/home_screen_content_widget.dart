@@ -251,7 +251,7 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                       'Catalogue',
                       style: TextStyle(
                           fontSize: 19,
-                          color: Colors.black,
+                          color:AppColors.darkTextColor,
                           fontWeight: FontWeight.w700),
                     ),
                     TextButton(
@@ -259,7 +259,7 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const CatalogueWidget()));
+                                builder: (context) =>  const CatalogueWidget()));
                       },
                       child: Row(
                         children:const [

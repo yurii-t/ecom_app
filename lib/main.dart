@@ -30,7 +30,11 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home:  HomeWidget(),//GetStartedWidget(),
+      home:  
+      //ClothingWidget(),
+      HomeWidget(),
+      ////GetStartedWidget(),
+      
     // initialRoute: '/',
   //   routes: {
     
