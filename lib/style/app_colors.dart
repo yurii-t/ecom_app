@@ -24,4 +24,5 @@ abstract class AppColors {
   static const darkGreyTextColor = Color.fromRGBO(96, 90, 101, 1);
   static const darkTextColor = Color.fromRGBO(52, 40, 62, 1);
   static const bottomBarTextColor = Color.fromRGBO(64, 48, 77, 1);
+  static const grayLightColor =Color.fromRGBO(225, 225, 225, 1);
 }

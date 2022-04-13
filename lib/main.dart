@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:  
+      FilterWidget(),
       //ClothingWidget(),
-      HomeWidget(),
+     // HomeWidget(),
       ////GetStartedWidget(),
       
     // initialRoute: '/',
