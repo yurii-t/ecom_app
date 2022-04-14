@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileWidget extends StatefulWidget {
   ProfileWidget({Key? key}) : super(key: key);
@@ -10,11 +11,11 @@ class ProfileWidget extends StatefulWidget {
 class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: Scaffold(
         body:Center(
-          child:Text('Profile')
-        )
+          child: SizedBox(width:230,height:230,child: SvgPicture.asset('icons/profile_fill.svg',width: 200,height: 200,))),
+        
       )
     );
   }

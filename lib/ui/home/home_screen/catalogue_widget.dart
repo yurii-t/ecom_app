@@ -7,12 +7,8 @@ import 'package:ecom_app/ui/home/home_screen/categories_widget.dart';
 import 'clothing_widget.dart';
 
 class CatalogueWidget extends StatefulWidget {
-
-  
- 
-   const CatalogueWidget({
+  const CatalogueWidget({
     Key? key,
-   
   }) : super(key: key);
 
   @override
@@ -20,17 +16,22 @@ class CatalogueWidget extends StatefulWidget {
 }
 
 class _CatalogueWidgetState extends State<CatalogueWidget> {
-  int _pageIndex=0;
+  
+  int _pageIndex = 0;
+
+  @override
+  void initState() {
+   
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: AppColors.backGroundColor,
-      body: IndexedStack(
-        index: _pageIndex,
-        children:[ 
-          Column(
-            children: [
+      backgroundColor: AppColors.backGroundColor,
+      body: IndexedStack(index: _pageIndex, children: [
+        Column(children: [
           Stack(
             clipBehavior: Clip.none,
             alignment: AlignmentDirectional.center,
@@ -46,25 +47,23 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       GestureDetector(
-                          onTap: (){
-                            // Navigator.of(context).pop();
-                            setState(() {
-                              _pageIndex=0;
-                            });
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
                           },
                           child: SvgPicture.asset('icons/arrow_left.svg')),
                       // const Icon(
                       //   Icons.menu,
                       //   color: Colors.white,
                       // ),
-                     const Text('Catalogue',
+                      const Text(
+                        'Catalogue',
                         style: TextStyle(
-                                     fontWeight: FontWeight.w700,
-                                      fontSize: 19,
-                                      color: Colors.white,
-                                      ),
-                                     ), 
+                          fontWeight: FontWeight.w700,
+                          fontSize: 19,
+                          color: Colors.white,
+                        ),
+                      ),
                       // const Icon(Icons.notifications_outlined,
                       //     color: Colors.white),
                       SvgPicture.asset('icons/bell_1.svg'),
@@ -119,8 +118,8 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                           //padding: EdgeInsets.only(left: ),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border:
-                                Border.all(color: Colors.black.withOpacity(0.2)),
+                            border: Border.all(
+                                color: Colors.black.withOpacity(0.2)),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                             boxShadow: [
@@ -131,7 +130,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                               ),
                             ],
                           ),
-      
+
                           clipBehavior: Clip.hardEdge,
                           child: Row(
                             children: [
@@ -188,24 +187,24 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                                 style: TextStyle(
                                                     fontSize: 19,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        AppColors.darkTextColor),
+                                                    color: AppColors
+                                                        .darkTextColor),
                                               ),
                                             ),
                                           ),
-      
+
                                           const SizedBox(
                                             height: 12,
                                           ),
                                           TextButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  _pageIndex =1;
+                                                  _pageIndex = 1;
                                                 });
                                               },
                                               child: const Text(
                                                 'Clothing',
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -213,10 +212,14 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                               )),
                                           //    SizedBox(height: 8,),
                                           TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                setState(() {
+                                                  _pageIndex = 0;
+                                                });
+                                              },
                                               child: const Text(
                                                 'Shoes',
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -227,7 +230,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                               onPressed: () {},
                                               child: const Text(
                                                 'Jewelry',
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -238,7 +241,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                               onPressed: () {},
                                               child: const Text(
                                                 'Watches',
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -249,7 +252,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                               onPressed: () {},
                                               child: const Text(
                                                 'Handbags',
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -311,16 +314,21 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                         ),
                       ],
                     );
-      
+
                     //   );
                   }),
             ),
           )
-        ]
-        ),
-        const ClothingWidget(),
-        ]
-      ),
+        ]),
+         ClothingWidget(
+        onBackButtonPressed: () {
+          setState(() {
+          _pageIndex = 0;  
+          });
+          
+        }
+         ),
+      ]),
     ));
   }
 }

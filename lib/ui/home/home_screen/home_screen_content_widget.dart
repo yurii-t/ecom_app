@@ -14,6 +14,8 @@ class HomeScreenContentWidget extends StatefulWidget {
 
 class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
   
+  var _icon = SvgPicture.asset('icons/heart11.svg',color: Colors.purple);
+  
     int _sliderCurrent = 0;
   final CarouselController _sliderController = CarouselController();
   final List<String> imgSlider =[
@@ -123,7 +125,7 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                     width: 343,
                     height: 88,
                     decoration:  BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(imgSlider[index]),
@@ -164,10 +166,10 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                   child: Container(
                                     width: 62.0,
                                     height: 2.0,
-                                    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                                     decoration: BoxDecoration(
                        // shape: BoxShape.rectangle,
-                       borderRadius: BorderRadius.all(Radius.circular(8)),
+                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                         color: (Theme.of(context).brightness == Brightness.dark
                                 ? Colors.white
                                 : Colors.white)
@@ -404,8 +406,14 @@ class _HomeScreenContentWidgetState extends State<HomeScreenContentWidget> {
                                       ),
                                      
 
-                                      onPressed: () {},
-                                      child: SvgPicture.asset('icons/heart11.svg',color: Colors.purple), 
+                                      onPressed: () {
+                                        setState(() {
+                                          _icon = SvgPicture.asset('icons/favorite_heart.svg');
+                                        });
+                                      },
+                                      child:  _icon,
+                                      //SvgPicture.asset('icons/heart11.svg',color: Colors.purple),
+                                       
                                       // ShaderMask(
                                       //     shaderCallback: (Rect bounds) {
                                       //       return AppColors.purpleGradient.createShader(bounds);

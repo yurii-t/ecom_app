@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ClothingWidget extends StatefulWidget {
-  const ClothingWidget({Key? key}) : super(key: key);
-
+  const ClothingWidget({Key? key,required 
+  this.onBackButtonPressed
+  }) : super(key: key);
+     final Function() onBackButtonPressed;
   @override
   State<ClothingWidget> createState() => _ClothingWidgetState();
 }
@@ -52,9 +54,8 @@ class _ClothingWidgetState extends State<ClothingWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: (){
-                          Navigator.of(context).pop();
-                        },
+                        onTap:
+                         widget.onBackButtonPressed,
                         child: SvgPicture.asset('icons/arrow_left.svg')),
                       // const Icon(
                       //   Icons.menu,

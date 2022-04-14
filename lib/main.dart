@@ -7,6 +7,7 @@ import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:ecom_app/ui/login/get_started_screen/get_started_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home:  
-      FilterWidget(),
+      home:
+      ProdutPageWidget(),  
+     // FilterWidget(),
       //ClothingWidget(),
      // HomeWidget(),
       ////GetStartedWidget(),

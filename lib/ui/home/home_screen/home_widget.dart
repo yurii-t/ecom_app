@@ -62,7 +62,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children:  [
                                 //  Icon(Icons.home),
-                                SvgPicture.asset('icons/home_fill.svg',color: Colors.purple,),
+                                SvgPicture.asset('icons/home_fill.svg',
+                               // color: Colors.purple,
+                                ),
                               
                                    const Text('Home',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.bottomBarTextColor,fontSize: 10),)
                                 ],
