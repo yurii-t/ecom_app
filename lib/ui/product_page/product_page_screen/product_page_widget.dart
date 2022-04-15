@@ -1,18 +1,22 @@
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom_app/core/util/size_picker.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/ui/cart/cart_screen/cart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProdutPageWidget extends StatefulWidget {
-  ProdutPageWidget({Key? key}) : super(key: key);
+  const ProdutPageWidget({Key? key}) : super(key: key);
 
   @override
   State<ProdutPageWidget> createState() => _ProdutPageWidgetState();
 }
 
 class _ProdutPageWidgetState extends State<ProdutPageWidget> {
-  var _icon = SvgPicture.asset('icons/heart11.svg', color: Colors.purple);
+  int _itemCounter = 0;
+  var _icon = SvgPicture.asset('icons/heart11.svg',);
   int _sliderProductCurrent = 0;
   final CarouselController _sliderProductController = CarouselController();
   final List<String> imgSlider = [
@@ -22,10 +26,27 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
     'images/content_img1.png'
   ];
 
+  bool _isOpen = false;
+  static double _minHeight = 175;
+  final double _maxHeight = 600;
+
+  void openReview() {
+    if (!_isOpen) {
+      setState(() {
+        _minHeight = _maxHeight;
+      });
+    } else {
+      setState(() {
+        _minHeight = 175;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
         backgroundColor: AppColors.backGroundColor,
         body: SingleChildScrollView(
           child: Column(
@@ -245,51 +266,63 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                   ],
                 ),
               ),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 175,
-                  padding: const EdgeInsets.only(
-                      top: 24, left: 16, right: 16, bottom: 12),
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 6),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: _minHeight, //175,
+                    padding: const EdgeInsets.only(
+                        top: 24, left: 16, right: 16, bottom: 12),
+                    margin: const EdgeInsets.only(top: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Product details',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 19,
-                            color: AppColors.darkTextColor,
-                          ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 6),
                         ),
-                        const Text(
-                          'Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 4,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: AppColors.darkTextColor,
+                      ],
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Product details',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 19,
+                              color: AppColors.darkTextColor,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.keyboard_arrow_down))
-                      ])),
+                          Text(
+                            'Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF',
+                            overflow:
+                                _isOpen == false ? TextOverflow.ellipsis : null,
+                            maxLines: _isOpen == false ? 4 : null,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: AppColors.darkTextColor,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: IconButton(
+                                onPressed: () {
+                                  openReview();
+                                  setState(() {
+                                    _isOpen = !_isOpen;
+                                  });
+                                },
+                                icon: const Icon(Icons.keyboard_arrow_down)),
+                          )
+                        ])),
+              ),
               Container(
                   width: MediaQuery.of(context).size.width,
                   height: 273,
@@ -480,7 +513,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProdutPageWidget()));
+                                  builder: (context) => const ProdutPageWidget()));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -644,7 +677,8 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
           height: 87,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(24)),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
@@ -657,22 +691,233 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset('icons/arrow_left_bottom.svg'),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: AppColors.yellowColor,
-                    onPrimary: Colors.white,
-                    minimumSize: const Size(215, 48),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Result (166)',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  )),
-              SvgPicture.asset('icons/heart11.svg'),
+              GestureDetector(
+                  onTap: () {
+                    //back to clothing page
+                    Navigator.of(context).pop();
+                  },
+                  child: SvgPicture.asset('icons/arrow_left_bottom.svg')),
+              Builder(builder: (context) {
+                return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppColors.yellowColor,
+                      onPrimary: Colors.white,
+                      minimumSize: const Size(215, 48),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _itemCounter = 1;
+                      });
+                      showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(24),
+                          )),
+                          context: context,
+                          backgroundColor: Colors.white,
+                          builder: (context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 16, top: 33, bottom: 34),
+                                child: Column(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Image.asset(
+                                                'images/content_img1.png',
+                                                width: 80,
+                                                height: 80,
+                                              ),
+                                              Flexible(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: const [
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          right: 60),
+                                                      child: Text(
+                                                        'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        //overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: AppColors
+                                                                .darkTextColor),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 6,
+                                                    ),
+                                                    Text(
+                                                      '89.99',
+                                                      style: TextStyle(
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          color: AppColors
+                                                              .darkTextColor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _itemCounter++;
+                                                  });
+                                                },
+                                                child: SvgPicture.asset(
+                                                    'icons/plus_icon.svg')),
+                                            const SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text('$_itemCounter'),
+                                            const SizedBox(
+                                              height: 4,
+                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _itemCounter--;
+                                                  });
+                                                },
+                                                child: SvgPicture.asset(
+                                                    'icons/minus_icon.svg')),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    const Text(
+                                      'Colors',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: AppColors.greyTextColor,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    const MyProductColorPicker(
+                                      availableProductColor: [
+                                        'images/content_img1.png',
+                                        'images/imgcolor2.png',
+                                        'images/imgcolor3.png',
+                                        'images/imgcolor4.png',
+                                        'images/imgcolor1.png',
+                                        'images/imgcolor6.png',
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    const Text(
+                                      'Sizes',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: AppColors.greyTextColor,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    const MySizePicker(
+                                      availableSizes: [
+                                        'xss',
+                                        'xs',
+                                        's',
+                                        'm',
+                                        'l',
+                                        'xl',
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          GestureDetector(
+                                              onTap: () {
+                                                //back to clothing page
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: SvgPicture.asset(
+                                                  'icons/arrow_left_bottom.svg')),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: AppColors.yellowColor,
+                                              onPrimary: Colors.white,
+                                              minimumSize: const Size(215, 48),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _itemCounter++;
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Add to cart',
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {
+                                                //back to clothing page
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: _icon),
+                                        ])
+                                  ],
+                                ),
+                              );
+                            });
+                          });
+                    },
+                    child: const Text(
+                      'Add to cart',
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ));
+                //  )
+              }),
+              GestureDetector(
+                  onTap: () {
+                    //add to favorite
+                    Navigator.of(context).pop();
+                  },
+                  child: _icon),
             ],
           ),
         ),
