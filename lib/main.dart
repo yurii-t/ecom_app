@@ -8,6 +8,7 @@ import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:ecom_app/ui/login/get_started_screen/get_started_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
+import 'package:ecom_app/ui/profile/favorite_screen/favorite_widget.dart';
 import 'package:ecom_app/ui/profile/profile_screen/profile_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,8 +32,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProfileWidget(),
-      // ProdutPageWidget(),
+      home: FavoriteWidget(),
+      //ProfileWidget(),
+      //  ProdutPageWidget(),
       // FilterWidget(),
       //ClothingWidget(),
       // HomeWidget(),
