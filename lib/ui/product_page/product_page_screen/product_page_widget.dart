@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom_app/core/util/size_picker.dart';
 import 'package:ecom_app/style/app_colors.dart';
-import 'package:ecom_app/ui/cart/cart_screen/cart_widget.dart';
+import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,7 +16,9 @@ class ProdutPageWidget extends StatefulWidget {
 
 class _ProdutPageWidgetState extends State<ProdutPageWidget> {
   int _itemCounter = 0;
-  var _icon = SvgPicture.asset('icons/heart11.svg',);
+  var _icon = SvgPicture.asset(
+    'icons/heart11.svg',
+  );
   int _sliderProductCurrent = 0;
   final CarouselController _sliderProductController = CarouselController();
   final List<String> imgSlider = [
@@ -46,7 +48,8 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        extendBody: true,
+        extendBody: false,
+        // extendBody: true,
         backgroundColor: AppColors.backGroundColor,
         body: SingleChildScrollView(
           child: Column(
@@ -513,7 +516,8 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ProdutPageWidget()));
+                                  builder: (context) =>
+                                      const ProdutPageWidget()));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -667,6 +671,9 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                         ),
                       );
                     }),
+              ),
+              const SizedBox(
+                height: 20,
               )
             ],
           ),

@@ -1,4 +1,4 @@
-import 'package:ecom_app/ui/cart/cart_screen/cart_widget.dart';
+import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/categories_widget.dart';
@@ -8,8 +8,8 @@ import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:ecom_app/ui/login/get_started_screen/get_started_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
-import 'package:ecom_app/ui/profile/favorite_screen/favorite_widget.dart';
-import 'package:ecom_app/ui/profile/profile_screen/profile_widget.dart';
+import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
+import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +32,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FavoriteWidget(),
+      home: CartScreen(),
+      // FavoriteScreen(),
       //ProfileWidget(),
-      //  ProdutPageWidget(),
+      // ProdutPageWidget(),
       // FilterWidget(),
       //ClothingWidget(),
       // HomeWidget(),

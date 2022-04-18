@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:ecom_app/style/app_colors.dart';
-import 'package:ecom_app/ui/cart/cart_screen/cart_widget.dart';
+import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/home_screen_content_widget.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
-import 'package:ecom_app/ui/profile/favorite_screen/favorite_widget.dart';
-import 'package:ecom_app/ui/profile/profile_screen/profile_widget.dart';
+import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
+import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
@@ -19,7 +19,6 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  
   int _selectedTab = 0;
 
   @override
@@ -31,9 +30,9 @@ class _HomeWidgetState extends State<HomeWidget> {
             index: _selectedTab,
             children: [
               const HomeScreenContentWidget(),
-               const CatalogueWidget(),
-              FavoriteWidget(),
-              ProfileWidget()
+              const CatalogueWidget(),
+              FavoriteScreen(),
+              ProfileScreen()
             ],
           ),
           bottomNavigationBar: Stack(clipBehavior: Clip.none, children: [
@@ -45,7 +44,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(24)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 19, top: 12, right: 135,bottom: 34),
+                  padding: const EdgeInsets.only(
+                      left: 19, top: 12, right: 135, bottom: 34),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -59,51 +59,83 @@ class _HomeWidgetState extends State<HomeWidget> {
                         highlightColor: Colors.transparent,
                         child: _selectedTab == 0
                             ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
-                                //  Icon(Icons.home),
-                                SvgPicture.asset('icons/home_fill.svg',
-                               // color: Colors.purple,
-                                ),
-                              
-                                   const Text('Home',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.bottomBarTextColor,fontSize: 10),)
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //  Icon(Icons.home),
+                                  SvgPicture.asset(
+                                    'icons/home_fill.svg',
+                                    // color: Colors.purple,
+                                  ),
+
+                                  const Text(
+                                    'Home',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.bottomBarTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               )
                             : Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
                                   //Icon(Icons.home_outlined),
                                   SvgPicture.asset('icons/home_out.svg'),
-                                   const Text('Home',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.greyTextColor,fontSize: 10),)
+                                  const Text(
+                                    'Home',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.greyTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               ),
                       ),
                       InkWell(
-                          onTap: () {
-                            setState(() {
-                              _selectedTab = 1;
-                            });
-                          },
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          child: _selectedTab == 1
-                              ? Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
-                                //  Icon(Icons.home),
-                                SvgPicture.asset('icons/catalogue_fill.svg',color: Colors.purple,),
-                                   const Text('Catalogue',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.bottomBarTextColor,fontSize: 10),)
+                        onTap: () {
+                          setState(() {
+                            _selectedTab = 1;
+                          });
+                        },
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: _selectedTab == 1
+                            ? Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //  Icon(Icons.home),
+                                  SvgPicture.asset(
+                                    'icons/catalogue_fill.svg',
+                                    color: Colors.purple,
+                                  ),
+                                  const Text(
+                                    'Catalogue',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.bottomBarTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               )
                             : Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
                                   //Icon(Icons.home_outlined),
                                   SvgPicture.asset('icons/catalogue_out.svg'),
-                                   const Text('Catalogue',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.greyTextColor,fontSize: 10),)
+                                  const Text(
+                                    'Catalogue',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.greyTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               ),
-                                ),
+                      ),
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -114,19 +146,36 @@ class _HomeWidgetState extends State<HomeWidget> {
                         highlightColor: Colors.transparent,
                         child: _selectedTab == 2
                             ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
-                                //  Icon(Icons.home),
-                                SvgPicture.asset('icons/favorite_fill.svg',color: Colors.purple,),
-                                   const Text('Favorite',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.bottomBarTextColor,fontSize: 10),)
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //  Icon(Icons.home),
+                                  SvgPicture.asset(
+                                    'icons/favorite_fill.svg',
+                                    color: Colors.purple,
+                                  ),
+                                  const Text(
+                                    'Favorite',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.bottomBarTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               )
                             : Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
                                   //Icon(Icons.home_outlined),
                                   SvgPicture.asset('icons/favorite_out.svg'),
-                                   const Text('Favorite',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.greyTextColor,fontSize: 10),)
+                                  const Text(
+                                    'Favorite',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.greyTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               ),
                       ),
@@ -140,19 +189,36 @@ class _HomeWidgetState extends State<HomeWidget> {
                         highlightColor: Colors.transparent,
                         child: _selectedTab == 3
                             ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
-                                //  Icon(Icons.home),
-                                SvgPicture.asset('icons/profile_fill.svg',color: Colors.purple,),
-                                   const Text('Profile',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.bottomBarTextColor,fontSize: 10),)
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //  Icon(Icons.home),
+                                  SvgPicture.asset(
+                                    'icons/profile_fill.svg',
+                                    color: Colors.purple,
+                                  ),
+                                  const Text(
+                                    'Profile',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.bottomBarTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               )
                             : Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:  [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
                                   //Icon(Icons.home_outlined),
                                   SvgPicture.asset('icons/profile_out.svg'),
-                                   const Text('Profile',style: TextStyle(fontWeight: FontWeight.w700,color: AppColors.greyTextColor,fontSize: 10),)
+                                  const Text(
+                                    'Profile',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.greyTextColor,
+                                        fontSize: 10),
+                                  )
                                 ],
                               ),
                       ),
@@ -164,7 +230,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               bottom: 42,
               child: GestureDetector(
                 onTap: () => Navigator.push(
-                    context, SlideRightRoute(page: const CartWidget())),
+                    context, SlideRightRoute(page: const CartScreen())),
                 child: Container(
                   width: 116,
                   height: 56,

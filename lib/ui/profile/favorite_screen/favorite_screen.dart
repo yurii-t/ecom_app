@@ -3,14 +3,14 @@ import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FavoriteWidget extends StatefulWidget {
-  FavoriteWidget({Key? key}) : super(key: key);
+class FavoriteScreen extends StatefulWidget {
+  FavoriteScreen({Key? key}) : super(key: key);
 
   @override
-  State<FavoriteWidget> createState() => _FavoriteWidgetState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _FavoriteWidgetState extends State<FavoriteWidget> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   String dropdownvalue = 'Featured';
   var dropButtonItems = [
     'Featured',
