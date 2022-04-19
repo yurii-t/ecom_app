@@ -1,4 +1,5 @@
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
+import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/categories_widget.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CartScreen(),
+      home: CheckOutScreen(),
+      // CartScreen(),
       // FavoriteScreen(),
       //ProfileWidget(),
       // ProdutPageWidget(),
