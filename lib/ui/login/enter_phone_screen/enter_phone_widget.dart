@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +16,6 @@ class EnterPhoneWidget extends StatefulWidget {
 }
 
 class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
-  
-
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'UA';
   PhoneNumber number = PhoneNumber(isoCode: 'UA');
@@ -38,12 +39,13 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
               width: MediaQuery.of(context).size.width,
               //375,
               height: 197,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.fromLTRB(24, 91, 60, 44),
                 child: Text(
-                  'What Is Your Phone Number?',
+                  LocaleKeys.phone_verif_title.tr(),
+                  // 'What Is Your Phone Number?',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
@@ -59,12 +61,13 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
             const SizedBox(
               height: 33,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 24, right: 24),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                'Please enter your phone number to verify your account',
+                LocaleKeys.phone_verif_subtitle.tr(),
+                // 'Please enter your phone number to verify your account',
                 textAlign: TextAlign.left,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w400,
                   color: Color.fromRGBO(96, 90, 101, 1),
@@ -97,7 +100,8 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 spaceBetweenSelectorAndTextField: 0,
                 ignoreBlank: true,
                 autoValidateMode: AutovalidateMode.disabled,
-                selectorTextStyle: const TextStyle(color: Colors.black, fontSize: 19),
+                selectorTextStyle:
+                    const TextStyle(color: Colors.black, fontSize: 19),
                 initialValue: number,
                 textFieldController: controller, // controller,
                 formatInput: true,
@@ -133,9 +137,13 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                                 phone: number.phoneNumber.toString(),
                               )));
                 },
-                child: const Text(
-                  'Send Verification Code',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700,color: AppColors.darkGreyTextColor),
+                child: Text(
+                  LocaleKeys.phone_button_texrt.tr(),
+                  // 'Send Verification Code',
+                  style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.darkGreyTextColor),
                 )),
             const SizedBox(
               height: 24,
@@ -143,9 +151,15 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: TextButton(
-                  onPressed: () {},
-                  child: const Text('Skip',
-                      style: TextStyle(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeWidget()));
+                  },
+                  child: Text(LocaleKeys.phone_skip_button_text.tr(),
+                      // 'Skip',
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: AppColors.greyTextColor,

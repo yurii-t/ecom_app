@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,12 +18,10 @@ class CatalogueWidget extends StatefulWidget {
 }
 
 class _CatalogueWidgetState extends State<CatalogueWidget> {
-  
   int _pageIndex = 0;
 
   @override
   void initState() {
-   
     super.initState();
   }
 
@@ -51,14 +51,16 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: SvgPicture.asset('icons/arrow_left.svg')),
+                          child:
+                              SvgPicture.asset('assets/icons/arrow_left.svg')),
                       // const Icon(
                       //   Icons.menu,
                       //   color: Colors.white,
                       // ),
-                      const Text(
-                        'Catalogue',
-                        style: TextStyle(
+                      Text(
+                        LocaleKeys.catalogue.tr(),
+                        // 'Catalogue',
+                        style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 19,
                           color: Colors.white,
@@ -66,7 +68,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                       ),
                       // const Icon(Icons.notifications_outlined,
                       //     color: Colors.white),
-                      SvgPicture.asset('icons/bell_1.svg'),
+                      SvgPicture.asset('assets/icons/bell_1.svg'),
                     ],
                   ),
                 ),
@@ -86,7 +88,8 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40)),
                         prefixIcon: const Icon(Icons.search),
-                        hintText: 'What are you looking for',
+                        hintText: LocaleKeys.home_searchbar
+                            .tr(), //'What are you looking for',
                       ),
                     ),
                   ),
@@ -134,14 +137,15 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                           clipBehavior: Clip.hardEdge,
                           child: Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                     left: 16,
                                   ),
                                   child: Text(
-                                    'Women`s Fashion',
-                                    style: TextStyle(
+                                    LocaleKeys.womens_fashion.tr(),
+                                    // 'Women`s Fashion',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.darkTextColor),
                                     maxLines: 1,
@@ -150,7 +154,7 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                 ),
                               ),
                               Image.asset(
-                                'images/img_gal.jpg',
+                                'assets/images/img_gal.jpg',
                                 width: 88,
                                 fit: BoxFit.fitHeight,
                               ),
@@ -179,12 +183,14 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          const Center(
+                                          Center(
                                             child: Padding(
-                                              padding: EdgeInsets.only(top: 33),
+                                              padding: const EdgeInsets.only(
+                                                  top: 33),
                                               child: Text(
-                                                'Women`s Fashion',
-                                                style: TextStyle(
+                                                LocaleKeys.womens_fashion.tr(),
+                                                // 'Women`s Fashion',
+                                                style: const TextStyle(
                                                     fontSize: 19,
                                                     fontWeight: FontWeight.w700,
                                                     color: AppColors
@@ -202,9 +208,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                                   _pageIndex = 1;
                                                 });
                                               },
-                                              child: const Text(
-                                                'Clothing',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.clothing.tr(),
+                                                // 'Clothing',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -217,9 +224,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                                   _pageIndex = 0;
                                                 });
                                               },
-                                              child: const Text(
-                                                'Shoes',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.shoes.tr(),
+                                                // 'Shoes',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -228,9 +236,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //     SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Jewelry',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.jewelry.tr(),
+                                                // 'Jewelry',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -239,9 +248,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //     SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Watches',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.watches.tr(),
+                                                // 'Watches',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -250,9 +260,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //     SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Handbags',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.handbags.tr(),
+                                                // 'Handbags',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -261,9 +272,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //      SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Accessories',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.accessories.tr(),
+                                                // 'Accessories',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -272,9 +284,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //      SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Man`s Fashion',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.mens_fashion.tr(),
+                                                // 'Man`s Fashion',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -283,9 +296,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //      SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Girl`s Fashion',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.girls_fashion.tr(),
+                                                // 'Girl`s Fashion',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -294,9 +308,10 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
                                           //      SizedBox(height: 8,),
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text(
-                                                'Boy`s Fashion',
-                                                style: TextStyle(
+                                              child: Text(
+                                                LocaleKeys.boys_fashion.tr(),
+                                                // 'Boy`s Fashion',
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColors
@@ -320,14 +335,11 @@ class _CatalogueWidgetState extends State<CatalogueWidget> {
             ),
           )
         ]),
-         ClothingWidget(
-        onBackButtonPressed: () {
+        ClothingWidget(onBackButtonPressed: () {
           setState(() {
-          _pageIndex = 0;  
+            _pageIndex = 0;
           });
-          
-        }
-         ),
+        }),
       ]),
     ));
   }

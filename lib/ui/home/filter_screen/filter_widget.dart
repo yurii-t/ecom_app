@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/core/util/color_picker.dart';
 import 'package:ecom_app/core/util/size_picker.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,8 +21,8 @@ class _FilterWidgetState extends State<FilterWidget> {
   double maxValue = 8000.0;
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
-  String _selectedCategoryItem = 'Dresses';
-  String _selectedSortItem = 'Featured';
+  String _selectedCategoryItem = LocaleKeys.dresses.tr(); //'Dresses';
+  String _selectedSortItem = LocaleKeys.featured.tr(); //'Featured';
   List<String> _selectedItems = [];
 
   void _showMultiSelect() async {
@@ -77,7 +79,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         _startValue = double.parse(startController.text).roundToDouble();
       });
     }
-   // print("Second text field: ${startController.text}");
+    // print("Second text field: ${startController.text}");
   }
 
   _setEndValue() {
@@ -91,7 +93,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         _endValue = double.parse(endController.text).roundToDouble();
       });
     }
-   // print("Second text field: ${endController.text}");
+    // print("Second text field: ${endController.text}");
   }
 
   @override
@@ -115,15 +117,17 @@ class _FilterWidgetState extends State<FilterWidget> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: SvgPicture.asset('icons/arrow_left.svg')),
+                          child:
+                              SvgPicture.asset('assets/icons/arrow_left.svg')),
                       // const Icon(
                       //   Icons.menu,
                       //   color: Colors.white,
                       // ),
                       //
-                      const Text(
-                        'Filter',
-                        style: TextStyle(
+                      Text(
+                        LocaleKeys.filter.tr(),
+                        // 'Filter',
+                        style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 19,
                           color: Colors.white,
@@ -132,9 +136,10 @@ class _FilterWidgetState extends State<FilterWidget> {
 
                       TextButton(
                           onPressed: () {},
-                          child: const Text(
-                            'Clear',
-                            style: TextStyle(
+                          child: Text(
+                            LocaleKeys.clear.tr(),
+                            // 'Clear',
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: Colors.white,
@@ -151,9 +156,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    const Text(
-                      'Price',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.price.tr(),
+                      // 'Price',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -227,9 +233,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const Text(
-                      'Categories',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.categories.tr(),
+                      // 'Categories',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -256,8 +263,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                             const Icon(Icons.keyboard_arrow_right)
                           ]),
                           onTap: () {
-                            
-
                             showBottomSheet(
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(
@@ -274,12 +279,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        const Center(
+                                        Center(
                                           child: Padding(
-                                            padding: EdgeInsets.only(top: 33),
+                                            padding:
+                                                const EdgeInsets.only(top: 33),
                                             child: Text(
-                                              'Women`s Fashion',
-                                              style: TextStyle(
+                                              LocaleKeys.womens_fashion.tr(),
+                                              // 'Women`s Fashion',
+                                              style: const TextStyle(
                                                   fontSize: 19,
                                                   fontWeight: FontWeight.w700,
                                                   color:
@@ -295,12 +302,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                                             onPressed: () {
                                               setState(() {
                                                 _selectedCategoryItem =
-                                                    'Clothing';
+                                                    LocaleKeys.clothing.tr();
+                                                // 'Clothing';
                                               });
                                             },
-                                            child: const Text(
-                                              'Clothing',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.clothing.tr(),
+                                              // 'Clothing',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -309,9 +318,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //    SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Shoes',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.shoes.tr(),
+                                              // 'Shoes',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -320,9 +330,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Jewelry',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.jewelry.tr(),
+                                              // 'Jewelry',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -331,9 +342,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Watches',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.watches.tr(),
+                                              // 'Watches',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -342,9 +354,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Handbags',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.handbags.tr(),
+                                              // 'Handbags',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -353,9 +366,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //      SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Accessories',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.accessories.tr(),
+                                              // 'Accessories',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -364,9 +378,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //      SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Man`s Fashion',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.mens_fashion.tr(),
+                                              // 'Man`s Fashion',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -375,9 +390,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //      SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Girl`s Fashion',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.girls_fashion.tr(),
+                                              // 'Girl`s Fashion',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -386,9 +402,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //      SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Boy`s Fashion',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.boys_fashion.tr(),
+                                              // 'Boy`s Fashion',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -408,9 +425,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const Text(
-                      'Brand',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.brand.tr(),
+                      // 'Brand',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -445,9 +463,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const Text(
-                      'Colors',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.colors.tr(),
+                      // 'Colors',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -467,9 +486,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const Text(
-                      'Sizes',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.sizes.tr(),
+                      // 'Sizes',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -484,9 +504,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const Text(
-                      'Sort by',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.sort_by.tr(),
+                      // 'Sort by',
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                         color: AppColors.greyTextColor,
@@ -529,12 +550,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        const Center(
+                                        Center(
                                           child: Padding(
-                                            padding: EdgeInsets.only(top: 33),
+                                            padding:
+                                                const EdgeInsets.only(top: 33),
                                             child: Text(
-                                              'Sort by',
-                                              style: TextStyle(
+                                              LocaleKeys.sort_by.tr(),
+                                              // 'Sort by',
+                                              style: const TextStyle(
                                                   fontSize: 19,
                                                   fontWeight: FontWeight.w700,
                                                   color:
@@ -549,12 +572,15 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         TextButton(
                                             onPressed: () {
                                               setState(() {
-                                                _selectedSortItem = 'New';
+                                                _selectedSortItem =
+                                                    LocaleKeys.new_text.tr();
+                                                //  'New';
                                               });
                                             },
-                                            child: const Text(
-                                              'New',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.new_text.tr(),
+                                              // 'New',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -563,9 +589,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //    SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Popular',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.popular.tr(),
+                                              // 'Popular',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -574,9 +601,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Price high to low',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.price_high_to_low.tr(),
+                                              // 'Price high to low',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -585,9 +613,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Price low to high',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.price_low_to_high.tr(),
+                                              // 'Price low to high',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -596,9 +625,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //     SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Featured',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.featured.tr(),
+                                              // 'Featured',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -607,9 +637,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         //      SizedBox(height: 8,),
                                         TextButton(
                                             onPressed: () {},
-                                            child: const Text(
-                                              'Sale',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.sales.tr(),
+                                              // 'Sale',
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColors
@@ -638,9 +669,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                           minimumSize: const Size(360, 50),
                         ),
                         onPressed: () {},
-                        child: const Text(
-                          'Result (166)',
-                          style: TextStyle(
+                        child: Text(
+                          '${LocaleKeys.result.tr()} (166)',
+                          style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
@@ -688,7 +719,10 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Select Brand'),
+      title: Text(
+        LocaleKeys.select_brand.tr(),
+        // 'Select Brand'
+      ),
       content: SingleChildScrollView(
         child: ListBody(
           children: widget.items
@@ -703,11 +737,17 @@ class _MultiSelectState extends State<MultiSelect> {
       ),
       actions: [
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(
+            LocaleKeys.cancel.tr(),
+            // 'Cancel'
+          ),
           onPressed: _cancel,
         ),
         ElevatedButton(
-          child: const Text('Submit'),
+          child: Text(
+            LocaleKeys.submit.tr(),
+            // 'Submit'
+          ),
           onPressed: _submit,
         ),
       ],

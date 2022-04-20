@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,13 +13,13 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  String dropdownvalue = 'Featured';
+  String dropdownvalue = LocaleKeys.featured.tr(); //'Featured';
   var dropButtonItems = [
-    'Featured',
-    'New',
-    'Popular',
-    'Price high to low',
-    'Price low to high',
+    LocaleKeys.featured.tr(), //'Featured',
+    LocaleKeys.new_text.tr(), // 'New',
+    LocaleKeys.popular.tr(), // 'Popular',
+    LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
+    LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
   ];
   late String _currentItemSelected;
 
@@ -48,10 +50,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: SvgPicture.asset('icons/arrow_left.svg')),
-                  const Text(
-                    'Favorite',
-                    style: TextStyle(
+                      child: SvgPicture.asset('assets/icons/arrow_left.svg')),
+                  Text(
+                    LocaleKeys.favorite.tr(),
+                    // 'Favorite',
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 19,
                       color: Colors.white,
@@ -70,10 +73,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
-                    '5 items',
-                    style: TextStyle(
+                    '5 ${LocaleKeys.items.tr()}',
+                    style: const TextStyle(
                         fontSize: 19,
                         color: AppColors.darkTextColor,
                         fontWeight: FontWeight.w700),
@@ -82,9 +85,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Sort by: ',
-                      style: TextStyle(
+                    Text(
+                      LocaleKeys.sort_by.tr(),
+                      // 'Sort by: ',
+                      style: const TextStyle(
                         color: AppColors.greyTextColor,
                         fontWeight: FontWeight.w700,
                         fontSize: 12,
@@ -103,7 +107,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(_currentItemSelected + ' '),
-                          SvgPicture.asset('icons/dropdown.svg'),
+                          SvgPicture.asset('assets/icons/dropdown.svg'),
                           // const Icon(Icons.keyboard_arrow_down)
                         ],
                       ),
@@ -157,7 +161,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       BorderRadius.all(Radius.circular(8)),
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: AssetImage('images/img_content.png'),
+                                    image: AssetImage(
+                                        'assets/images/img_content.png'),
                                   )),
                             ),
                             Positioned(
@@ -193,7 +198,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 ),
                                 onPressed: () {},
                                 child: SvgPicture.asset(
-                                  'icons/favorite_heart.svg',
+                                  'assets/icons/favorite_heart.svg',
                                 ),
                               ),
                             )
@@ -240,11 +245,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              const Text(
-                                'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
+                              Text(
+                                LocaleKeys.product_title.tr(),
+                                // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,

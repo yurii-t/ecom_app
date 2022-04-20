@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +31,28 @@ class PopupScreen extends StatelessWidget {
                       bottomRight: Radius.circular(400)),
                 ),
                 child: Image.asset(
-                  'images/check1.png',
+                  'assets/images/check1.png',
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Succsess',
-              style: TextStyle(
+            Text(
+              LocaleKeys.success.tr(),
+              // 'Succsess',
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w700,
                 color: AppColors.darkTextColor,
               ),
             ),
             const SizedBox(height: 12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'Your order will be delivered soon.It can be tracked in the "Orders" section.',
+                LocaleKeys.cart_popup_text.tr(),
+                // 'Your order will be delivered soon.It can be tracked in the "Orders" section.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: AppColors.darkTextColor,
@@ -70,9 +74,10 @@ class PopupScreen extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const HomeWidget()));
                 },
-                child: const Text(
-                  'Continue Shopping',
-                  style: TextStyle(
+                child: Text(
+                  LocaleKeys.popup_button_text.tr(),
+                  // 'Continue Shopping',
+                  style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
@@ -87,9 +92,10 @@ class PopupScreen extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const CartScreen()));
               },
-              child: const Text(
-                'Go to Orders',
-                style: TextStyle(
+              child: Text(
+                LocaleKeys.popup_textbutton.tr(),
+                // 'Go to Orders',
+                style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.greyTextColor),

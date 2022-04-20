@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,15 +37,16 @@ class _CartScreenState extends State<CartScreen> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: SvgPicture.asset('icons/arrow_left.svg')),
+                      child: SvgPicture.asset('assets/icons/arrow_left.svg')),
                   // const Icon(
                   //   Icons.menu,
                   //   color: Colors.white,
                   // ),
                   //
-                  const Text(
-                    'Cart',
-                    style: TextStyle(
+                  Text(
+                    LocaleKeys.cart.tr(),
+                    // 'Cart',
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 19,
                       color: Colors.white,
@@ -52,9 +55,10 @@ class _CartScreenState extends State<CartScreen> {
 
                   TextButton(
                       onPressed: () {},
-                      child: const Text(
-                        'Delete',
-                        style: TextStyle(
+                      child: Text(
+                        LocaleKeys.delete.tr(),
+                        // 'Delete',
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                           color: Colors.white,
@@ -108,7 +112,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: Row(
                           children: [
                             Image.asset(
-                              'images/content_img1.png',
+                              'assets/images/content_img1.png',
                               width: 80,
                               height: 80,
                             ),
@@ -117,23 +121,24 @@ class _CartScreenState extends State<CartScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Padding(
-                                    padding: EdgeInsets.only(right: 60),
+                                    padding: const EdgeInsets.only(right: 60),
                                     child: Text(
-                                      'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
+                                      LocaleKeys.product_title.tr(),
+                                      // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                       textAlign: TextAlign.start,
                                       //overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.darkTextColor),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 6,
                                   ),
-                                  Text(
+                                  const Text(
                                     '89.99',
                                     style: TextStyle(
                                         fontSize: 17,
@@ -155,7 +160,8 @@ class _CartScreenState extends State<CartScreen> {
                                   _itemCounter++;
                                 });
                               },
-                              child: SvgPicture.asset('icons/plus_icon.svg')),
+                              child: SvgPicture.asset(
+                                  'assets/icons/plus_icon.svg')),
                           const SizedBox(
                             height: 4,
                           ),
@@ -169,7 +175,8 @@ class _CartScreenState extends State<CartScreen> {
                                   _itemCounter--;
                                 });
                               },
-                              child: SvgPicture.asset('icons/minus_icon.svg')),
+                              child: SvgPicture.asset(
+                                  'assets/icons/minus_icon.svg')),
                         ],
                       )
                     ],
@@ -202,18 +209,19 @@ class _CartScreenState extends State<CartScreen> {
             Row(
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Expanded(
                   child: Text(
-                    'Total price',
-                    style: TextStyle(
+                    LocaleKeys.total_price.tr(),
+                    // 'Total price',
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.darkTextColor,
                     ),
                   ),
                 ),
-                Text(
+                const Text(
                   '\$239.98',
                   style: TextStyle(
                     fontSize: 18,
@@ -235,9 +243,10 @@ class _CartScreenState extends State<CartScreen> {
                     MaterialPageRoute(
                         builder: (context) => const CheckOutScreen()));
               },
-              child: const Text(
-                'Check Out',
-                style: TextStyle(
+              child: Text(
+                LocaleKeys.check_out.tr(),
+                // 'Check Out',
+                style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: Colors.white),

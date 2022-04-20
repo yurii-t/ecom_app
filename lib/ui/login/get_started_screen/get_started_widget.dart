@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
   // double _bottom = 10.0;
   // double _right = 10.0;
   double _left = 150;
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +30,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
             decoration: const BoxDecoration(
                 image: DecorationImage(
               fit: BoxFit.fitHeight,
-              image: AssetImage('images/start_img.gif'),
+              image: AssetImage('assets/images/start_img.gif'),
             )),
           ),
           AnimatedPositioned(
@@ -56,7 +58,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
           ),
           Positioned(
             ////
-            top: 560,
+            top: 360, //560,
             //  bottom: 0,
             child: Container(
               height: 291,
@@ -66,7 +68,7 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40.0),
                     topRight: Radius.circular(40.0)),
-                  gradient: AppColors.purpleGradient,
+                gradient: AppColors.purpleGradient,
                 // LinearGradient(
                 //   colors: [
                 //     Color.fromRGBO(52, 40, 60, 1),
@@ -108,7 +110,11 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const EnterPhoneWidget()));
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
@@ -125,9 +131,10 @@ class _GetStartedWidgetState extends State<GetStartedWidget> {
                         onPrimary: Colors.white,
                         minimumSize: const Size(239, 48),
                       ),
-                      child: const Text(
-                        'Get Started',
-                        style: TextStyle(
+                      child: Text(
+                        LocaleKeys.get_started.tr(),
+                        // 'Get Started',
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w700),
                       ),
                     )

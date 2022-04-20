@@ -1,0 +1,10 @@
+{
+    "i18n-ally.editor.preferEditor": true,
+    "i18n-ally.enabledFrameworks": [
+        "flutter"
+    ],
+    "i18n-ally.localesPaths": [
+        "../../../../../../Users/Yura/Desktop/flutter_projects/ecom_app/assets/translations"
+    ],
+    "i18n-ally.keystyle": "nested"
+}

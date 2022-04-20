@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
 import 'package:ecom_app/ui/login/verefication_screen/pin_verification_body_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +20,6 @@ class VerificationVWidget extends StatefulWidget {
 }
 
 class _VerificationVWidgetState extends State<VerificationVWidget> {
-  
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formphonedKey = GlobalKey<FormState>();
 
@@ -57,9 +58,8 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                 verificationId: verificationId, smsCode: pinController.text))
             .then((value) {
           if (value.user != null) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const HomeWidget()));
-          
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeWidget()));
           }
         });
       },
@@ -109,33 +109,33 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
               width: MediaQuery.of(context).size.width,
               //375,
               height: 197,
-              child: const Padding(
-                padding: EdgeInsets.fromLTRB(24, 91, 60, 44),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
                 child: Text(
-                  'Verification Code',
+                  LocaleKeys.verif_title.tr(),
+                  // 'Verification Code',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
                 ),
               ),
               decoration: const BoxDecoration(
-                
-                borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(300.0)),
-                gradient: AppColors.purpleGradient
-              ),
+                  borderRadius:
+                      BorderRadius.only(bottomRight: Radius.circular(300.0)),
+                  gradient: AppColors.purpleGradient),
             ),
             const SizedBox(
               height: 33,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 24, right: 160),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, right: 160),
               child: Text(
-                'Please enter Code sent to ',
+                LocaleKeys.verif_subtitle.tr(),
+                // 'Please enter Code sent to ',
                 textAlign: TextAlign.left,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w400,
                   color: AppColors.darkGreyTextColor,
@@ -159,8 +159,9 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text('Change Phone Number',
-                          style: TextStyle(
+                      child: Text(LocaleKeys.change_phone_number.tr(),
+                          // 'Change Phone Number',
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: AppColors.darkTextColor,
@@ -237,7 +238,6 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const HomeWidget()));
-                       
                       }
                     });
                   } catch (e) {
@@ -248,9 +248,11 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
 
                   // Navigator.push(context, MaterialPageRoute(builder: (context)=> const EnterPhoneWidget()));
                 },
-                child: const Text(
-                  'Send Verification Code',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                child: Text(
+                  LocaleKeys.verif_button_text.tr(),
+                  // 'Send Verification Code',
+                  style: const TextStyle(
+                      fontSize: 17, fontWeight: FontWeight.w700),
                 )),
             const SizedBox(
               height: 24,
@@ -259,8 +261,9 @@ class _VerificationVWidgetState extends State<VerificationVWidget> {
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: TextButton(
                   onPressed: () {},
-                  child: const Text('Resend code',
-                      style: TextStyle(
+                  child: Text(LocaleKeys.verif_resend_button_text.tr(),
+                      // 'Resend code',
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: AppColors.greyTextColor,

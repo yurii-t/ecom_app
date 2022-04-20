@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_widget.dart';
@@ -17,9 +18,22 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
 
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('en'),
+          Locale('uk'),
+          Locale('es'),
+        ],
+        path:
+            'assets/translations', // <-- change the path of the translation files
+        fallbackLocale: const Locale('en', 'US'),
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,19 +43,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: CheckOutScreen(),
-      // CartScreen(),
-      // FavoriteScreen(),
-      //ProfileWidget(),
-      // ProdutPageWidget(),
-      // FilterWidget(),
-      //ClothingWidget(),
-      // HomeWidget(),
-      ////GetStartedWidget(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home:
+          // CheckOutScreen(),
+          // CartScreen(),
+          // FavoriteScreen(),
+          //ProfileWidget(),
+          // ProdutPageWidget(),
+          // FilterWidget(),
+          //ClothingWidget(),
+          // HomeWidget(),
+          GetStartedWidget(),
 
       // initialRoute: '/',
       //   routes: {

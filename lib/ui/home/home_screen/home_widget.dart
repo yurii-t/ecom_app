@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
 import 'package:ecom_app/ui/home/home_screen/home_screen_content_widget.dart';
@@ -64,13 +66,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   //  Icon(Icons.home),
                                   SvgPicture.asset(
-                                    'icons/home_fill.svg',
+                                    'assets/icons/home_fill.svg',
                                     // color: Colors.purple,
                                   ),
 
-                                  const Text(
-                                    'Home',
-                                    style: TextStyle(
+                                  Text(
+                                    LocaleKeys.home.tr(),
+                                    // 'Home',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.bottomBarTextColor,
                                         fontSize: 10),
@@ -82,10 +85,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   //Icon(Icons.home_outlined),
-                                  SvgPicture.asset('icons/home_out.svg'),
-                                  const Text(
-                                    'Home',
-                                    style: TextStyle(
+                                  SvgPicture.asset('assets/icons/home_out.svg'),
+                                  Text(
+                                    LocaleKeys.home.tr(),
+                                    // 'Home',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.greyTextColor,
                                         fontSize: 10),
@@ -108,12 +112,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   //  Icon(Icons.home),
                                   SvgPicture.asset(
-                                    'icons/catalogue_fill.svg',
-                                    color: Colors.purple,
+                                    'assets/icons/catalogue_fill.svg',
                                   ),
-                                  const Text(
-                                    'Catalogue',
-                                    style: TextStyle(
+                                  Text(
+                                    LocaleKeys.catalogue.tr(),
+                                    // 'Catalogue',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.bottomBarTextColor,
                                         fontSize: 10),
@@ -125,10 +129,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   //Icon(Icons.home_outlined),
-                                  SvgPicture.asset('icons/catalogue_out.svg'),
-                                  const Text(
-                                    'Catalogue',
-                                    style: TextStyle(
+                                  SvgPicture.asset(
+                                      'assets/icons/catalogue_out.svg'),
+                                  Text(
+                                    LocaleKeys.catalogue.tr(),
+                                    // 'Catalogue',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.greyTextColor,
                                         fontSize: 10),
@@ -151,12 +157,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   //  Icon(Icons.home),
                                   SvgPicture.asset(
-                                    'icons/favorite_fill.svg',
-                                    color: Colors.purple,
+                                    'assets/icons/favorite_fill.svg',
                                   ),
-                                  const Text(
-                                    'Favorite',
-                                    style: TextStyle(
+                                  Text(
+                                    LocaleKeys.favorite.tr(),
+                                    // 'Favorite',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.bottomBarTextColor,
                                         fontSize: 10),
@@ -168,10 +174,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   //Icon(Icons.home_outlined),
-                                  SvgPicture.asset('icons/favorite_out.svg'),
-                                  const Text(
-                                    'Favorite',
-                                    style: TextStyle(
+                                  SvgPicture.asset(
+                                      'assets/icons/favorite_out.svg'),
+                                  Text(
+                                    LocaleKeys.favorite.tr(),
+                                    // 'Favorite',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.greyTextColor,
                                         fontSize: 10),
@@ -194,12 +202,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   //  Icon(Icons.home),
                                   SvgPicture.asset(
-                                    'icons/profile_fill.svg',
-                                    color: Colors.purple,
+                                    'assets/icons/profile_fill.svg',
                                   ),
-                                  const Text(
-                                    'Profile',
-                                    style: TextStyle(
+                                  Text(
+                                    LocaleKeys.profile.tr(),
+                                    // 'Profile',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.bottomBarTextColor,
                                         fontSize: 10),
@@ -211,10 +219,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   //Icon(Icons.home_outlined),
-                                  SvgPicture.asset('icons/profile_out.svg'),
-                                  const Text(
-                                    'Profile',
-                                    style: TextStyle(
+                                  SvgPicture.asset(
+                                      'assets/icons/profile_out.svg'),
+                                  Text(
+                                    LocaleKeys.profile.tr(),
+                                    // 'Profile',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.greyTextColor,
                                         fontSize: 10),
@@ -228,6 +238,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             Positioned(
               left: 273,
               bottom: 42,
+              right: 0,
               child: GestureDetector(
                 onTap: () => Navigator.push(
                     context, SlideRightRoute(page: const CartScreen())),
@@ -253,7 +264,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('icons/shopping_cart_1.svg'),
+                        SvgPicture.asset('assets/icons/shopping_cart_1.svg'),
                         // const Icon(
                         //   Icons.shopping_cart_outlined,
                         //   color: Colors.white,
@@ -261,16 +272,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               ' \$239.50',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 11),
                             ),
-                            Text('2 items',
-                                style: TextStyle(
+                            Text('2 ${LocaleKeys.items.tr()}',
+                                style: const TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 11)),

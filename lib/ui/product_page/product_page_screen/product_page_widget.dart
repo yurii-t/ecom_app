@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/core/util/size_picker.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,15 +19,15 @@ class ProdutPageWidget extends StatefulWidget {
 class _ProdutPageWidgetState extends State<ProdutPageWidget> {
   int _itemCounter = 0;
   var _icon = SvgPicture.asset(
-    'icons/heart11.svg',
+    'assets/icons/heart11.svg',
   );
   int _sliderProductCurrent = 0;
   final CarouselController _sliderProductController = CarouselController();
   final List<String> imgSlider = [
-    'images/img_gal.jpg',
-    'images/product_img1.png',
-    'images/product_img12.jpg',
-    'images/content_img1.png'
+    'assets/images/img_gal.jpg',
+    'assets/images/product_img1.png',
+    'assets/images/product_img12.jpg',
+    'assets/images/content_img1.png'
   ];
 
   bool _isOpen = false;
@@ -150,35 +152,35 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                             children: [
                               Expanded(
                                 child: Row(
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       Icons.star,
                                       size: 12,
                                       color: AppColors.starIconColor,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       size: 12,
                                       color: AppColors.starIconColor,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       size: 12,
                                       color: AppColors.starIconColor,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       size: 12,
                                       color: AppColors.starIconColor,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       size: 12,
                                       color: AppColors.starIconColor,
                                     ),
                                     Text(
-                                      '8 reviews',
-                                      style: TextStyle(
+                                      '8 ${LocaleKeys.reviews.tr()}',
+                                      style: const TextStyle(
                                           color: AppColors.darkGreyTextColor,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400),
@@ -186,9 +188,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                   ],
                                 ),
                               ),
-                              const Text(
-                                'In Stock',
-                                style: TextStyle(
+                              Text(
+                                LocaleKeys.in_stock.tr(),
+                                // 'In Stock',
+                                style: const TextStyle(
                                     color: AppColors.greenTextColor,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700),
@@ -198,9 +201,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           const SizedBox(
                             height: 14,
                           ),
-                          const Text(
-                            'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
-                            style: TextStyle(
+                          Text(
+                            LocaleKeys.product_title.tr(),
+                            // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
+                            style: const TextStyle(
                                 color: AppColors.darkTextColor,
                                 fontSize: 19,
                                 fontWeight: FontWeight.w400),
@@ -218,9 +222,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           const SizedBox(
                             height: 16,
                           ),
-                          const Text(
-                            'Colors',
-                            style: TextStyle(
+                          Text(
+                            LocaleKeys.colors.tr(),
+                            // 'Colors',
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: AppColors.greyTextColor,
@@ -231,20 +236,21 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           ),
                           const MyProductColorPicker(
                             availableProductColor: [
-                              'images/content_img1.png',
-                              'images/imgcolor2.png',
-                              'images/imgcolor3.png',
-                              'images/imgcolor4.png',
-                              'images/imgcolor1.png',
-                              'images/imgcolor6.png',
+                              'assets/images/content_img1.png',
+                              'assets/images/imgcolor2.png',
+                              'assets/images/imgcolor3.png',
+                              'assets/images/imgcolor4.png',
+                              'assets/images/imgcolor1.png',
+                              'assets/images/imgcolor6.png',
                             ],
                           ),
                           const SizedBox(
                             height: 16,
                           ),
-                          const Text(
-                            'Sizes',
-                            style: TextStyle(
+                          Text(
+                            LocaleKeys.sizes.tr(),
+                            // 'Sizes',
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: AppColors.greyTextColor,
@@ -294,16 +300,18 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Product details',
-                            style: TextStyle(
+                          Text(
+                            LocaleKeys.product_details.tr(),
+                            // 'Product details',
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 19,
                               color: AppColors.darkTextColor,
                             ),
                           ),
                           Text(
-                            'Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF',
+                            LocaleKeys.product_description.tr(),
+                            // 'Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF',
                             overflow:
                                 _isOpen == false ? TextOverflow.ellipsis : null,
                             maxLines: _isOpen == false ? 4 : null,
@@ -351,10 +359,11 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                       children: [
                         Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text(
-                                'Reviews',
-                                style: TextStyle(
+                                LocaleKeys.reviews.tr(),
+                                // 'Reviews',
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 19,
                                   color: AppColors.darkTextColor,
@@ -362,16 +371,17 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                               ),
                             ),
                             Row(
-                              children: const [
+                              children: [
                                 Text(
-                                  'See All',
-                                  style: TextStyle(
+                                  LocaleKeys.see_all.tr(),
+                                  // 'See All',
+                                  style: const TextStyle(
                                     color: AppColors.greyTextColor,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 12,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.chevron_right,
                                   color: AppColors.greyTextColor,
                                 )
@@ -391,35 +401,35 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                           children: [
                             Expanded(
                               child: Row(
-                                children: const [
-                                  Icon(
+                                children: [
+                                  const Icon(
                                     Icons.star,
                                     size: 12,
                                     color: AppColors.starIconColor,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     size: 12,
                                     color: AppColors.starIconColor,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     size: 12,
                                     color: AppColors.starIconColor,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     size: 12,
                                     color: AppColors.starIconColor,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     size: 12,
                                     color: AppColors.starIconColor,
                                   ),
                                   Text(
-                                    '8 reviews',
-                                    style: TextStyle(
+                                    '8 ${LocaleKeys.reviews.tr()}',
+                                    style: const TextStyle(
                                         color: AppColors.darkGreyTextColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),
@@ -436,19 +446,20 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                             )
                           ],
                         ),
-                        const Text(
-                          'I`m old (rolling through my 50`s). But, this is my daughter in law`s favorite color right now.❤️ So I wear it whenever we hang out! She`s my fashion consultant who keeps me on trend🤣',
+                        Text(
+                          LocaleKeys.review_text.tr(),
+                          // 'I`m old (rolling through my 50`s). But, this is my daughter in law`s favorite color right now.❤️ So I wear it whenever we hang out! She`s my fashion consultant who keeps me on trend🤣',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                             color: AppColors.darkTextColor,
                           ),
                         ),
-                        const Text(
-                          '835 people found this helpful',
-                          style: TextStyle(
+                        Text(
+                          '835 ${LocaleKeys.review_text.tr()}',
+                          style: const TextStyle(
                             color: AppColors.greyTextColor,
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -459,9 +470,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {},
-                                child: const Text(
-                                  'Comment',
-                                  style: TextStyle(
+                                child: Text(
+                                  LocaleKeys.comment.tr(),
+                                  // 'Comment',
+                                  style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                     color: AppColors.darkTextColor,
                                     fontWeight: FontWeight.w400,
@@ -474,15 +486,17 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                const Text(
-                                  'Helpful ',
-                                  style: TextStyle(
+                                Text(
+                                  LocaleKeys.helpful.tr(),
+                                  // 'Helpful ',
+                                  style: const TextStyle(
                                     color: AppColors.greyTextColor,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
                                   ),
                                 ),
-                                SvgPicture.asset('icons/like_button_icon.svg'),
+                                SvgPicture.asset(
+                                    'assets/icons/like_button_icon.svg'),
                               ],
                             ),
                           ],
@@ -491,9 +505,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
               const SizedBox(
                 height: 34,
               ),
-              const Text(
-                'Products related to this item',
-                style: TextStyle(
+              Text(
+                LocaleKeys.products_list_title.tr(),
+                // 'Products related to this item',
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 19,
                   color: AppColors.darkTextColor,
@@ -536,7 +551,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                         image: DecorationImage(
                                           fit: BoxFit.fill,
                                           image: AssetImage(
-                                              'images/img_content.png'),
+                                              'assets/images/img_content.png'),
                                         )),
                                   ),
                                   Positioned(
@@ -574,7 +589,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                       onPressed: () {
                                         setState(() {
                                           _icon = SvgPicture.asset(
-                                              'icons/favorite_heart.svg');
+                                              'assets/icons/favorite_heart.svg');
                                         });
                                       },
                                       child: _icon,
@@ -643,11 +658,12 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                   const SizedBox(
                                     height: 8,
                                   ),
-                                  const Text(
-                                    'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
+                                  Text(
+                                    LocaleKeys.product_title.tr(),
+                                    // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,
@@ -703,7 +719,8 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                     //back to clothing page
                     Navigator.of(context).pop();
                   },
-                  child: SvgPicture.asset('icons/arrow_left_bottom.svg')),
+                  child:
+                      SvgPicture.asset('assets/icons/arrow_left_bottom.svg')),
               Builder(builder: (context) {
                 return ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -740,7 +757,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                           child: Row(
                                             children: [
                                               Image.asset(
-                                                'images/content_img1.png',
+                                                'assets/images/content_img1.png',
                                                 width: 80,
                                                 height: 80,
                                               ),
@@ -751,16 +768,19 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                           .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  children: const [
+                                                  children: [
                                                     Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: 60),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 60),
                                                       child: Text(
-                                                        'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
+                                                        LocaleKeys.product_title
+                                                            .tr(),
+                                                        // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                                         textAlign:
                                                             TextAlign.start,
-                                                        //overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
+                                                        // overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
                                                             fontSize: 14,
                                                             fontWeight:
                                                                 FontWeight.w400,
@@ -768,10 +788,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                                 .darkTextColor),
                                                       ),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 6,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       '89.99',
                                                       style: TextStyle(
                                                           fontSize: 17,
@@ -797,7 +817,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                   });
                                                 },
                                                 child: SvgPicture.asset(
-                                                    'icons/plus_icon.svg')),
+                                                    'assets/icons/plus_icon.svg')),
                                             const SizedBox(
                                               height: 4,
                                             ),
@@ -812,14 +832,15 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                   });
                                                 },
                                                 child: SvgPicture.asset(
-                                                    'icons/minus_icon.svg')),
+                                                    'assets/icons/minus_icon.svg')),
                                           ],
                                         )
                                       ],
                                     ),
-                                    const Text(
-                                      'Colors',
-                                      style: TextStyle(
+                                    Text(
+                                      LocaleKeys.colors.tr(),
+                                      // 'Colors',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: AppColors.greyTextColor,
@@ -830,20 +851,21 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                     ),
                                     const MyProductColorPicker(
                                       availableProductColor: [
-                                        'images/content_img1.png',
-                                        'images/imgcolor2.png',
-                                        'images/imgcolor3.png',
-                                        'images/imgcolor4.png',
-                                        'images/imgcolor1.png',
-                                        'images/imgcolor6.png',
+                                        'assets/images/content_img1.png',
+                                        'assets/images/imgcolor2.png',
+                                        'assets/images/imgcolor3.png',
+                                        'assets/images/imgcolor4.png',
+                                        'assets/images/imgcolor1.png',
+                                        'assets/images/imgcolor6.png',
                                       ],
                                     ),
                                     const SizedBox(
                                       height: 16,
                                     ),
-                                    const Text(
-                                      'Sizes',
-                                      style: TextStyle(
+                                    Text(
+                                      LocaleKeys.sizes.tr(),
+                                      // 'Sizes',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: AppColors.greyTextColor,
@@ -877,7 +899,7 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: SvgPicture.asset(
-                                                  'icons/arrow_left_bottom.svg')),
+                                                  'assets/icons/arrow_left_bottom.svg')),
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                               primary: AppColors.yellowColor,
@@ -889,9 +911,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                                                 _itemCounter++;
                                               });
                                             },
-                                            child: const Text(
-                                              'Add to cart',
-                                              style: TextStyle(
+                                            child: Text(
+                                              LocaleKeys.add_to_cart.tr(),
+                                              // 'Add to cart',
+                                              style: const TextStyle(
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.white),
@@ -910,9 +933,10 @@ class _ProdutPageWidgetState extends State<ProdutPageWidget> {
                             });
                           });
                     },
-                    child: const Text(
-                      'Add to cart',
-                      style: TextStyle(
+                    child: Text(
+                      LocaleKeys.add_to_cart.tr(),
+                      // 'Add to cart',
+                      style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
