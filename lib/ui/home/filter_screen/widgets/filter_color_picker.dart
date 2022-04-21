@@ -2,7 +2,7 @@
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class MyColorPicker extends StatefulWidget {
+class FilterColorPicker extends StatefulWidget {
   // List of pickable colors
   final List<Color> availableColors;
 
@@ -12,18 +12,18 @@ class MyColorPicker extends StatefulWidget {
   // Determnie shapes of color cells
   final bool circleItem;
 
-  const MyColorPicker(
-      {Key? key,
-      required this.availableColors,
-      required this.initialColor,
-      this.circleItem = true})
-      : super(key: key);
+  const FilterColorPicker({
+    required this.availableColors,
+    required this.initialColor,
+    Key? key,
+    this.circleItem = true,
+  }) : super(key: key);
 
   @override
-  _MyColorPickerState createState() => _MyColorPickerState();
+  _FilterColorPickerState createState() => _FilterColorPickerState();
 }
 
-class _MyColorPickerState extends State<MyColorPicker> {
+class _FilterColorPickerState extends State<FilterColorPicker> {
   // This variable used to determine where the checkmark will be
   late Color _pickedColor;
 
@@ -40,13 +40,15 @@ class _MyColorPickerState extends State<MyColorPicker> {
       height: 52,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 50,
-            childAspectRatio: 1 / 1,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
+          maxCrossAxisExtent: 50,
+          childAspectRatio: 1 / 1,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
         itemCount: widget.availableColors.length,
         itemBuilder: (context, index) {
           final itemColor = widget.availableColors[index];
+
           return InkWell(
             onTap: () {
               setState(() {
@@ -59,7 +61,7 @@ class _MyColorPickerState extends State<MyColorPicker> {
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 border: itemColor == _pickedColor
-                    ? Border.all(width: 2, color: AppColors.yellowColor)
+                    ? Border.all(width: 2, color: AppColors.yellow)
                     : Border.all(width: 0, color: Colors.transparent),
                 shape: BoxShape.circle,
               ),
@@ -70,12 +72,13 @@ class _MyColorPickerState extends State<MyColorPicker> {
                   width: 37,
                   height: 37,
                   decoration: BoxDecoration(
-                      color: itemColor,
-                      shape: widget.circleItem == true
-                          ? BoxShape.circle
-                          : BoxShape.rectangle,
-                      border:
-                          Border.all(width: 1, color: Colors.grey.shade300)),
+                    color: itemColor,
+                    shape: //widget.circleItem == true
+                        widget.circleItem
+                            ? BoxShape.circle
+                            : BoxShape.rectangle,
+                    border: Border.all(width: 1, color: Colors.grey.shade300),
+                  ),
                   // child: itemColor == _pickedColor
                   //     ? const Center(
                   //         child: Icon(

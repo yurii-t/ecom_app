@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +20,14 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
+      backgroundColor: AppColors.backGround,
       body: Column(
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
             height: 88,
             decoration: const BoxDecoration(
-              gradient: AppColors.purpleGradient,
+              gradient: AppGradient.orangeGradient,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
@@ -34,10 +35,11 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: SvgPicture.asset('assets/icons/arrow_left.svg')),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+                  ),
                   // const Icon(
                   //   Icons.menu,
                   //   color: Colors.white,
@@ -54,16 +56,17 @@ class _CartScreenState extends State<CartScreen> {
                   ),
 
                   TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        LocaleKeys.delete.tr(),
-                        // 'Delete',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
-                      ))
+                    onPressed: () {},
+                    child: Text(
+                      LocaleKeys.delete.tr(),
+                      // 'Delete',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -94,7 +97,8 @@ class _CartScreenState extends State<CartScreen> {
                     borderRadius: index == listSize.last
                         ? const BorderRadius.only(
                             bottomLeft: Radius.circular(24),
-                            bottomRight: Radius.circular(24))
+                            bottomRight: Radius.circular(24),
+                          )
                         : null,
                     boxShadow: index == listSize.last
                         ? [
@@ -130,24 +134,26 @@ class _CartScreenState extends State<CartScreen> {
                                       textAlign: TextAlign.start,
                                       //overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.darkTextColor),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.darkText,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
                                     height: 6,
                                   ),
                                   const Text(
-                                    '89.99',
+                                    r'$89.99',
                                     style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.darkTextColor),
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.darkText,
+                                    ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -155,13 +161,15 @@ class _CartScreenState extends State<CartScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _itemCounter++;
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                  'assets/icons/plus_icon.svg')),
+                            onTap: () {
+                              setState(() {
+                                _itemCounter++;
+                              });
+                            },
+                            child: SvgPicture.asset(
+                              'assets/icons/plus_icon.svg',
+                            ),
+                          ),
                           const SizedBox(
                             height: 4,
                           ),
@@ -170,21 +178,23 @@ class _CartScreenState extends State<CartScreen> {
                             height: 4,
                           ),
                           GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _itemCounter--;
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                  'assets/icons/minus_icon.svg')),
+                            onTap: () {
+                              setState(() {
+                                _itemCounter--;
+                              });
+                            },
+                            child: SvgPicture.asset(
+                              'assets/icons/minus_icon.svg',
+                            ),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 );
               },
             ),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -194,7 +204,9 @@ class _CartScreenState extends State<CartScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -217,39 +229,42 @@ class _CartScreenState extends State<CartScreen> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.darkTextColor,
+                      color: AppColors.darkText,
                     ),
                   ),
                 ),
                 const Text(
-                  '\$239.98',
+                  r'$239.98',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.darkTextColor,
+                    color: AppColors.darkText,
                   ),
-                )
+                ),
               ],
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: AppColors.yellowColor,
+                primary: AppColors.yellow,
                 onPrimary: Colors.white,
                 minimumSize: const Size(373, 48),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CheckOutScreen()));
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CheckOutScreen(),
+                  ),
+                );
               },
               child: Text(
                 LocaleKeys.check_out.tr(),
                 // 'Check Out',
                 style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

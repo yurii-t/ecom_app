@@ -1,21 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
-import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
+import 'package:ecom_app/ui/home/home_screen/home_screen.dart';
+import 'package:ecom_app/ui/login/verefication_screen/verification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-class EnterPhoneWidget extends StatefulWidget {
-  const EnterPhoneWidget({Key? key}) : super(key: key);
+class EnterPhoneScreen extends StatefulWidget {
+  const EnterPhoneScreen({Key? key}) : super(key: key);
 
   @override
-  State<EnterPhoneWidget> createState() => _EnterPhoneWidgetState();
+  State<EnterPhoneScreen> createState() => _EnterPhoneScreenState();
 }
 
-class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
+class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'UA';
   PhoneNumber number = PhoneNumber(isoCode: 'UA');
@@ -27,7 +28,7 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
 
   bool otpVisibility = false;
 
-  String verificationID = "";
+  String verificationID = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +41,23 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
               //375,
               height: 197,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(24, 91, 60, 44),
+                padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
                 child: Text(
                   LocaleKeys.phone_verif_title.tr(),
                   // 'What Is Your Phone Number?',
                   textAlign: TextAlign.left,
                   style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               decoration: const BoxDecoration(
                 color: Colors.purple,
                 borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(300.0)),
-                gradient: AppColors.purpleGradient,
+                    BorderRadius.only(bottomRight: Radius.circular(300)),
+                gradient: AppGradient.purpleGradient,
               ),
             ),
             const SizedBox(
@@ -81,12 +83,10 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: InternationalPhoneNumberInput(
-                onInputChanged: (PhoneNumber number) {
+                onInputChanged: (number) {
                   print(number.phoneNumber);
                 },
-                onInputValidated: (bool value) {
-                  print(value);
-                },
+
                 selectorConfig: const SelectorConfig(
                   selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                   setSelectorButtonAsPrefixIcon: true,
@@ -108,7 +108,8 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                 keyboardType: TextInputType.phone,
                 //TextInputType.numberWithOptions(signed: true, decimal: true),
                 inputBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
               ),
             ),
 
@@ -123,48 +124,57 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
               height: 24,
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: AppColors.yellowColor,
-                  onPrimary: Colors.white,
-                  minimumSize: const Size(327, 64),
+              style: ElevatedButton.styleFrom(
+                primary: AppColors.yellow,
+                onPrimary: Colors.white,
+                minimumSize: const Size(327, 64),
+              ),
+              onPressed: () {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VerificationScreen(
+                      phone: controller.text,
+                      // phone: number.phoneNumber.toString(),
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                LocaleKeys.phone_button_texrt.tr(),
+                // 'Send Verification Code',
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.darkGreyText,
                 ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VerificationVWidget(
-                                // phone:controller.text,
-                                phone: number.phoneNumber.toString(),
-                              )));
-                },
-                child: Text(
-                  LocaleKeys.phone_button_texrt.tr(),
-                  // 'Send Verification Code',
-                  style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.darkGreyTextColor),
-                )),
+              ),
+            ),
             const SizedBox(
               height: 24,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeWidget()));
-                  },
-                  child: Text(LocaleKeys.phone_skip_button_text.tr(),
-                      // 'Skip',
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.greyTextColor,
-                      ))),
-            )
+                onPressed: () {
+                  Navigator.push<void>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  LocaleKeys.phone_skip_button_text.tr(),
+                  // 'Skip',
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.greyText,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

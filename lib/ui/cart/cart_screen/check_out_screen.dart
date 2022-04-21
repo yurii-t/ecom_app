@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
-import 'package:ecom_app/ui/cart/cart_screen/poup_screen.dart';
+import 'package:ecom_app/style/app_gradient.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/cart/cart_screen/popup_screen.dart';
 import 'package:ecom_app/ui/cart/cart_screen/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ecom_app/translations/locale_keys.g.dart';
 
 // import 'package:ecom_app/assets/translations/locale_keys.g.dart';
 // assets\translations\locale_keys.g.dart
@@ -21,14 +22,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
+      backgroundColor: AppColors.backGround,
       body: ListView(children: [
         Column(children: [
           Container(
             width: MediaQuery.of(context).size.width,
             height: 88,
             decoration: const BoxDecoration(
-              gradient: AppColors.purpleGradient,
+              gradient: AppGradient.purpleGradient,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 150),
@@ -36,10 +37,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: SvgPicture.asset('assets/icons/arrow_left.svg')),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+                  ),
                   Text(
                     LocaleKeys.check_out.tr(),
                     // 'check_out'.tr(),
@@ -57,7 +59,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             height: 25,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 Row(
@@ -72,9 +74,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       style: const TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -89,15 +91,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             width: MediaQuery.of(context).size.width,
             height: 92,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 6),
-                  ),
-                ]),
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
             child: Column(
               children: [
                 Row(
@@ -108,7 +111,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkTextColor,
+                          color: AppColors.darkText,
                         ),
                       ),
                     ),
@@ -119,17 +122,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           LocaleKeys.change.tr(),
                           // 'Change ',
                           style: const TextStyle(
-                            color: AppColors.darkTextColor,
+                            color: AppColors.darkText,
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
                           ),
                         ),
                         GestureDetector(
-                            onTap: () {},
-                            child: SvgPicture.asset(
-                                'assets/icons/arrow_right.svg')),
+                          onTap: () {},
+                          child: SvgPicture.asset(
+                            'assets/icons/arrow_right.svg',
+                          ),
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -143,7 +148,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.darkGreyTextColor,
+                      color: AppColors.darkGreyText,
                       decoration: TextDecoration.underline,
                     ),
                   ),
@@ -155,7 +160,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             height: 33,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 SvgPicture.asset('assets/icons/delivery.svg'),
@@ -168,9 +173,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   style: const TextStyle(
                     fontSize: 19,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.darkTextColor,
+                    color: AppColors.darkText,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -178,7 +183,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             height: 15,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 18.0, right: 18),
+            padding: const EdgeInsets.only(left: 18, right: 18),
             child: DeliveryPicker(availableDelivery: [
               Center(
                 child: Column(
@@ -192,11 +197,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       height: 22,
                     ),
                     const Text(
-                      '\$15',
+                      r'$15',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                       ),
                     ),
                     Text(
@@ -204,9 +209,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.greyTextColor,
+                        color: AppColors.greyText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -222,11 +227,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       height: 22,
                     ),
                     const Text(
-                      '\$18',
+                      r'$18',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                       ),
                     ),
                     Text(
@@ -234,9 +239,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.greyTextColor,
+                        color: AppColors.greyText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -252,11 +257,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       height: 22,
                     ),
                     const Text(
-                      '\$20',
+                      r'$20',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                       ),
                     ),
                     Text(
@@ -264,9 +269,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.greyTextColor,
+                        color: AppColors.greyText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -276,7 +281,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             height: 33,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 Row(
@@ -291,9 +296,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       style: const TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -309,15 +314,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             width: MediaQuery.of(context).size.width,
             height: 59,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 6),
-                  ),
-                ]),
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -334,7 +340,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkTextColor,
+                          color: AppColors.darkText,
                         ),
                       ),
                     ],
@@ -347,17 +353,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       LocaleKeys.change.tr(),
                       // 'Change ',
                       style: const TextStyle(
-                        color: AppColors.darkTextColor,
+                        color: AppColors.darkText,
                         fontWeight: FontWeight.w700,
                         fontSize: 12,
                       ),
                     ),
                     GestureDetector(
-                        onTap: () {},
-                        child:
-                            SvgPicture.asset('assets/icons/arrow_right.svg')),
+                      onTap: () {},
+                      child: SvgPicture.asset('assets/icons/arrow_right.svg'),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -370,7 +376,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -390,18 +398,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.greyTextColor,
+                      color: AppColors.greyText,
                     ),
                   ),
                 ),
                 const Text(
-                  '\$239.98',
+                  r'$239.98',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.greyTextColor,
+                    color: AppColors.greyText,
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(
@@ -416,18 +424,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.greyTextColor,
+                      color: AppColors.greyText,
                     ),
                   ),
                 ),
                 const Text(
-                  '\$218',
+                  r'$218',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.greyTextColor,
+                    color: AppColors.greyText,
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -440,41 +448,43 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.darkTextColor,
+                      color: AppColors.darkText,
                     ),
                   ),
                 ),
                 const Text(
-                  '\$239.98',
+                  r'$239.98',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.darkTextColor,
+                    color: AppColors.darkText,
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: AppColors.yellowColor,
+                primary: AppColors.yellow,
                 onPrimary: Colors.white,
                 minimumSize: const Size(373, 48),
               ),
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const PopupScreen();
-                    });
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (context) {
+                    return const PopupScreen();
+                  },
+                );
               },
               child: Text(
                 LocaleKeys.pay.tr(),
                 // 'Pay',
                 style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

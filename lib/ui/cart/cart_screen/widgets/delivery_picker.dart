@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 class DeliveryPicker extends StatefulWidget {
   final List<Widget> availableDelivery;
 
-  const DeliveryPicker({Key? key, required this.availableDelivery})
-      : super(key: key);
+  const DeliveryPicker({
+    required this.availableDelivery,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _DeliveryPickerState createState() => _DeliveryPickerState();
@@ -25,13 +27,15 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
         scrollDirection: Axis.vertical,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 110,
-            childAspectRatio: 1 / 1,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16),
+          maxCrossAxisExtent: 110,
+          childAspectRatio: 1 / 1,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
         itemCount: widget.availableDelivery.length,
         itemBuilder: (context, index) {
           final item = widget.availableDelivery[index];
+
           return GestureDetector(
             onTap: () {
               setState(() {
@@ -43,18 +47,19 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
               width: 92,
               height: 103,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  border: item == _pickedDelivery
-                      ? Border.all(width: 2, color: AppColors.yellowColor)
-                      : null,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 8,
-                      offset: const Offset(0, 7),
-                    ),
-                  ]),
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: item == _pickedDelivery
+                    ? Border.all(width: 2, color: AppColors.yellow)
+                    : null,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 7),
+                  ),
+                ],
+              ),
               child: item,
             ),
           );

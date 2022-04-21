@@ -1,22 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
-import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
-import 'package:ecom_app/ui/home/filter_screen/filter_widget.dart';
-import 'package:ecom_app/ui/home/home_screen/catalogue_widget.dart';
-import 'package:ecom_app/ui/home/home_screen/categories_widget.dart';
-import 'package:ecom_app/ui/home/home_screen/clothing_widget.dart';
-import 'package:ecom_app/ui/home/home_screen/home_widget.dart';
-import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_widget.dart';
-import 'package:ecom_app/ui/login/get_started_screen/get_started_widget.dart';
-import 'package:ecom_app/ui/login/verefication_screen/verification_widget.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_page_widget.dart';
-import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
-import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
+
+import 'package:ecom_app/ui/login/get_started_screen/get_started_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
@@ -24,15 +13,16 @@ void main() async {
 
   runApp(
     EasyLocalization(
-        supportedLocales: const [
-          Locale('en'),
-          Locale('uk'),
-          Locale('es'),
-        ],
-        path:
-            'assets/translations', // <-- change the path of the translation files
-        fallbackLocale: const Locale('en', 'US'),
-        child: const MyApp()),
+      supportedLocales: const [
+        Locale('en'),
+        Locale('uk'),
+        Locale('es'),
+      ],
+      path:
+          'assets/translations', // <-- change the path of the translation files
+      fallbackLocale: const Locale('en', 'US'),
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -55,7 +45,7 @@ class MyApp extends StatelessWidget {
           // FilterWidget(),
           //ClothingWidget(),
           // HomeWidget(),
-          GetStartedWidget(),
+          const GetStartedScreen(),
 
       // initialRoute: '/',
       //   routes: {
