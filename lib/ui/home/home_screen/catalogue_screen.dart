@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -159,11 +160,25 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                                   ),
                                 ),
                               ),
-                              Image.asset(
-                                'assets/images/img_gal.jpg',
-                                width: 88,
-                                fit: BoxFit.fitHeight,
+                              FutureBuilder<dynamic>(
+                                future: FireBaseStorageService()
+                                    .getImg('img_gal.jpg'),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return Image.network(
+                                      snapshot.data.toString(),
+                                    );
+                                  }
+
+                                  return const CircularProgressIndicator();
+                                },
                               ),
+                              // Image.asset(
+                              //   'assets/images/img_gal.jpg',
+                              //   width: 88,
+                              //   fit: BoxFit.fitHeight,
+                              // ),
                             ],
                           ),
                         ),

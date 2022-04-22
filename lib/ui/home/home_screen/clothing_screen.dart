@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -267,19 +268,33 @@ class _ClothingScreenState extends State<ClothingScreen> {
                       Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Container(
-                            width: 163,
-                            height: 163,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  'assets/images/img_content.png',
-                                ),
-                              ),
-                            ),
+                          FutureBuilder<dynamic>(
+                            future: FireBaseStorageService()
+                                .getImg('img_content.png'),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                Container(
+                                  width: 163,
+                                  height: 163,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                        snapshot.data.toString(),
+                                      ),
+                                      //  AssetImage(
+                                      //   'assets/images/img_content.png',
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              return const CircularProgressIndicator();
+                            },
                           ),
                           Positioned(
                             top: 8,

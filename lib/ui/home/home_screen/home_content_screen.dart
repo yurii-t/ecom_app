@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -22,6 +24,9 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
     'assets/images/catalogue_img.png',
     'assets/images/content_img1.png',
   ];
+
+  // List<String> imgSlider = FireBaseStorageService().getListImg();
+
   var _icon = SvgPicture.asset('assets/icons/heart11.svg');
   var _iconStar = SvgPicture.asset(
     'assets/icons/star.svg',
@@ -268,26 +273,37 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8),
-                child: Container(
-                  width: 88,
-                  height: 88,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/img_gal.jpg'),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.phones.tr(), //'Phones',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                child: FutureBuilder<dynamic>(
+                  future: FireBaseStorageService().getImg('img_gal.jpg'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Container(
+                        width: 88,
+                        height: 88,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.all(const Radius.circular(8)),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(snapshot.data
+                                .toString()), //AssetImage(snapshot.data.toString()),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            LocaleKeys.phones.tr(), //'Phones',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    return const CircularProgressIndicator();
+                  },
                 ),
               );
             },
@@ -314,154 +330,168 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
           height: 16,
         ),
         Expanded(
-          child: GridView.builder(
-            itemCount: 6,
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? 3
-                      : 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              mainAxisExtent: 260,
-              childAspectRatio: 2 / 2,
-            ),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push<void>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProductPageScreen(),
-                    ),
-                  );
-                },
-                child: Column(
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          width: 163,
-                          height: 163,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                'assets/images/img_content.png',
+          child: StreamBuilder<QuerySnapshot>(
+            stream:
+                FirebaseFirestore.instance.collection('products').snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? const CircularProgressIndicator()
+                  : GridView.builder(
+                      itemCount: snapshot.data!.docs.length, //6,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: MediaQuery.of(context).orientation ==
+                                Orientation.landscape
+                            ? 3
+                            : 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        mainAxisExtent: 260,
+                        childAspectRatio: 2 / 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot data = snapshot.data!.docs[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push<void>(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProductPageScreen(),
                               ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 8,
-                          child: Container(
-                            width: 47,
-                            height: 20,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(40),
-                                bottomRight: Radius.circular(40),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
+                                    width: 163,
+                                    height: 163,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8)),
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                          data['imageUrl'].toString(),
+                                        ),
+                                        //   AssetImage(
+                                        // 'assets/images/img_content.png',
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 8,
+                                    child: Container(
+                                      width: 47,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(40),
+                                          bottomRight: Radius.circular(40),
+                                        ),
+                                        gradient: AppGradient.orangeGradient,
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          '-50%',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 145,
+                                    //right: 0,
+                                    left: 110,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.white,
+                                        shape: const CircleBorder(),
+                                        // padding: EdgeInsets.all(36),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _icon = SvgPicture.asset(
+                                            'assets/icons/favorite_heart.svg',
+                                          );
+                                        });
+                                      },
+                                      child: _icon,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              gradient: AppGradient.orangeGradient,
-                            ),
-                            child: const Center(
-                              child: Text(
-                                '-50%',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        _iconStar,
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        _iconStar,
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        _iconStar,
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        _iconStar,
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        _iconStar,
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      data['name'].toString(),
+                                      //LocaleKeys.product_title.tr(),
+                                      // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      r'$' + data['price'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 145,
-                          //right: 0,
-                          left: 110,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              shape: const CircleBorder(),
-                              // padding: EdgeInsets.all(36),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _icon = SvgPicture.asset(
-                                  'assets/icons/favorite_heart.svg',
-                                );
-                              });
-                            },
-                            child: _icon,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              _iconStar,
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              _iconStar,
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              _iconStar,
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              _iconStar,
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              _iconStar,
                             ],
                           ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            LocaleKeys.product_title.tr(),
-                            // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            r'$102.33',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
+                        );
+                      },
+                    );
             },
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -188,11 +189,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               Center(
                 child: Column(
                   children: [
-                    Image.asset(
-                      'assets/images/del1.png',
-                      width: 71,
-                      height: 16,
+                    FutureBuilder<dynamic>(
+                      future: FireBaseStorageService().getImg('del1.png'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Image.network(
+                            snapshot.data.toString(),
+                            width: 71,
+                            height: 16,
+                          );
+                        }
+
+                        return const CircularProgressIndicator();
+                      },
                     ),
+                    // Image.asset(
+                    //   'assets/images/del1.png',
+                    //   width: 71,
+                    //   height: 16,
+                    // ),
                     const SizedBox(
                       height: 22,
                     ),
@@ -218,11 +233,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               Center(
                 child: Column(
                   children: [
-                    Image.asset(
-                      'assets/images/del2.png',
-                      width: 71,
-                      height: 16,
+                    FutureBuilder<dynamic>(
+                      future: FireBaseStorageService().getImg('del2.png'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Image.network(
+                            snapshot.data.toString(),
+                            width: 71,
+                            height: 16,
+                          );
+                        }
+
+                        return const CircularProgressIndicator();
+                      },
                     ),
+                    // Image.asset(
+                    //   'assets/images/del2.png',
+                    //   width: 71,
+                    //   height: 16,
+                    // ),
                     const SizedBox(
                       height: 22,
                     ),
@@ -248,11 +277,25 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               Center(
                 child: Column(
                   children: [
-                    Image.asset(
-                      'assets/images/del3.png',
-                      width: 71,
-                      height: 16,
+                    FutureBuilder<dynamic>(
+                      future: FireBaseStorageService().getImg('del3.png'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Image.network(
+                            snapshot.data.toString(),
+                            width: 71,
+                            height: 16,
+                          );
+                        }
+
+                        return const CircularProgressIndicator();
+                      },
                     ),
+                    // Image.asset(
+                    //   'assets/images/del3.png',
+                    //   width: 71,
+                    //   height: 16,
+                    // ),
                     const SizedBox(
                       height: 22,
                     ),
@@ -330,11 +373,23 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Expanded(
                   child: Row(
                     children: [
-                      Image.asset(
-                        'assets/images/mastercard.png',
-                        // width: 80,
-                        // height: 80,
+                      FutureBuilder<dynamic>(
+                        future:
+                            FireBaseStorageService().getImg('mastercard.png'),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Image.network(snapshot.data.toString());
+                          }
+
+                          return const CircularProgressIndicator();
+                        },
                       ),
+                      // Image.asset(
+                      //   'assets/images/mastercard.png',
+                      //   // width: 80,
+                      //   // height: 80,
+                      // ),
                       const Text(
                         '   **** **** **** 5678',
                         style: TextStyle(

@@ -27,7 +27,7 @@ class _CartScreenState extends State<CartScreen> {
             width: MediaQuery.of(context).size.width,
             height: 88,
             decoration: const BoxDecoration(
-              gradient: AppGradient.orangeGradient,
+              gradient: AppGradient.purpleGradient,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),

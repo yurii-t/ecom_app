@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -19,20 +21,75 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   // double _bottom = 10.0;
   // double _right = 10.0;
   double _left = 150;
+  // Future<Widget?> getImage(BuildContext context, String imageName) async {
+  //   Image? img;
+  //   try {
+  //     await FireBaseStorageService.loadFromStorage(context, imageName)
+  //         .then((downloadUrl) {
+  //       img = Image.network(
+  //         downloadUrl.toString(),
+  //         fit: BoxFit.scaleDown,
+  //       );
+  //     });
+  //   } on FirebaseException catch (e) {
+  //     // Caught an exception from Firebase.
+  //     print("Failed with error '${e.code}': ${e.message}");
+  //   }
+
+  //   return img;
+  // }
+//   Future getImg() async {
+//     // Create a storage reference from our app
+//     final storageRef = FirebaseStorage.instance.ref();
+
+// // Create a reference with an initial file path and name
+//     // final pathReference = storageRef.child("product_img1.png");
+
+// // // Create a reference to a file from a Google Cloud Storage URI
+// //     final gsReference = FirebaseStorage.instance
+// //         .refFromURL("gs://ecom-app-test-8e7ae.appspot.com/product_img1.png");
+
+// // Create a reference from an HTTPS URL
+// // Note that in the URL, characters are URL escaped!
+//     // final httpsReference = FirebaseStorage.instance.refFromURL(
+//     //     "https://firebasestorage.googleapis.com/b/YOUR_BUCKET/o/images%20stars.jpg");
+
+//     final imageUrl =
+//         await storageRef.child("images/start_img.gif").getDownloadURL();
+
+//     return imageUrl;
+//   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Stack(alignment: AlignmentDirectional.center, children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fitHeight,
-                image: AssetImage('assets/images/start_img.gif'),
-              ),
-            ),
+          FutureBuilder<dynamic>(
+            future:
+                FireBaseStorageService().getImg('start_img.gif'), //getImg(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Image.network(
+                    snapshot.data.toString(),
+                    fit: BoxFit.fill,
+                    //snapshot.data as Widget,
+                    // decoration: const BoxDecoration(
+                    //   image: DecorationImage(
+                    //     fit: BoxFit.fitHeight,
+                    //     image: AssetImage('assets/images/start_img.gif'),
+                    //   ),
+                    // ),
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+              return Container();
+            },
           ),
           AnimatedPositioned(
             duration: _animationDuration,
@@ -119,6 +176,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
+                        FireBaseStorageService().getListImg();
                         Navigator.push<void>(
                           context,
                           MaterialPageRoute(
