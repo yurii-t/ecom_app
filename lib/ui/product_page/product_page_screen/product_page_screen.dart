@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 
@@ -14,7 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductPageScreen extends StatefulWidget {
-  const ProductPageScreen({Key? key}) : super(key: key);
+  String productId;
+  ProductPageScreen({required this.productId, Key? key}) : super(key: key);
 
   @override
   State<ProductPageScreen> createState() => _ProductPageScreenState();
@@ -27,7 +29,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
     'assets/images/product_img12.jpg',
     'assets/images/content_img1.png',
   ];
-
+  late String dataName;
+  late num dataPrice;
+  late String dataimgUrl;
   int _itemCounter = 0;
   var _icon = SvgPicture.asset(
     'assets/icons/heart11.svg',
@@ -83,140 +87,173 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                   ),
                   child: Column(
                     children: [
-                      const ProductPageCarousel(),
+                      ProductPageCarousel(
+                        productId: widget.productId,
+                      ),
                       const SizedBox(
                         height: 14,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Row(
+                      FutureBuilder<DocumentSnapshot>(
+                        future: FirebaseFirestore.instance
+                            .collection('products')
+                            .doc(widget.productId)
+                            .get(),
+                        builder: (context, snapshot) {
+                          DocumentSnapshot? data = snapshot.data;
+                          if (data != null) {
+                            dataName = data['name'].toString();
+                            dataPrice = data['price'] as num;
+                            dataimgUrl = data['imageUrl'].toString();
+                            // review = data['reviews'].toString(),
+                          }
+
+                          return !snapshot.hasData
+                              ? const CircularProgressIndicator()
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      _iconStar,
-                                      const SizedBox(
-                                        width: 3,
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                Text(
+                                                  '8 ${LocaleKeys.reviews.tr()}',
+                                                  style: const TextStyle(
+                                                    color:
+                                                        AppColors.darkGreyText,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Text(
+                                            LocaleKeys.in_stock.tr(),
+                                            // 'In Stock',
+                                            style: const TextStyle(
+                                              color: AppColors.greenText,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      _iconStar,
                                       const SizedBox(
-                                        width: 3,
+                                        height: 14,
                                       ),
-                                      _iconStar,
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      _iconStar,
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      _iconStar,
                                       Text(
-                                        '8 ${LocaleKeys.reviews.tr()}',
+                                        // data['name'].toString(),
+                                        dataName,
+                                        //LocaleKeys.product_title.tr(),
+                                        // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                         style: const TextStyle(
-                                          color: AppColors.darkGreyText,
-                                          fontSize: 12,
+                                          color: AppColors.darkText,
+                                          fontSize: 19,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Text(
+                                        '\$ $dataPrice',
+                                        // '\$ ${data['price']}',
+                                        style: const TextStyle(
+                                          color: AppColors.darkText,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        LocaleKeys.colors.tr(),
+                                        // 'Colors',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: AppColors.greyText,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      ProductColorPicker(
+                                        onProductPicked: (val) {},
+                                        // availableProductColor: [
+                                        //   'assets/images/content_img1.png',
+                                        //   'assets/images/imgcolor2.png',
+                                        //   'assets/images/imgcolor3.png',
+                                        //   'assets/images/imgcolor4.png',
+                                        //   'assets/images/imgcolor1.png',
+                                        //   'assets/images/imgcolor6.png',
+                                        // ],
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        LocaleKeys.sizes.tr(),
+                                        // 'Sizes',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: AppColors.greyText,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      SizePicker(
+                                        onSizePicked: (val) {},
+                                        // availableSizes: [
+                                        //   'xss',
+                                        //   'xs',
+                                        //   's',
+                                        //   'm',
+                                        //   'l',
+                                        //   'xl',
+                                        // ],
+                                      ),
                                     ],
                                   ),
-                                ),
-                                Text(
-                                  LocaleKeys.in_stock.tr(),
-                                  // 'In Stock',
-                                  style: const TextStyle(
-                                    color: AppColors.greenText,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 14,
-                            ),
-                            Text(
-                              LocaleKeys.product_title.tr(),
-                              // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
-                              style: const TextStyle(
-                                color: AppColors.darkText,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text(
-                              r'$102.99',
-                              style: TextStyle(
-                                color: AppColors.darkText,
-                                fontSize: 25,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Text(
-                              LocaleKeys.colors.tr(),
-                              // 'Colors',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: AppColors.greyText,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const ProductColorPicker(
-                              availableProductColor: [
-                                'assets/images/content_img1.png',
-                                'assets/images/imgcolor2.png',
-                                'assets/images/imgcolor3.png',
-                                'assets/images/imgcolor4.png',
-                                'assets/images/imgcolor1.png',
-                                'assets/images/imgcolor6.png',
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Text(
-                              LocaleKeys.sizes.tr(),
-                              // 'Sizes',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: AppColors.greyText,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const SizePicker(
-                              availableSizes: [
-                                'xss',
-                                'xs',
-                                's',
-                                'm',
-                                'l',
-                                'xl',
-                              ],
-                            ),
-                          ],
-                        ),
+                                );
+                        },
                       ),
                     ],
                   ),
                 ),
-                const ProductDetails(),
-                const ProductReviews(),
+                ProductDetails(
+                  productId: widget.productId,
+                ),
+                ProductReviews(
+                  productId: widget.productId,
+                ),
                 const SizedBox(
                   height: 34,
                 ),
@@ -277,6 +314,15 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                     minimumSize: const Size(215, 48),
                   ),
                   onPressed: () {
+                    // CollectionReference collectionRef =
+                    //     FirebaseFirestore.instance.collection('cart');
+                    // collectionRef.doc(widget.productId).set({
+                    //   'name': dataName,
+                    //   'price': dataPrice,
+                    //   'imageUrl': dataimgUrl,
+                    //   'quantity':_itemCounter,
+                    // });
+
                     setState(() {
                       _itemCounter = 1;
                     });
@@ -291,6 +337,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                       builder: (context) {
                         return AddToCartScreen(
                           item: _itemCounter,
+                          productId: widget.productId,
                         );
                       },
                     );

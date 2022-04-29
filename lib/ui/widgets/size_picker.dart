@@ -3,10 +3,11 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SizePicker extends StatefulWidget {
-  final List<String> availableSizes;
+  Function(String) onSizePicked;
 
-  const SizePicker({
-    required this.availableSizes,
+  SizePicker({
+    required this.onSizePicked,
+    //required this.availableSizes,
     Key? key,
   }) : super(key: key);
 
@@ -16,6 +17,15 @@ class SizePicker extends StatefulWidget {
 
 class _SizePickerState extends State<SizePicker> {
   List<String> pick = [];
+  final List<String> availableSizes = [
+    'xss',
+    'xs',
+    's',
+    'm',
+    'l',
+    'xl',
+  ];
+  String sizesJioned = '';
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +40,9 @@ class _SizePickerState extends State<SizePicker> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: widget.availableSizes.length,
+        itemCount: availableSizes.length,
         itemBuilder: (context, index) {
-          final itemColor = widget.availableSizes[index];
+          final itemColor = availableSizes[index];
 
           return InkWell(
             onTap: () {
@@ -43,6 +53,8 @@ class _SizePickerState extends State<SizePicker> {
                   pick.add(itemColor);
                 }
               });
+              sizesJioned = pick.join(',');
+              widget.onSizePicked(sizesJioned);
             },
             child: Container(
               width: 50,

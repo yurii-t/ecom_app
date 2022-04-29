@@ -114,9 +114,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             ),
             //   ),
           ),
-          Positioned(
+          Align(
+            alignment: Alignment.bottomCenter,
             ////
-            top: 360, //560,
+            // top: 360, //560,
             //  bottom: 0,
             child: Container(
               height: 291,

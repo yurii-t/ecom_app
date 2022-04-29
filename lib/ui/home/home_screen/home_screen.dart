@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
@@ -278,27 +279,49 @@ class _HomeScreenState extends State<HomeScreen> {
                       //   Icons.shopping_cart_outlined,
                       //   color: Colors.white,
                       // ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            r'$239.50',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 11,
-                            ),
-                          ),
-                          Text(
-                            '2 ${LocaleKeys.items.tr()}',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('cart')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          num? totalSum = snapshot.data?.docs.fold<num>(
+                            0,
+                            (previousValue, element) {
+                              //previousValue = (snapshot!.data['quantity']  * snapshot.data['price']) as num;
+                              // print('PPP ${element['price']}');
+
+                              return previousValue +
+                                  (element['price'] * element['quantity']
+                                      as num);
+                            },
+                          );
+                          int? dataLen = snapshot.data?.docs.length;
+
+                          return !snapshot.hasData
+                              ? const CircularProgressIndicator()
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '\$$totalSum',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                    Text(
+                                      '$dataLen ${LocaleKeys.items.tr()}',
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                        },
                       ),
                     ],
                   ),

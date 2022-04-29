@@ -134,8 +134,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('products').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('products')
+                  .where('isFavorite', isEqualTo: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 // var favorite =   snapshot.data!.docs
                 //     .where((element) => element == ['isFavorite']);
@@ -146,7 +148,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 return !snapshot.hasData
                     ? const CircularProgressIndicator()
                     : GridView.builder(
-                        itemCount: snapshot.data!.docs.length,
+                        itemCount: snapshot.data?.docs.length,
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: MediaQuery.of(context).orientation ==
@@ -159,147 +161,159 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           childAspectRatio: 2 / 2,
                         ),
                         itemBuilder: (context, index) {
-                          DocumentSnapshot data = snapshot.data!.docs[index];
-                          if (data['isFavorite'] != true) {
-                            return CircularProgressIndicator();
-                          }
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push<void>(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductPageScreen(),
-                                ),
-                              );
-                            },
-                            child: Column(
-                              children: [
-                                Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      width: 163,
-                                      height: 163,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                            data['imageUrl'].toString(),
-                                          ),
-                                          // AssetImage(
-                                          //   'assets/images/img_content.png',
-                                          // ),
+                          DocumentSnapshot? data = snapshot.data?.docs[index];
+                          String productId = data?.id ?? '';
+                          // if (data['isFavorite'] != true) {
+                          //   return SizedBox.shrink();
+                          //   // CircularProgressIndicator();
+                          // }
+
+                          return !snapshot.hasData
+                              ? const CircularProgressIndicator()
+                              : GestureDetector(
+                                  onTap: () {
+                                    Navigator.push<void>(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProductPageScreen(
+                                          productId: productId,
                                         ),
                                       ),
-                                    ),
-                                    // Positioned(
-                                    //   top: 8,
-                                    //   child: Container(
-                                    //     width: 47,
-                                    //     height: 20,
-                                    //     decoration: const BoxDecoration(
-                                    //       borderRadius: BorderRadius.only(
-                                    //         topRight: Radius.circular(40),
-                                    //         bottomRight: Radius.circular(40),
-                                    //       ),
-                                    //       gradient: AppGradient.orangeGradient,
-                                    //     ),
-                                    //     child: const Center(
-                                    //       child: Text(
-                                    //         '-50%',
-                                    //         style: TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontSize: 11,
-                                    //           fontWeight: FontWeight.w700,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    Positioned(
-                                      top: 145,
-                                      //right: 0,
-                                      left: 110,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          shape: const CircleBorder(),
-                                          // padding: EdgeInsets.all(36),
-                                        ),
-                                        onPressed: () {},
-                                        child: SvgPicture.asset(
-                                          'assets/icons/favorite_heart.svg',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16),
+                                    );
+                                  },
                                   child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
-                                      Row(
+                                      Stack(
+                                        clipBehavior: Clip.none,
                                         children: [
-                                          _iconStar,
-                                          const SizedBox(
-                                            width: 3,
+                                          Container(
+                                            width: 163,
+                                            height: 163,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                              image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: NetworkImage(
+                                                  data?['imageUrl']
+                                                          .toString() ??
+                                                      'Loading...',
+                                                ),
+                                                // AssetImage(
+                                                //   'assets/images/img_content.png',
+                                                // ),
+                                              ),
+                                            ),
                                           ),
-                                          _iconStar,
-                                          const SizedBox(
-                                            width: 3,
+                                          // Positioned(
+                                          //   top: 8,
+                                          //   child: Container(
+                                          //     width: 47,
+                                          //     height: 20,
+                                          //     decoration: const BoxDecoration(
+                                          //       borderRadius: BorderRadius.only(
+                                          //         topRight: Radius.circular(40),
+                                          //         bottomRight: Radius.circular(40),
+                                          //       ),
+                                          //       gradient: AppGradient.orangeGradient,
+                                          //     ),
+                                          //     child: const Center(
+                                          //       child: Text(
+                                          //         '-50%',
+                                          //         style: TextStyle(
+                                          //           color: Colors.white,
+                                          //           fontSize: 11,
+                                          //           fontWeight: FontWeight.w700,
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          Positioned(
+                                            top: 145,
+                                            //right: 0,
+                                            left: 110,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.white,
+                                                shape: const CircleBorder(),
+                                                // padding: EdgeInsets.all(36),
+                                              ),
+                                              onPressed: () {},
+                                              child: SvgPicture.asset(
+                                                'assets/icons/favorite_heart.svg',
+                                              ),
+                                            ),
                                           ),
-                                          _iconStar,
-                                          const SizedBox(
-                                            width: 3,
-                                          ),
-                                          _iconStar,
-                                          const SizedBox(
-                                            width: 3,
-                                          ),
-                                          _iconStar,
                                         ],
                                       ),
                                       const SizedBox(
                                         height: 8,
                                       ),
-                                      Text(
-                                        data['name'].toString(),
-                                        // LocaleKeys.product_title.tr(),
-                                        // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        '\$ ${data['price'].toString()}',
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black,
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 16),
+                                        child: Column(
+                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                _iconStar,
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              data?['name'].toString() ??
+                                                  'Loading...',
+                                              // LocaleKeys.product_title.tr(),
+                                              // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              '\$ ${data?['price'].toString()}',
+                                              style: const TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
+                                );
                         },
                       );
               },

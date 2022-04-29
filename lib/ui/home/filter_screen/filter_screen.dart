@@ -44,8 +44,10 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    startController.text = '\$$_startValue';
-    endController.text = '\$$_endValue';
+    // startController.text = '\$$_startValue';
+    // endController.text = '\$$_endValue';
+    startController.text = '$_startValue';
+    endController.text = '$_endValue';
     startController.addListener(_setStartValue);
     endController.addListener(_setEndValue);
   }
@@ -137,9 +139,11 @@ class _FilterScreenState extends State<FilterScreen> {
                           _startValue = values.start;
                           _endValue = values.end;
                           startController.text =
-                              r'$' + values.start.roundToDouble().toString();
+                              values.start.roundToDouble().toString();
+                          // r'$' + values.start.roundToDouble().toString();
                           endController.text =
-                              r'$' + values.end.roundToDouble().toString();
+                              values.end.roundToDouble().toString();
+                          // r'$' + values.end.roundToDouble().toString();
                         });
                       },
                     ),
@@ -285,8 +289,9 @@ class _FilterScreenState extends State<FilterScreen> {
                     const SizedBox(
                       height: 24,
                     ),
-                    const SizePicker(
-                      availableSizes: ['xss', 'xs', 's', 'm', 'l', 'xl'],
+                    SizePicker(
+                      onSizePicked: (val) {},
+                      // availableSizes: ['xss', 'xs', 's', 'm', 'l', 'xl'],
                     ),
                     const SizedBox(
                       height: 24,
@@ -310,7 +315,9 @@ class _FilterScreenState extends State<FilterScreen> {
                         onPrimary: Colors.white,
                         minimumSize: const Size(360, 50),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop([_startValue, _endValue]);
+                      },
                       child: Text(
                         '${LocaleKeys.result.tr()} (166)',
                         style: const TextStyle(

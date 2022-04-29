@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
@@ -12,7 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 // assets\translations\locale_keys.g.dart
 
 class CheckOutScreen extends StatefulWidget {
-  const CheckOutScreen({Key? key}) : super(key: key);
+  final num itemsPrice;
+  const CheckOutScreen({required this.itemsPrice, Key? key}) : super(key: key);
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -20,8 +22,16 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   bool picked = true;
+  String customerName = 'Oleh Chabanov';
+  String address = '225 Highland Ave Springfield, IL 62704, USA';
+  String cardNumber = '5678 5678 5678 5678';
+  int delivery = 0;
+  late num totalPrice;
+  @override
   @override
   Widget build(BuildContext context) {
+    totalPrice = widget.itemsPrice + delivery;
+
     return Scaffold(
       backgroundColor: AppColors.backGround,
       body: ListView(children: [
@@ -185,140 +195,141 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, right: 18),
-            child: DeliveryPicker(availableDelivery: [
-              Center(
-                child: Column(
-                  children: [
-                    FutureBuilder<dynamic>(
-                      future: FireBaseStorageService().getImg('del1.png'),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Image.network(
-                            snapshot.data.toString(),
-                            width: 71,
-                            height: 16,
-                          );
-                        }
+            child: DeliveryPicker(
+              onDeliveryPickedPrice: (val) {
+                setState(() {
+                  delivery = val;
+                });
+              },
+              //  availableDelivery: [
+              // Center(
+              //   child: Column(
+              //     children: [
+              //       FutureBuilder<dynamic>(
+              //         future: FireBaseStorageService().getImg('del1.png'),
+              //         builder: (context, snapshot) {
+              //           if (snapshot.connectionState ==
+              //               ConnectionState.done) {
+              //             return Image.network(
+              //               snapshot.data.toString(),
+              //               width: 71,
+              //               height: 16,
+              //             );
+              //           }
 
-                        return const CircularProgressIndicator();
-                      },
-                    ),
-                    // Image.asset(
-                    //   'assets/images/del1.png',
-                    //   width: 71,
-                    //   height: 16,
-                    // ),
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    const Text(
-                      r'$15',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.darkText,
-                      ),
-                    ),
-                    Text(
-                      '1-2 ${LocaleKeys.days.tr()}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.greyText,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    FutureBuilder<dynamic>(
-                      future: FireBaseStorageService().getImg('del2.png'),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Image.network(
-                            snapshot.data.toString(),
-                            width: 71,
-                            height: 16,
-                          );
-                        }
+              //           return const CircularProgressIndicator();
+              //         },
+              //       ),
+              //       // Image.asset(
+              //       //   'assets/images/del1.png',
+              //       //   width: 71,
+              //       //   height: 16,
+              //       // ),
+              //       const SizedBox(
+              //         height: 22,
+              //       ),
+              //       const Text(
+              //         r'$15',
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w600,
+              //           color: AppColors.darkText,
+              //         ),
+              //       ),
+              //       Text(
+              //         '1-2 ${LocaleKeys.days.tr()}',
+              //         style: const TextStyle(
+              //           fontSize: 12,
+              //           fontWeight: FontWeight.w400,
+              //           color: AppColors.greyText,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Center(
+              //   child: Column(
+              //     children: [
+              //       FutureBuilder<dynamic>(
+              //         future: FireBaseStorageService().getImg('del2.png'),
+              //         builder: (context, snapshot) {
+              //           if (snapshot.connectionState ==
+              //               ConnectionState.done) {
+              //             return Image.network(
+              //               snapshot.data.toString(),
+              //               width: 71,
+              //               height: 16,
+              //             );
+              //           }
 
-                        return const CircularProgressIndicator();
-                      },
-                    ),
-                    // Image.asset(
-                    //   'assets/images/del2.png',
-                    //   width: 71,
-                    //   height: 16,
-                    // ),
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    const Text(
-                      r'$18',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.darkText,
-                      ),
-                    ),
-                    Text(
-                      '1-2 ${LocaleKeys.days.tr()}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.greyText,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    FutureBuilder<dynamic>(
-                      future: FireBaseStorageService().getImg('del3.png'),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Image.network(
-                            snapshot.data.toString(),
-                            width: 71,
-                            height: 16,
-                          );
-                        }
+              //           return const CircularProgressIndicator();
+              //         },
+              //       ),
+              //       // Image.asset(
+              //       //   'assets/images/del2.png',
+              //       //   width: 71,
+              //       //   height: 16,
+              //       // ),
+              //       const SizedBox(
+              //         height: 22,
+              //       ),
+              //       const Text(
+              //         r'$18',
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w600,
+              //           color: AppColors.darkText,
+              //         ),
+              //       ),
+              //       Text(
+              //         '1-2 ${LocaleKeys.days.tr()}',
+              //         style: const TextStyle(
+              //           fontSize: 12,
+              //           fontWeight: FontWeight.w400,
+              //           color: AppColors.greyText,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Center(
+              //   child: Column(
+              //     children: [
+              //       //  Image.network(
+              //       //   snapshot.data.toString(),
+              //       //   width: 71,
+              //       //   height: 16,
+              //       // );
 
-                        return const CircularProgressIndicator();
-                      },
-                    ),
-                    // Image.asset(
-                    //   'assets/images/del3.png',
-                    //   width: 71,
-                    //   height: 16,
-                    // ),
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    const Text(
-                      r'$20',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.darkText,
-                      ),
-                    ),
-                    Text(
-                      '1-2 ${LocaleKeys.days.tr()}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.greyText,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ]),
+              //       Image.asset(
+              //         'assets/images/del3.png',
+              //         width: 71,
+              //         height: 16,
+              //       ),
+              //       const SizedBox(
+              //         height: 22,
+              //       ),
+              //       const Text(
+              //         r'$20',
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w600,
+              //           color: AppColors.darkText,
+              //         ),
+              //       ),
+              //       Text(
+              //         '1-2 ${LocaleKeys.days.tr()}',
+              //         style: const TextStyle(
+              //           fontSize: 12,
+              //           fontWeight: FontWeight.w400,
+              //           color: AppColors.greyText,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // ],
+            ),
           ),
           const SizedBox(
             height: 33,
@@ -424,6 +435,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
         ]),
       ]),
+      ////checkout
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(left: 30, right: 30, top: 18),
         width: MediaQuery.of(context).size.width,
@@ -457,9 +469,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                 ),
-                const Text(
-                  r'$239.98',
-                  style: TextStyle(
+                Text(
+                  '\$${widget.itemsPrice}',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppColors.greyText,
@@ -483,9 +495,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                 ),
-                const Text(
-                  r'$218',
-                  style: TextStyle(
+                Text(
+                  '$delivery',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppColors.greyText,
@@ -507,9 +519,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                 ),
-                const Text(
-                  r'$239.98',
-                  style: TextStyle(
+                Text(
+                  '\$$totalPrice',
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: AppColors.darkText,
@@ -525,6 +537,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 minimumSize: const Size(373, 48),
               ),
               onPressed: () {
+                CollectionReference collectionRef =
+                    FirebaseFirestore.instance.collection('checkout');
+                collectionRef.doc().set({
+                  'CustomerName': customerName,
+                  'address': address,
+                  'delivery': delivery,
+                  'cardNumber': cardNumber,
+                  'totalPrice': totalPrice,
+                });
+
                 showDialog<Dialog>(
                   context: context,
                   builder: (context) {

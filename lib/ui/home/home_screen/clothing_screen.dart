@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
@@ -28,6 +29,10 @@ class _ClothingScreenState extends State<ClothingScreen> {
     LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
     LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
   ];
+  String query = '';
+  late Stream<QuerySnapshot> collectionRef;
+  dynamic startPrice = null;
+  dynamic endPrice = null;
   int _selectedTab = 0;
   late String _currentItemSelected;
   var _iconStar = SvgPicture.asset(
@@ -40,370 +45,473 @@ class _ClothingScreenState extends State<ClothingScreen> {
     _currentItemSelected = dropButtonItems[0];
   }
 
+  void navigateAndDisplaySelection(BuildContext context) async {
+    final List<double>? result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FilterScreen()),
+    );
+    setState(() {
+      startPrice = result?[0] ?? null;
+      endPrice = result?[1] ?? null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (query != '' && query != null) {
+      collectionRef = FirebaseFirestore.instance
+          .collection('products')
+          .where('name', isGreaterThanOrEqualTo: query)
+          .where('name', isLessThanOrEqualTo: '$query\uf7ff')
+          .snapshots();
+    } else if (startPrice != null && endPrice != null) {
+      bool qq = false;
+      collectionRef = FirebaseFirestore.instance
+          .collection('products')
+          .where('price', isGreaterThanOrEqualTo: startPrice)
+          .where('price', isLessThanOrEqualTo: endPrice)
+          // .orderBy('date', descending: qq)
+          .snapshots();
+    } else {
+      collectionRef = FirebaseFirestore.instance
+          .collection('products')
+          .where('category', isEqualTo: 'Clothing')
+          .snapshots();
+    }
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backGround,
-        body: Column(children: [
-          Stack(
-            clipBehavior: Clip.none,
-            alignment: AlignmentDirectional.center,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 132,
-                decoration: const BoxDecoration(
-                  gradient: AppGradient.purpleGradient,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: widget.onBackButtonPressed,
-                        child: SvgPicture.asset('assets/icons/arrow_left.svg'),
-                      ),
-                      Text(
-                        LocaleKeys.clothing.tr(),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: collectionRef,
 
-                        // 'Clothing',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 19,
-                          color: Colors.white,
+          // ? FirebaseFirestore.instance
+          //     .collection('products')
+          //     .where('name', isGreaterThanOrEqualTo: query)
+          //     .where('name', isLessThanOrEqualTo: '$query\uf7ff')
+          //     .snapshots()
+          // :
+          // FirebaseFirestore.instance
+          //     .collection('products')
+          //     .where('category', isEqualTo: 'Clothing')
+          //     .snapshots(),
+          builder: (context, snapshot) {
+            return !snapshot.hasData
+                ? const CircularProgressIndicator()
+                : Column(children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 132,
+                          decoration: const BoxDecoration(
+                            gradient: AppGradient.purpleGradient,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: widget.onBackButtonPressed,
+                                  child: SvgPicture.asset(
+                                    'assets/icons/arrow_left.svg',
+                                  ),
+                                ),
+                                Text(
+                                  LocaleKeys.clothing.tr(),
+
+                                  // 'Clothing',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 19,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    navigateAndDisplaySelection(context);
+                                    // final List<double>? result =
+                                    //     await Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const FilterScreen(),
+                                    //   ),
+                                    // );
+                                    // startPrice = result![0];
+                                    // endPrice = result![1];
+                                    // Navigator.push<void>(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const FilterScreen(),
+                                    //   ),
+                                    // );
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/icons/filter_icon.svg',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push<void>(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FilterScreen(),
+                        Positioned(
+                          top: 108,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: SizedBox(
+                              width: 375,
+                              height: 44,
+                              child: TextField(
+                                onChanged: (val) {
+                                  setState(() {
+                                    query = val;
+                                    print(query);
+                                  });
+                                },
+                                textAlignVertical: TextAlignVertical.bottom,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  prefixIcon: const Icon(Icons.search),
+                                  hintText: LocaleKeys.home_searchbar
+                                      .tr(), //'What are you looking for',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 34,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        itemExtent: 88,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (
+                          context,
+                          index,
+                        ) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedTab = index;
+                                });
+                              },
+                              child: Container(
+                                height: 26,
+                                padding: const EdgeInsets.only(
+                                  left: 12,
+                                  right: 12,
+                                  top: 4,
+                                  bottom: 4,
+                                ),
+                                // width: 88,
+                                // height: 88,
+                                decoration: BoxDecoration(
+                                  color: _selectedTab == index
+                                      ? AppColors.yellow
+                                      : Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(40),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    LocaleKeys.all.tr(), //'All',
+                                    style: TextStyle(
+                                      color: _selectedTab == index
+                                          ? Colors.white
+                                          : AppColors.darkGreyText,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           );
                         },
-                        child: SvgPicture.asset('assets/icons/filter_icon.svg'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 108,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: SizedBox(
-                    width: 375,
-                    height: 44,
-                    child: TextField(
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: LocaleKeys.home_searchbar
-                            .tr(), //'What are you looking for',
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 34,
-          ),
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              itemCount: 10,
-              itemExtent: 88,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (
-                context,
-                index,
-              ) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedTab = index;
-                      });
-                    },
-                    child: Container(
-                      height: 26,
-                      padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
-                        top: 4,
-                        bottom: 4,
-                      ),
-                      // width: 88,
-                      // height: 88,
-                      decoration: BoxDecoration(
-                        color: _selectedTab == index
-                            ? AppColors.yellow
-                            : Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(40)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          LocaleKeys.all.tr(), //'All',
-                          style: TextStyle(
-                            color: _selectedTab == index
-                                ? Colors.white
-                                : AppColors.darkGreyText,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                    const SizedBox(
+                      height: 24,
                     ),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    '166 ${LocaleKeys.items.tr()}',
-                    style: const TextStyle(
-                      fontSize: 19,
-                      color: AppColors.darkText,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      LocaleKeys.sort_by.tr(),
-                      // 'Sort by:',
-                      style: const TextStyle(
-                        color: AppColors.greyText,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                    //  Icon(
-                    //   Icons.chevron_right,
-                    //   color:  AppColors.greyTextColor,
-                    // )
-
-                    PopupMenuButton<String>(
-                      itemBuilder: (context) {
-                        return dropButtonItems.map((str) {
-                          return PopupMenuItem(
-                            value: str,
-                            child: Text(str),
-                          );
-                        }).toList();
-                      },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(_currentItemSelected),
-                          //Icon(Icons.arrow_drop_down),
-                          const Icon(Icons.keyboard_arrow_down),
-                        ],
-                      ),
-                      onSelected: (v) {
-                        setState(() {
-                          print('!!!===== $v');
-                          _currentItemSelected = v;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 19,
-          ),
-          Expanded(
-            child: GridView.builder(
-              itemCount: 6,
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    MediaQuery.of(context).orientation == Orientation.landscape
-                        ? 3
-                        : 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                mainAxisExtent: 260,
-                childAspectRatio: 2 / 2,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push<void>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProductPageScreen(),
-                      ),
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FutureBuilder<dynamic>(
-                            future: FireBaseStorageService()
-                                .getImg('img_content.png'),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                Container(
-                                  width: 163,
-                                  height: 163,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                        snapshot.data.toString(),
-                                      ),
-                                      //  AssetImage(
-                                      //   'assets/images/img_content.png',
-                                    ),
-                                  ),
-                                );
-                              }
+                          Expanded(
+                            child: Text(
+                              '${snapshot.data?.docs.length} ${LocaleKeys.items.tr()}',
+                              style: const TextStyle(
+                                fontSize: 19,
+                                color: AppColors.darkText,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                LocaleKeys.sort_by.tr(),
+                                // 'Sort by:',
+                                style: const TextStyle(
+                                  color: AppColors.greyText,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              //  Icon(
+                              //   Icons.chevron_right,
+                              //   color:  AppColors.greyTextColor,
+                              // )
 
-                              return const CircularProgressIndicator();
-                            },
-                          ),
-                          Positioned(
-                            top: 8,
-                            child: Container(
-                              width: 47,
-                              height: 20,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(40),
-                                  bottomRight: Radius.circular(40),
+                              PopupMenuButton<String>(
+                                itemBuilder: (context) {
+                                  return dropButtonItems.map((str) {
+                                    return PopupMenuItem(
+                                      value: str,
+                                      child: Text(str),
+                                    );
+                                  }).toList();
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(_currentItemSelected),
+                                    //Icon(Icons.arrow_drop_down),
+                                    const Icon(Icons.keyboard_arrow_down),
+                                  ],
                                 ),
-                                gradient: AppGradient.orangeGradient,
+                                onSelected: (v) {
+                                  setState(() {
+                                    print('!!!===== ');
+                                    _currentItemSelected = v;
+                                  });
+                                },
                               ),
-                              child: const Center(
-                                child: Text(
-                                  '-50%',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 145,
-                            //right: 0,
-                            left: 110,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                shape: const CircleBorder(),
-                                // padding: EdgeInsets.all(36),
-                              ),
-                              onPressed: () {},
-                              child: SvgPicture.asset(
-                                'assets/icons/heart11.svg',
-                                color: Colors.purple,
-                              ),
-                            ),
+                            ],
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                    ),
+                    const SizedBox(
+                      height: 19,
+                    ),
+                    // StreamBuilder<QuerySnapshot>(
+                    //   stream: (query != "" && query != null)
+                    //       ? FirebaseFirestore.instance
+                    //           .collection('products')
+                    //           .where('name', isGreaterThanOrEqualTo: query)
+                    //           .where('name', isLessThanOrEqualTo: '$query\uf7ff')
+                    //           .snapshots()
+                    //       : FirebaseFirestore.instance
+                    //           .collection('products')
+                    //           .where('category', isEqualTo: 'Clothing')
+                    //           .snapshots(),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState == ConnectionState.waiting &&
+                    //         snapshot.hasData != true) {
+                    //       return Center(
+                    //         child: const CircularProgressIndicator(),
+                    //       );
+                    //     } else
+                    //       //!snapshot.hasData
+                    //       // ? const CircularProgressIndicator()
+                    //       // :
+                    //       return
+                    Expanded(
+                      child: GridView.builder(
+                        itemCount: snapshot.data?.docs.length,
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: MediaQuery.of(context).orientation ==
+                                  Orientation.landscape
+                              ? 3
+                              : 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          mainAxisExtent: 260,
+                          childAspectRatio: 2 / 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot? data = snapshot.data?.docs[index];
+                          String productId = data?.id ?? '';
+
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductPageScreen(
+                                    productId: productId,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Column(
                               children: [
-                                _iconStar,
-                                const SizedBox(
-                                  width: 3,
+                                Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    //           StreamBuilder<QuerySnapshot>(
+                                    //             stream: FirebaseFirestore.instance.collection('products').where('category',isEqualTo: 'Clothing').snapshots(),
+                                    //             builder: (context, snapshot) {
+
+                                    // return !snapshot.hasData
+                                    //     ? const CircularProgressIndicator()
+                                    //     :
+                                    Container(
+                                      width: 163,
+                                      height: 163,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                        image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(
+                                            data?['imageUrl'].toString() ??
+                                                'Loading...',
+                                          ),
+                                          //  AssetImage(
+                                          //   'assets/images/img_content.png',
+                                        ),
+                                      ),
+                                    ),
+
+                                    Positioned(
+                                      top: 8,
+                                      child: Container(
+                                        width: 47,
+                                        height: 20,
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(40),
+                                            bottomRight: Radius.circular(40),
+                                          ),
+                                          gradient: AppGradient.orangeGradient,
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            '-50%',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 145,
+                                      //right: 0,
+                                      left: 110,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          shape: const CircleBorder(),
+                                          // padding: EdgeInsets.all(36),
+                                        ),
+                                        onPressed: () {},
+                                        child: SvgPicture.asset(
+                                          'assets/icons/heart11.svg',
+                                          color: Colors.purple,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                _iconStar,
                                 const SizedBox(
-                                  width: 3,
+                                  height: 8,
                                 ),
-                                _iconStar,
-                                const SizedBox(
-                                  width: 3,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          _iconStar,
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          _iconStar,
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          _iconStar,
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          _iconStar,
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          _iconStar,
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        data?['name'].toString() ??
+                                            'Loading...',
+                                        //LocaleKeys.product_title.tr(),
+                                        // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        '\$${data?['price']}',
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                _iconStar,
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                _iconStar,
                               ],
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              LocaleKeys.product_title.tr(),
-                              // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const Text(
-                              r'$102.33',
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ]),
+                    ),
+                    //   },
+                    // ),
+                  ]);
+          },
+        ),
       ),
     );
   }

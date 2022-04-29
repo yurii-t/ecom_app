@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class ProductColorPicker extends StatefulWidget {
   //final Function onSelectSize;
-
-  final List<String> availableProductColor;
+  final Function(String) onProductPicked;
 
   const ProductColorPicker({
-    required this.availableProductColor,
+    required this.onProductPicked,
+    // required this.availableProductColor,
     Key? key,
     // required this.onSelectSize,
   }) : super(key: key);
@@ -18,7 +18,15 @@ class ProductColorPicker extends StatefulWidget {
 
 class _MyProductColorPickerState extends State<ProductColorPicker> {
   List<String> pick = [];
-
+  final List<String> availableProductColor = [
+    'assets/images/content_img1.png',
+    'assets/images/imgcolor2.png',
+    'assets/images/imgcolor3.png',
+    'assets/images/imgcolor4.png',
+    'assets/images/imgcolor1.png',
+    'assets/images/imgcolor6.png',
+  ];
+  String colorsJoined = '';
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,9 +40,11 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: widget.availableProductColor.length,
+        itemCount:
+            availableProductColor.length, //widget.availableProductColor.length,
         itemBuilder: (context, index) {
-          final itemColor = widget.availableProductColor[index];
+          final itemColor = availableProductColor[
+              index]; //widget.availableProductColor[index];
 
           return InkWell(
             onTap: () {
@@ -45,6 +55,8 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
                   pick.add(itemColor);
                 }
               });
+              colorsJoined = pick.join(',');
+              widget.onProductPicked(colorsJoined);
             },
             child: Container(
               width: 50,
@@ -61,7 +73,8 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: AssetImage(widget.availableProductColor[index]),
+                  image: AssetImage(availableProductColor[
+                      index]), //widget.availableProductColor[index]),
                 ),
               ),
               // child: Center(

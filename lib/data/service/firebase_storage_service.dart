@@ -31,40 +31,4 @@ class FireBaseStorageService extends ChangeNotifier {
 
     return imgList;
   }
-
-//   Stream<ListResult> listAllPaginated(Reference storageRef) async* {
-//   String? pageToken;
-//   do {
-//     final listResult = await storageRef.list(ListOptions(
-//       maxResults: 100,
-//       pageToken: pageToken,
-//     ));
-//     yield listResult;
-//     pageToken = listResult.nextPageToken;
-//   } while (pageToken != null);
-// }
-
-  // static Future<dynamic> loadFromStorage(
-  //     BuildContext context, String image) async {
-  //   try {
-  //     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
-  //   } on FirebaseException catch (e) {
-  //     // Caught an exception from Firebase.
-  //     print("Failed with error '${e.code}': ${e.message}");
-  //   }
-  // }
-
-  // static Future<dynamic> getImage(
-  //     BuildContext context, String imageName) async {
-  //   Image img;
-  //   await FireBaseStorageService.loadFromStorage(context, imageName)
-  //       .then((downloadUrl) {
-  //     img = Image.network(
-  //       downloadUrl.toString(),
-  //       fit: BoxFit.scaleDown,
-  //     );
-  //   });
-
-  //   return img;
-  // }
 }

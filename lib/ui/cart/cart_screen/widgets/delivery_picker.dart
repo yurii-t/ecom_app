@@ -1,12 +1,16 @@
 // my_color_picker.dart
+import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
+import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryPicker extends StatefulWidget {
-  final List<Widget> availableDelivery;
+  final Function(int) onDeliveryPickedPrice;
 
-  const DeliveryPicker({
-    required this.availableDelivery,
+  DeliveryPicker({
+    required this.onDeliveryPickedPrice,
+    // required this.availableDelivery,
     Key? key,
   }) : super(key: key);
 
@@ -15,8 +19,139 @@ class DeliveryPicker extends StatefulWidget {
 }
 
 class _DeliveryPickerState extends State<DeliveryPicker> {
+  final List<int> delPrice = [15, 18, 20];
   Widget? _pickedDelivery;
+  final List<Widget> availableDelivery = [
+    Center(
+      child: Column(
+        children: [
+          FutureBuilder<dynamic>(
+            future: FireBaseStorageService().getImg('del1.png'),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Image.network(
+                  snapshot.data.toString(),
+                  width: 71,
+                  height: 16,
+                );
+              }
 
+              return const CircularProgressIndicator();
+            },
+          ),
+          // Image.asset(
+          //   'assets/images/del1.png',
+          //   width: 71,
+          //   height: 16,
+          // ),
+          const SizedBox(
+            height: 22,
+          ),
+          const Text(
+            r'$15',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.darkText,
+            ),
+          ),
+          Text(
+            '1-2 ${LocaleKeys.days.tr()}',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.greyText,
+            ),
+          ),
+        ],
+      ),
+    ),
+    Center(
+      child: Column(
+        children: [
+          FutureBuilder<dynamic>(
+            future: FireBaseStorageService().getImg('del2.png'),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Image.network(
+                  snapshot.data.toString(),
+                  width: 71,
+                  height: 16,
+                );
+              }
+
+              return const CircularProgressIndicator();
+            },
+          ),
+          // Image.asset(
+          //   'assets/images/del2.png',
+          //   width: 71,
+          //   height: 16,
+          // ),
+          const SizedBox(
+            height: 22,
+          ),
+          const Text(
+            r'$18',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.darkText,
+            ),
+          ),
+          Text(
+            '1-2 ${LocaleKeys.days.tr()}',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.greyText,
+            ),
+          ),
+        ],
+      ),
+    ),
+    Center(
+      child: Column(
+        children: [
+          //  Image.network(
+          //   snapshot.data.toString(),
+          //   width: 71,
+          //   height: 16,
+          // );
+
+          Image.asset(
+            'assets/images/del3.png',
+            width: 71,
+            height: 16,
+          ),
+          const SizedBox(
+            height: 22,
+          ),
+          const Text(
+            r'$20',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.darkText,
+            ),
+          ),
+          Text(
+            '1-2 ${LocaleKeys.days.tr()}',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.greyText,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ];
+  // Map<String, num> deliv = {
+  //   'Dhl': 15,
+  //   'Fedex': 18,
+  //   'Upsps': 20,
+  // };
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,14 +167,18 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemCount: widget.availableDelivery.length,
+        itemCount: availableDelivery.length, // widget.availableDelivery.length,
         itemBuilder: (context, index) {
-          final item = widget.availableDelivery[index];
+          final item =
+              availableDelivery[index]; //widget.availableDelivery[index];
+          // final itm = deliv.keys.
 
           return GestureDetector(
             onTap: () {
+              widget.onDeliveryPickedPrice(delPrice[index]);
               setState(() {
                 _pickedDelivery = item;
+                print(_pickedDelivery);
               });
             },
             child: Container(
