@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/data/service/firebase_storage_service.dart';
+
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -73,7 +73,6 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        SvgPicture.asset('assets/icons/bell_1.svg'),
                       ],
                     ),
                   ),
@@ -122,7 +121,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                             itemCount: snapshot.data?.docs.length,
                             itemExtent: 120, //88,
                             itemBuilder: (context, index) {
-                              DocumentSnapshot? data =
+                              final DocumentSnapshot? data =
                                   snapshot.data?.docs[index];
 
                               return // Padding(padding: EdgeInsets.symmetric(horizontal:16, vertical:10),

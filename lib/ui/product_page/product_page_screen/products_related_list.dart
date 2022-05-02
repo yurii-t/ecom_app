@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/data/service/firebase_storage_service.dart';
+
 import 'package:ecom_app/style/app_gradient.dart';
-import 'package:ecom_app/translations/locale_keys.g.dart';
+
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,9 +15,7 @@ class ProductsRelatedList extends StatefulWidget {
 
 class _ProductsRelatedListState extends State<ProductsRelatedList> {
   bool favorite = false;
-  var _icon = SvgPicture.asset(
-    'assets/icons/heart11.svg',
-  );
+
   var _iconStar = SvgPicture.asset(
     'assets/icons/star.svg',
   );
@@ -39,8 +36,8 @@ class _ProductsRelatedListState extends State<ProductsRelatedList> {
                   shrinkWrap: true,
                   itemExtent: 183,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot? data = snapshot.data?.docs[index];
-                    String productId = data?.id ?? '';
+                    final DocumentSnapshot? data = snapshot.data?.docs[index];
+                    final String productId = data?.id ?? '';
 
                     return GestureDetector(
                       onTap: () {

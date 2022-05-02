@@ -5,7 +5,7 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_screen.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -86,8 +86,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 );
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
+
               return Container();
             },
           ),

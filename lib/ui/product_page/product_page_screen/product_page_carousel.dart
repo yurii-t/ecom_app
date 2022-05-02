@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class ProductPageCarousel extends StatefulWidget {
   final String productId;
-  ProductPageCarousel({required this.productId, Key? key}) : super(key: key);
+  const ProductPageCarousel({required this.productId, Key? key})
+      : super(key: key);
 
   @override
   State<ProductPageCarousel> createState() => _ProductPageCoruselState();
@@ -29,7 +30,7 @@ class _ProductPageCoruselState extends State<ProductPageCarousel> {
           .doc(widget.productId)
           .get(),
       builder: (context, snapshot) {
-        DocumentSnapshot? data = snapshot.data;
+        final DocumentSnapshot? data = snapshot.data;
         if (data != null) {
           imgProductSlider = data['img'] as List;
         }
@@ -61,37 +62,13 @@ class _ProductPageCoruselState extends State<ProductPageCarousel> {
                         },
                       ),
                       itemBuilder: (context, index, realIdx) {
-                        // DocumentSnapshot data = snapshot.data!; //.get('img');
-
-                        // imgSlider.add(data['img'].toString());
-                        // print(imgSlider);
-
-                        // for (var item in data['img']) {
-                        //   // print('IMGGG$item');
-                        //   imgProductSlider.add(data['img'].toString());
-                        // }
-
-                        // imgProductSlider.add((data['img'].toString()));
                         print('IMGGG${imgProductSlider}');
 
-                        return Container(
-                          // width: 343,
-                          //  height: 375,
-
-                          // decoration: BoxDecoration(
-                          //   // borderRadius: const BorderRadius.all(Radius.circular(8)),
-
-                          //   image: DecorationImage(
-                          //     fit: BoxFit.fill,
-                          //     image: NetworkImage(imgProductSlider[index]),
-                          //   ),
-                          // ),
-                          child: Image(
-                            image: NetworkImage(
-                              imgProductSlider[index].toString(),
-                            ),
-                            fit: BoxFit.fill,
+                        return Image(
+                          image: NetworkImage(
+                            imgProductSlider[index].toString(),
                           ),
+                          fit: BoxFit.fill,
                         );
                       },
                     ),

@@ -1,5 +1,4 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class FireBaseStorageService extends ChangeNotifier {
@@ -22,9 +21,9 @@ class FireBaseStorageService extends ChangeNotifier {
 
     final listResult = await storageRef.listAll();
 
-    var imgList = <String>[];
+    final imgList = <String>[];
 
-    for (var item in listResult.items) {
+    for (final item in listResult.items) {
       imgList.add(item.fullPath);
       print(imgList);
     }

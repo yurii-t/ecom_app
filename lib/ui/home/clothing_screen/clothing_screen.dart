@@ -34,9 +34,6 @@ class _ClothingScreenState extends State<ClothingScreen> {
   dynamic endPrice = null;
   int _selectedTab = 0;
   late String _currentItemSelected;
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
 
   @override
   void initState() {
@@ -64,12 +61,10 @@ class _ClothingScreenState extends State<ClothingScreen> {
           .where('name', isLessThanOrEqualTo: '$query\uf7ff')
           .snapshots();
     } else if (startPrice != null && endPrice != null) {
-      bool qq = false;
       collectionRef = FirebaseFirestore.instance
           .collection('products')
           .where('price', isGreaterThanOrEqualTo: startPrice)
           .where('price', isLessThanOrEqualTo: endPrice)
-          // .orderBy('date', descending: qq)
           .snapshots();
     } else {
       collectionRef = FirebaseFirestore.instance

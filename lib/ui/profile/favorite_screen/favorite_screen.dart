@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_page_screen.dart';
+
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,9 +29,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       .where('isFavorite', isEqualTo: true)
       .snapshots();
   late String _currentItemSelected;
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
+
   @override
   void initState() {
     super.initState();

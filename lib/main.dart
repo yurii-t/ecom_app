@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:ecom_app/ui/login/get_started_screen/get_started_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 
 Future<void> main() async {

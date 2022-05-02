@@ -284,7 +284,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: TextButton(
-                onPressed: () {},
+                onPressed: null,
                 child: Text(
                   LocaleKeys.verif_resend_button_text.tr(),
                   // 'Resend code',

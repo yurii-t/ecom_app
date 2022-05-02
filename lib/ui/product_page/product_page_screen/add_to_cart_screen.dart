@@ -24,7 +24,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   List colors = <String>[];
   String colorsJoined = '';
   String sizesJoined = '';
-  int _itemCounter = 0;
+  // int _itemCounter = 0;
   var _icon = SvgPicture.asset(
     'assets/icons/heart11.svg',
   );
@@ -48,7 +48,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                 .doc(widget.productId)
                 .get(),
             builder: (context, snapshot) {
-              DocumentSnapshot? data = snapshot.data;
+              final DocumentSnapshot? data = snapshot.data;
               if (data != null) {
                 dataName = data['name'].toString();
                 dataPrice = data['price'] as num;
@@ -225,7 +225,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   minimumSize: const Size(215, 48),
                 ),
                 onPressed: () {
-                  CollectionReference collectionRef =
+                  final CollectionReference collectionRef =
                       FirebaseFirestore.instance.collection('cart');
                   collectionRef.doc(widget.productId).set({
                     'name': dataName,

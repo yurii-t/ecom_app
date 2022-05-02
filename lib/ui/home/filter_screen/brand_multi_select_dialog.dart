@@ -31,7 +31,8 @@ class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
                     value: _selectedItems.contains(item),
                     title: Text(item),
                     controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (isChecked) => _itemChange(item, isChecked!),
+                    onChanged: (isChecked) =>
+                        _itemChange(item, isChecked ?? false),
                   ))
               .toList(),
         ),

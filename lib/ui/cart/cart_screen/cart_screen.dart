@@ -74,11 +74,11 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             TextButton(
                               onPressed: () {
-                                var col = FirebaseFirestore.instance
-                                    .collection('cart')
-                                    .snapshots();
+                                // final col = FirebaseFirestore.instance
+                                //     .collection('cart')
+                                //     .snapshots();
 
-                                var snap = snapshot.data?.docs;
+                                final snap = snapshot.data?.docs;
                                 if (snap != null) {
                                   for (final el in snap) {
                                     el.reference.delete();
@@ -118,9 +118,9 @@ class _CartScreenState extends State<CartScreen> {
                           final DocumentSnapshot? data =
                               snapshot.data?.docs[index];
 
-                          String productId = data?.id ?? '';
+                          final String productId = data?.id ?? '';
 
-                          int lenght = snapshot.data?.size ?? 0;
+                          // final int lenght = snapshot.data?.size ?? 0;
                           _itemCounter = data?['quantity'] as int;
                           itemPrice = data?['price'] as num;
 

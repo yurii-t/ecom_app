@@ -34,10 +34,6 @@ class _ItemGridViewState extends State<ItemGridView> {
   CollectionReference products =
       FirebaseFirestore.instance.collection('products');
 
-  var _icon = SvgPicture.asset('assets/icons/heart11.svg');
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
   // Future<void> updateProductFavorite() {
   //   return products.doc(widget.productId).update({'isFavorite': favorite}).then(
   //       (value) => print('User Updated'));
@@ -68,8 +64,8 @@ class _ItemGridViewState extends State<ItemGridView> {
                   childAspectRatio: 2 / 2,
                 ),
                 itemBuilder: (context, index) {
-                  DocumentSnapshot? data = snapshot.data?.docs[index];
-                  String productId = data?.id ?? '';
+                  final DocumentSnapshot? data = snapshot.data?.docs[index];
+                  final String productId = data?.id ?? '';
 
                   return GestureDetector(
                     onTap: () {

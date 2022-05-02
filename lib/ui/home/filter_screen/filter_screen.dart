@@ -24,6 +24,7 @@ class _FilterScreenState extends State<FilterScreen> {
   final TextEditingController endController = TextEditingController();
   double _startValue = 0;
   double _endValue = 5000;
+  String pickedSize = '';
 
   // String _selectedCategoryItem = LocaleKeys.dresses.tr(); //'Dresses';
   // String _selectedSortItem = LocaleKeys.featured.tr(); //'Featured';
@@ -98,7 +99,8 @@ class _FilterScreenState extends State<FilterScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(
-                                builder: (context) => const FilterScreen()),
+                              builder: (context) => const FilterScreen(),
+                            ),
                           );
                         },
                         child: Text(
@@ -295,7 +297,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       height: 24,
                     ),
                     SizePicker(
-                      onSizePicked: (val) {},
+                      onSizePicked: (val) {
+                        pickedSize = val;
+                      },
                       // availableSizes: ['xss', 'xs', 's', 'm', 'l', 'xl'],
                     ),
                     const SizedBox(

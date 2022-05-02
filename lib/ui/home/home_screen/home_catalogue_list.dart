@@ -18,7 +18,7 @@ class HomeCatalogueList extends StatelessWidget {
                   // itemExtent: 88,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot? data = snapshot.data?.docs[index];
+                    final DocumentSnapshot? data = snapshot.data?.docs[index];
 
                     return Padding(
                       padding: const EdgeInsets.all(8),

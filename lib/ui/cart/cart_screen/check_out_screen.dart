@@ -297,7 +297,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: null,
                       child: SvgPicture.asset('assets/icons/arrow_right.svg'),
                     ),
                   ],
@@ -409,7 +409,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 minimumSize: const Size(373, 48),
               ),
               onPressed: () {
-                CollectionReference collectionRef =
+                final CollectionReference collectionRef =
                     FirebaseFirestore.instance.collection('checkout');
                 collectionRef.doc().set({
                   'CustomerName': customerName,

@@ -1,13 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/add_to_cart_screen.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_details.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/product_details_container.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_carousel.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_reviews.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/product_reviews_container.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/products_related_list.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/widgets/product_color_picker.dart';
 import 'package:ecom_app/ui/widgets/size_picker.dart';
@@ -16,8 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductPageScreen extends StatefulWidget {
-  String productId;
-  ProductPageScreen({required this.productId, Key? key}) : super(key: key);
+  final String productId;
+  const ProductPageScreen({required this.productId, Key? key})
+      : super(key: key);
 
   @override
   State<ProductPageScreen> createState() => _ProductPageScreenState();
@@ -30,6 +30,8 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
     'assets/images/product_img12.jpg',
     'assets/images/content_img1.png',
   ];
+  String pickedProductColor = '';
+  String pickedProductSizes = '';
   late String dataName;
   late num dataPrice;
   late String dataimgUrl;
@@ -100,7 +102,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                             .doc(widget.productId)
                             .get(),
                         builder: (context, snapshot) {
-                          DocumentSnapshot? data = snapshot.data;
+                          final DocumentSnapshot? data = snapshot.data;
                           if (data != null) {
                             dataName = data['name'].toString();
                             dataPrice = data['price'] as num;
@@ -189,7 +191,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                         height: 8,
                                       ),
                                       ProductColorPicker(
-                                        onProductPicked: (val) {},
+                                        onProductPicked: (val) {
+                                          pickedProductColor = val;
+                                        },
                                         // availableProductColor: [
                                         //   'assets/images/content_img1.png',
                                         //   'assets/images/imgcolor2.png',
@@ -215,7 +219,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                         height: 8,
                                       ),
                                       SizePicker(
-                                        onSizePicked: (val) {},
+                                        onSizePicked: (val) {
+                                          pickedProductSizes = val;
+                                        },
                                         // availableSizes: [
                                         //   'xss',
                                         //   'xs',
@@ -233,10 +239,10 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                     ],
                   ),
                 ),
-                ProductDetails(
+                ProductDetailsContainer(
                   productId: widget.productId,
                 ),
-                ProductReviews(
+                ProductReviewsContainer(
                   productId: widget.productId,
                 ),
                 const SizedBox(
@@ -254,7 +260,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                ProductsRelatedList(),
+                const ProductsRelatedList(),
                 const SizedBox(
                   height: 20,
                 ),

@@ -5,7 +5,7 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
-import 'package:ecom_app/ui/home/home_screen/home_content_screen.dart';
+import 'package:ecom_app/ui/home/home_screen/home_content_screen_column.dart';
 
 import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
 import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: IndexedStack(
           index: _selectedTab,
           children: const [
-            HomeContentScreen(),
+            HomeContentScreenColumn(),
             CatalogueScreen(),
             FavoriteScreen(),
             ProfileScreen(),
@@ -272,18 +272,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             .collection('cart')
                             .snapshots(),
                         builder: (context, snapshot) {
-                          num? totalSum = snapshot.data?.docs.fold<num>(
+                          final num? totalSum = snapshot.data?.docs.fold<num>(
                             0,
                             (previousValue, element) {
-                              //previousValue = (snapshot!.data['quantity']  * snapshot.data['price']) as num;
-                              // print('PPP ${element['price']}');
-
                               return previousValue +
                                   (element['price'] * element['quantity']
                                       as num);
                             },
                           );
-                          int? dataLen = snapshot.data?.docs.length;
+                          final int? dataLen = snapshot.data?.docs.length;
 
                           return !snapshot.hasData
                               ? const CircularProgressIndicator()

@@ -6,7 +6,7 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class HomeCarouselList extends StatefulWidget {
-  HomeCarouselList({Key? key}) : super(key: key);
+  const HomeCarouselList({Key? key}) : super(key: key);
 
   @override
   State<HomeCarouselList> createState() => _HomeCarouselListState();
@@ -37,7 +37,7 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
                 .doc('LMQaDghBVCoM807xIcTS')
                 .get(),
             builder: (context, snapshot) {
-              DocumentSnapshot? data = snapshot.data;
+              final DocumentSnapshot? data = snapshot.data;
 
               if (data != null) {
                 imgSlider = data['imgs'] as List;

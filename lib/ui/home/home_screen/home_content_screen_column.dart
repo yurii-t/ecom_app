@@ -1,26 +1,26 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/data/service/firebase_storage_service.dart';
+
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/home_carousel_list.dart';
 import 'package:ecom_app/ui/home/home_screen/home_catalogue_list.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_page_screen.dart';
+
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeContentScreen extends StatefulWidget {
-  const HomeContentScreen({Key? key}) : super(key: key);
+class HomeContentScreenColumn extends StatefulWidget {
+  const HomeContentScreenColumn({Key? key}) : super(key: key);
 
   @override
-  State<HomeContentScreen> createState() => _HomeContentScreenState();
+  State<HomeContentScreenColumn> createState() =>
+      _HomeContentScreenColumnState();
 }
 
-class _HomeContentScreenState extends State<HomeContentScreen> {
+class _HomeContentScreenColumnState extends State<HomeContentScreenColumn> {
   final List<String> imgSlider = [
     'assets/images/img_gal.jpg',
     'assets/images/img_content.png',
@@ -33,13 +33,9 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
 
   // List<String> imgSlider = FireBaseStorageService().getListImg();
 
-  var _icon = SvgPicture.asset('assets/icons/heart11.svg');
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
-  int _sliderCurrent = 0;
-  final CarouselController _sliderController = CarouselController();
-  @override
+  // int _sliderCurrent = 0;
+  // final CarouselController _sliderController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -119,7 +115,7 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
             const SizedBox(
               height: 34,
             ),
-            HomeCarouselList(),
+            const HomeCarouselList(),
             const SizedBox(
               height: 24,
             ),

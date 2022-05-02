@@ -3,9 +3,9 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SizePicker extends StatefulWidget {
-  Function(String) onSizePicked;
+  final Function(String) onSizePicked;
 
-  SizePicker({
+  const SizePicker({
     required this.onSizePicked,
     //required this.availableSizes,
     Key? key,

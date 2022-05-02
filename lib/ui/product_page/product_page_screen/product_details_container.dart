@@ -4,15 +4,17 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
-class ProductDetails extends StatefulWidget {
-  String productId;
-  ProductDetails({required this.productId, Key? key}) : super(key: key);
+class ProductDetailsContainer extends StatefulWidget {
+  final String productId;
+  const ProductDetailsContainer({required this.productId, Key? key})
+      : super(key: key);
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetailsContainer> createState() =>
+      _ProductDetailsContainerState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsContainerState extends State<ProductDetailsContainer> {
   // int id = int.parse(widget.productId)
   bool _isOpen = false;
   static double _minHeight = 175;
@@ -40,7 +42,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             .doc(widget.productId)
             .get(),
         builder: (context, snapshot) {
-          DocumentSnapshot? data = snapshot.data;
+          final DocumentSnapshot? data = snapshot.data;
 
           return !snapshot.hasData
               ? const CircularProgressIndicator()

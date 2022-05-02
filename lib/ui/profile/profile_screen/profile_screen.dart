@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: null,
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(20),
@@ -123,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: null,
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                       alignment: Alignment.centerLeft,
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 36),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: null,
                     child: Text(
                       LocaleKeys.privacy_policy.tr(),
                       // 'Privacy Policy',

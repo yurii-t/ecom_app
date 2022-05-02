@@ -6,21 +6,21 @@ import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductReviews extends StatefulWidget {
+class ProductReviewsContainer extends StatefulWidget {
   final String productId;
-  const ProductReviews({required this.productId, Key? key}) : super(key: key);
+  const ProductReviewsContainer({required this.productId, Key? key})
+      : super(key: key);
 
   @override
-  State<ProductReviews> createState() => _ProductReviewsState();
+  State<ProductReviewsContainer> createState() =>
+      _ProductReviewsContainerState();
 }
 
-class _ProductReviewsState extends State<ProductReviews> {
+class _ProductReviewsContainerState extends State<ProductReviewsContainer> {
   late Timestamp datafirstTime;
   late DateTime dateFirst;
   String datafirstTimeFormatDate = '';
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -31,7 +31,7 @@ class _ProductReviewsState extends State<ProductReviews> {
           .snapshots(),
       // .doc().get(),
       builder: (context, snapshot) {
-        DocumentSnapshot? dataFirst = snapshot.data?.docs.first;
+        final DocumentSnapshot? dataFirst = snapshot.data?.docs.first;
         //DateTime firstDate = dataFirst.
         if (dataFirst != null) {
           datafirstTime = dataFirst['date'] as Timestamp;
@@ -92,9 +92,10 @@ class _ProductReviewsState extends State<ProductReviews> {
                                 final DocumentSnapshot? data =
                                     snapshot.data?.docs[index];
 
-                                Timestamp time = data?['date'] as Timestamp;
-                                DateTime date = time.toDate();
-                                String formatDate =
+                                final Timestamp time =
+                                    data?['date'] as Timestamp;
+                                final DateTime date = time.toDate();
+                                final String formatDate =
                                     DateFormat.yMMMd().add_jm().format(date);
 
                                 return Container(
@@ -132,9 +133,9 @@ class _ProductReviewsState extends State<ProductReviews> {
                                           color: AppColors.darkText,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
+                                      // const SizedBox(
+                                      //   height: 10,
+                                      // ),
                                       Row(
                                         children: [
                                           Expanded(
@@ -197,7 +198,7 @@ class _ProductReviewsState extends State<ProductReviews> {
                                         children: [
                                           Expanded(
                                             child: GestureDetector(
-                                              onTap: () {},
+                                              onTap: null,
                                               child: Text(
                                                 LocaleKeys.comment.tr(),
                                                 // 'Comment',
@@ -326,7 +327,7 @@ class _ProductReviewsState extends State<ProductReviews> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: null,
                       child: Text(
                         LocaleKeys.comment.tr(),
                         // 'Comment',

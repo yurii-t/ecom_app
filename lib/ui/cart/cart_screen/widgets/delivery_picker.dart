@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class DeliveryPicker extends StatefulWidget {
   final Function(int) onDeliveryPickedPrice;
 
-  DeliveryPicker({
+  const DeliveryPicker({
     required this.onDeliveryPickedPrice,
     // required this.availableDelivery,
     Key? key,
@@ -20,7 +20,7 @@ class DeliveryPicker extends StatefulWidget {
 
 class _DeliveryPickerState extends State<DeliveryPicker> {
   final List<int> delPrice = [15, 18, 20];
-  Widget? _pickedDelivery;
+
   final List<Widget> availableDelivery = [
     Center(
       child: Column(
@@ -147,6 +147,7 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
       ),
     ),
   ];
+  Widget? _pickedDelivery;
   // Map<String, num> deliv = {
   //   'Dhl': 15,
   //   'Fedex': 18,
