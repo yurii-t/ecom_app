@@ -4,7 +4,7 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
-import 'package:ecom_app/ui/home/home_screen/catalogue_screen.dart';
+import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/home_content_screen.dart';
 
 import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
@@ -260,14 +260,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottomLeft: Radius.circular(80),
                   ),
                   gradient: AppGradient.purpleGradient,
-                  // LinearGradient(
-                  //   colors: [
-                  //     Color.fromRGBO(52, 40, 60, 1),
-                  //     Color.fromRGBO(132, 95, 161, 1),
-                  //   ],
-                  //   begin: Alignment.centerLeft,
-                  //   end: Alignment.centerRight,
-                  // ),
                 ),
                 child: Center(
                   child: Row(
@@ -275,10 +267,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/icons/shopping_cart_1.svg'),
-                      // const Icon(
-                      //   Icons.shopping_cart_outlined,
-                      //   color: Colors.white,
-                      // ),
                       StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
                             .collection('cart')

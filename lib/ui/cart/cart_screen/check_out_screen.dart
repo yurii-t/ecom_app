@@ -4,7 +4,7 @@ import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/cart/cart_screen/popup_screen.dart';
+import 'package:ecom_app/ui/cart/cart_screen/check%20_out_popup_dialog.dart';
 import 'package:ecom_app/ui/cart/cart_screen/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -139,7 +139,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: null,
                           child: SvgPicture.asset(
                             'assets/icons/arrow_right.svg',
                           ),
@@ -201,134 +201,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   delivery = val;
                 });
               },
-              //  availableDelivery: [
-              // Center(
-              //   child: Column(
-              //     children: [
-              //       FutureBuilder<dynamic>(
-              //         future: FireBaseStorageService().getImg('del1.png'),
-              //         builder: (context, snapshot) {
-              //           if (snapshot.connectionState ==
-              //               ConnectionState.done) {
-              //             return Image.network(
-              //               snapshot.data.toString(),
-              //               width: 71,
-              //               height: 16,
-              //             );
-              //           }
-
-              //           return const CircularProgressIndicator();
-              //         },
-              //       ),
-              //       // Image.asset(
-              //       //   'assets/images/del1.png',
-              //       //   width: 71,
-              //       //   height: 16,
-              //       // ),
-              //       const SizedBox(
-              //         height: 22,
-              //       ),
-              //       const Text(
-              //         r'$15',
-              //         style: TextStyle(
-              //           fontSize: 14,
-              //           fontWeight: FontWeight.w600,
-              //           color: AppColors.darkText,
-              //         ),
-              //       ),
-              //       Text(
-              //         '1-2 ${LocaleKeys.days.tr()}',
-              //         style: const TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w400,
-              //           color: AppColors.greyText,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Center(
-              //   child: Column(
-              //     children: [
-              //       FutureBuilder<dynamic>(
-              //         future: FireBaseStorageService().getImg('del2.png'),
-              //         builder: (context, snapshot) {
-              //           if (snapshot.connectionState ==
-              //               ConnectionState.done) {
-              //             return Image.network(
-              //               snapshot.data.toString(),
-              //               width: 71,
-              //               height: 16,
-              //             );
-              //           }
-
-              //           return const CircularProgressIndicator();
-              //         },
-              //       ),
-              //       // Image.asset(
-              //       //   'assets/images/del2.png',
-              //       //   width: 71,
-              //       //   height: 16,
-              //       // ),
-              //       const SizedBox(
-              //         height: 22,
-              //       ),
-              //       const Text(
-              //         r'$18',
-              //         style: TextStyle(
-              //           fontSize: 14,
-              //           fontWeight: FontWeight.w600,
-              //           color: AppColors.darkText,
-              //         ),
-              //       ),
-              //       Text(
-              //         '1-2 ${LocaleKeys.days.tr()}',
-              //         style: const TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w400,
-              //           color: AppColors.greyText,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Center(
-              //   child: Column(
-              //     children: [
-              //       //  Image.network(
-              //       //   snapshot.data.toString(),
-              //       //   width: 71,
-              //       //   height: 16,
-              //       // );
-
-              //       Image.asset(
-              //         'assets/images/del3.png',
-              //         width: 71,
-              //         height: 16,
-              //       ),
-              //       const SizedBox(
-              //         height: 22,
-              //       ),
-              //       const Text(
-              //         r'$20',
-              //         style: TextStyle(
-              //           fontSize: 14,
-              //           fontWeight: FontWeight.w600,
-              //           color: AppColors.darkText,
-              //         ),
-              //       ),
-              //       Text(
-              //         '1-2 ${LocaleKeys.days.tr()}',
-              //         style: const TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w400,
-              //           color: AppColors.greyText,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // ],
             ),
           ),
           const SizedBox(
@@ -550,7 +422,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 showDialog<Dialog>(
                   context: context,
                   builder: (context) {
-                    return const PopupScreen();
+                    return const CheckOutPopupDialog();
                   },
                 );
               },

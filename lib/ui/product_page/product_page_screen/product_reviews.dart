@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -88,7 +89,7 @@ class _ProductReviewsState extends State<ProductReviews> {
                             child: ListView.builder(
                               itemCount: snapshot.data?.docs.length,
                               itemBuilder: (context, index) {
-                                DocumentSnapshot? data =
+                                final DocumentSnapshot? data =
                                     snapshot.data?.docs[index];
 
                                 Timestamp time = data?['date'] as Timestamp;
@@ -139,23 +140,7 @@ class _ProductReviewsState extends State<ProductReviews> {
                                           Expanded(
                                             child: Row(
                                               children: [
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
+                                                const StarIconList(),
                                                 Text(
                                                   '${data?['rating'].toString()} ${LocaleKeys.reviews.tr()}',
                                                   style: const TextStyle(
@@ -294,23 +279,7 @@ class _ProductReviewsState extends State<ProductReviews> {
                   Expanded(
                     child: Row(
                       children: [
-                        _iconStar,
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        _iconStar,
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        _iconStar,
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        _iconStar,
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        _iconStar,
+                        const StarIconList(),
                         Text(
                           '${dataFirst?['rating'].toString()}  ${LocaleKeys.reviews.tr()}',
                           style: const TextStyle(

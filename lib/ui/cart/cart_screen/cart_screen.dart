@@ -63,11 +63,6 @@ class _CartScreenState extends State<CartScreen> {
                                 'assets/icons/arrow_left.svg',
                               ),
                             ),
-                            // const Icon(
-                            //   Icons.menu,
-                            //   color: Colors.white,
-                            // ),
-                            //
                             Text(
                               LocaleKeys.cart.tr(),
                               // 'Cart',
@@ -77,7 +72,6 @@ class _CartScreenState extends State<CartScreen> {
                                 color: Colors.white,
                               ),
                             ),
-
                             TextButton(
                               onPressed: () {
                                 var col = FirebaseFirestore.instance
@@ -86,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
 
                                 var snap = snapshot.data?.docs;
                                 if (snap != null) {
-                                  for (var el in snap) {
+                                  for (final el in snap) {
                                     el.reference.delete();
                                   }
                                 }
@@ -107,24 +101,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                     ),
-                    // StreamBuilder<QuerySnapshot>(
-                    //   stream: FirebaseFirestore.instance.collection('cart').snapshots(),
-                    //   builder: (context, snapshot) {
-                    //     totalSum = snapshot.data!.docs.fold<num>(
-                    //       0,
-                    //       (previousValue, element) {
-                    //         //previousValue = (snapshot!.data['quantity']  * snapshot.data['price']) as num;
-                    //         // print('PPP ${element['price']}');
 
-                    //         return previousValue +
-                    //             (element['price'] * element['quantity'] as num);
-                    //       },
-                    //     );
-
-                    //     return !snapshot.hasData
-                    //         ? const CircularProgressIndicator()
-                    //         :
-                    //
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
@@ -138,7 +115,8 @@ class _CartScreenState extends State<CartScreen> {
                         itemCount: snapshot.data?.docs.length ??
                             0, //listSize.length, //3,
                         itemBuilder: (context, index) {
-                          DocumentSnapshot? data = snapshot.data?.docs[index];
+                          final DocumentSnapshot? data =
+                              snapshot.data?.docs[index];
 
                           String productId = data?.id ?? '';
 
@@ -148,14 +126,6 @@ class _CartScreenState extends State<CartScreen> {
 
                           itemTotal = itemPrice * (_itemCounter as int);
                           print(itemTotal);
-                          // var sum = snapshot.data!.docs.fold<num>(
-                          //   0,
-                          //   (previousValue, element) {
-                          //     previousValue = data['quantity'] * data['price']as num;
-                          //     print('PPP ${element['price']}');
-                          //     return previousValue + (element['price'] * element['quantity'] as num);
-                          //   },
-                          // );
 
                           totalList.add(itemTotal);
 
@@ -280,10 +250,6 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        // print('minus');
-                                        // setState(() {
-                                        //   _itemCounter - 1;
-                                        // });
                                         FirebaseFirestore.instance
                                             .collection('cart')
                                             .doc(productId)
@@ -360,16 +326,6 @@ class _CartScreenState extends State<CartScreen> {
                           minimumSize: const Size(373, 48),
                         ),
                         onPressed: () {
-                          // print('LIST $itemTotal');
-                          // CollectionReference collectionRef =
-                          //       FirebaseFirestore.instance.collection('checkout');
-                          //   collectionRef.doc().set({
-                          //     'name': dataName,
-                          //     'price': dataPrice,
-                          //     'imageUrl': dataimgUrl,
-                          //     'quantity': widget.item,
-                          //   });
-
                           Navigator.push<void>(
                             context,
                             MaterialPageRoute(

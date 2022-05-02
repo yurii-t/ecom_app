@@ -94,7 +94,13 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                                builder: (context) => const FilterScreen()),
+                          );
+                        },
                         child: Text(
                           LocaleKeys.clear.tr(),
                           // 'Clear',
@@ -272,7 +278,6 @@ class _FilterScreenState extends State<FilterScreen> {
                         Colors.orange,
                         Colors.red,
                       ],
-                      initialColor: Colors.blue,
                     ),
                     const SizedBox(
                       height: 24,

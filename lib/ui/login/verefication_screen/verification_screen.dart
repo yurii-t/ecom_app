@@ -93,7 +93,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   void dispose() {
-    errorController!.close();
+    errorController?.close();
 
     super.dispose();
   }
@@ -104,7 +104,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   ) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message!),
+        content: Text(message ?? ''),
         duration: const Duration(seconds: 2),
       ),
     );

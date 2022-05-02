@@ -12,6 +12,17 @@ class CategoriesBottomSheet extends StatefulWidget {
 }
 
 class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
+  final List<String> categories = [
+    LocaleKeys.clothing.tr(),
+    LocaleKeys.shoes.tr(),
+    LocaleKeys.jewelry.tr(),
+    LocaleKeys.watches.tr(),
+    LocaleKeys.handbags.tr(),
+    LocaleKeys.accessories.tr(),
+    LocaleKeys.mens_fashion.tr(),
+    LocaleKeys.girls_fashion.tr(),
+    LocaleKeys.boys_fashion.tr(),
+  ];
   String _selectedCategoryItem = LocaleKeys.dresses.tr(); //'Dresses';
 
   @override
@@ -52,7 +63,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Center(
                         child: Padding(
@@ -68,131 +79,30 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                           ),
                         ),
                       ),
-
                       const SizedBox(
                         height: 12,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedCategoryItem = LocaleKeys.clothing.tr();
-                            // 'Clothing';
-                          });
-                        },
-                        child: Text(
-                          LocaleKeys.clothing.tr(),
-                          // 'Clothing',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
+                      for (final category in categories)
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedCategoryItem =
+                                  category; //LocaleKeys.clothing.tr();
+                              // 'Clothing';
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            category,
+                            // LocaleKeys.clothing.tr(),
+                            // 'Clothing',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGreyText,
+                            ),
                           ),
                         ),
-                      ),
-                      //    SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.shoes.tr(),
-                          // 'Shoes',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.jewelry.tr(),
-                          // 'Jewelry',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.watches.tr(),
-                          // 'Watches',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.handbags.tr(),
-                          // 'Handbags',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.accessories.tr(),
-                          // 'Accessories',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.mens_fashion.tr(),
-                          // 'Man`s Fashion',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.girls_fashion.tr(),
-                          // 'Girl`s Fashion',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.boys_fashion.tr(),
-                          // 'Boy`s Fashion',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
                       const SizedBox(
                         height: 12,
                       ),

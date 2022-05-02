@@ -14,11 +14,11 @@ class HomeCatalogueList extends StatelessWidget {
           return !snapshot.hasData
               ? const CircularProgressIndicator()
               : ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
+                  itemCount: snapshot.data?.docs.length,
                   // itemExtent: 88,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot data = snapshot.data!.docs[index];
+                    DocumentSnapshot? data = snapshot.data?.docs[index];
 
                     return Padding(
                       padding: const EdgeInsets.all(8),
@@ -35,7 +35,7 @@ class HomeCatalogueList extends StatelessWidget {
                           image: DecorationImage(
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                              data['imageUrl'].toString(),
+                              data?['imageUrl'].toString() ?? 'Loading...',
                             ),
                             colorFilter: ColorFilter.mode(
                               Colors.grey.withOpacity(0.5),
@@ -46,7 +46,7 @@ class HomeCatalogueList extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            data['title'].toString(),
+                            data?['title'].toString() ?? 'Loading...',
                             textAlign: TextAlign.center,
                             // LocaleKeys.phones.tr(), //'Phones',
                             style: const TextStyle(

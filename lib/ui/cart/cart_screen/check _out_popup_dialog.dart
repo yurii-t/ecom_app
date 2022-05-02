@@ -6,8 +6,8 @@ import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class PopupScreen extends StatelessWidget {
-  const PopupScreen({Key? key}) : super(key: key);
+class CheckOutPopupDialog extends StatelessWidget {
+  const CheckOutPopupDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

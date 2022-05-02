@@ -11,6 +11,7 @@ import 'package:ecom_app/ui/product_page/product_page_screen/product_reviews.dar
 import 'package:ecom_app/ui/product_page/product_page_screen/products_related_list.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/widgets/product_color_picker.dart';
 import 'package:ecom_app/ui/widgets/size_picker.dart';
+import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -36,9 +37,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
   var _icon = SvgPicture.asset(
     'assets/icons/heart11.svg',
   );
-  var _iconStar = SvgPicture.asset(
-    'assets/icons/star.svg',
-  );
+  // var _iconStar = SvgPicture.asset(
+  //   'assets/icons/star.svg',
+  // );
   // int _sliderProductCurrent = 0;
   // final CarouselController _sliderProductController = CarouselController();
   bool _isOpen = false;
@@ -122,25 +123,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                           Expanded(
                                             child: Row(
                                               children: [
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
-                                                const SizedBox(
-                                                  width: 3,
-                                                ),
-                                                _iconStar,
+                                                const StarIconList(),
                                                 Text(
-                                                  '8 ${LocaleKeys.reviews.tr()}',
+                                                  '80 ${LocaleKeys.reviews.tr()}',
                                                   style: const TextStyle(
                                                     color:
                                                         AppColors.darkGreyText,

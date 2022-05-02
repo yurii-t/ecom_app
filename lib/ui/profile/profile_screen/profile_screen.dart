@@ -13,6 +13,32 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final List<ProfileSetting> settings = [
+    ProfileSetting(
+      image: 'assets/icons/location.svg',
+      name: LocaleKeys.shipping_addresses.tr(),
+    ),
+    ProfileSetting(
+      image: 'assets/icons/creditcard.svg',
+      name: LocaleKeys.payment_methods.tr(),
+    ),
+    ProfileSetting(
+      image: 'assets/icons/clipboard.svg',
+      name: LocaleKeys.orders.tr(),
+    ),
+    ProfileSetting(
+      image: 'assets/icons/profile_heart.svg',
+      name: LocaleKeys.favorite.tr(),
+    ),
+    ProfileSetting(
+      image: 'assets/icons/cog.svg',
+      name: LocaleKeys.settings.tr(),
+    ),
+    ProfileSetting(
+      image: 'assets/icons/logout.svg',
+      name: LocaleKeys.log_out.tr(),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,146 +119,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(
                 height: 24,
               ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+              for (final setting in settings)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      alignment: Alignment.centerLeft,
+                      minimumSize: const Size(343, 60),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    // icon: SvgPicture.asset('assets/icons/location.svg'),
+                    icon: SvgPicture.asset(setting.image),
+                    label: Text(
+                      setting.name,
+                      // LocaleKeys.shipping_addresses.tr(),
+                      // 'Shipping Addresses',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkText,
+                      ),
+                    ),
                   ),
                 ),
-                icon: SvgPicture.asset('assets/icons/location.svg'),
-                label: Text(
-                  LocaleKeys.shipping_addresses.tr(),
-                  // 'Shipping Addresses',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ),
               const SizedBox(
                 height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: SvgPicture.asset('assets/icons/creditcard.svg'),
-                label: Text(
-                  LocaleKeys.payment_methods.tr(),
-                  // 'Payment Methods',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: SvgPicture.asset('assets/icons/clipboard.svg'),
-                label: Text(
-                  LocaleKeys.orders.tr(),
-                  // 'Orders ',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: SvgPicture.asset('assets/icons/profile_heart.svg'),
-                label: Text(
-                  LocaleKeys.favorite.tr(),
-                  // 'Favorite',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: SvgPicture.asset('assets/icons/cog.svg'),
-                label: Text(
-                  LocaleKeys.settings.tr(),
-                  // 'Settings',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  minimumSize: const Size(343, 60),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: SvgPicture.asset('assets/icons/logout.svg'),
-                label: Text(
-                  LocaleKeys.log_out.tr(),
-                  // 'Log Out',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                ),
               ),
               const SizedBox(
                 height: 104,
@@ -262,4 +177,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+}
+
+class ProfileSetting {
+  final String image;
+  final String name;
+
+  ProfileSetting({required this.image, required this.name});
 }

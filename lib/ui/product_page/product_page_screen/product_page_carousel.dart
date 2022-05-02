@@ -88,7 +88,8 @@ class _ProductPageCoruselState extends State<ProductPageCarousel> {
                           // ),
                           child: Image(
                             image: NetworkImage(
-                                imgProductSlider[index].toString()),
+                              imgProductSlider[index].toString(),
+                            ),
                             fit: BoxFit.fill,
                           ),
                         );

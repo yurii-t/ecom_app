@@ -17,6 +17,14 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
+  List<String> sortItems = [
+    LocaleKeys.sales.tr(),
+    LocaleKeys.featured.tr(),
+    LocaleKeys.popular.tr(),
+    LocaleKeys.new_text.tr(),
+    LocaleKeys.price_high_to_low.tr(),
+    LocaleKeys.price_low_to_high.tr(),
+  ];
   String _selectedSortItem = LocaleKeys.featured.tr(); //'Featured';
 
   @override
@@ -57,7 +65,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Center(
                         child: Padding(
@@ -73,94 +81,31 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                           ),
                         ),
                       ),
-
                       const SizedBox(
                         height: 12,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedSortItem = LocaleKeys.new_text.tr();
-                            //  'New';
-                          });
-                        },
-                        child: Text(
-                          LocaleKeys.new_text.tr(),
-                          // 'New',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
+                      for (final sortItem in sortItems)
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedSortItem =
+                                  sortItem; //LocaleKeys.new_text.tr();
+                              //  'New';
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            sortItem,
+                            // LocaleKeys.new_text.tr(),
+                            textAlign: TextAlign.start,
+                            // 'New',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGreyText,
+                            ),
                           ),
                         ),
-                      ),
-                      //    SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.popular.tr(),
-                          // 'Popular',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.price_high_to_low.tr(),
-                          // 'Price high to low',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.price_low_to_high.tr(),
-                          // 'Price low to high',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //     SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.featured.tr(),
-                          // 'Featured',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          LocaleKeys.sales.tr(),
-                          // 'Sale',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGreyText,
-                          ),
-                        ),
-                      ),
-                      //      SizedBox(height: 8,),
-
                       const SizedBox(
                         height: 12,
                       ),
@@ -173,121 +118,5 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
         );
       }),
     );
-    // return Padding(
-    //   padding: const EdgeInsets.only(left: 24),
-    //   child: Column(
-    //     mainAxisSize: MainAxisSize.min,
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //     children: [
-    //       Center(
-    //         child: Padding(
-    //           padding: const EdgeInsets.only(top: 33),
-    //           child: Text(
-    //             LocaleKeys.sort_by.tr(),
-    //             // 'Sort by',
-    //             style: const TextStyle(
-    //               fontSize: 19,
-    //               fontWeight: FontWeight.w700,
-    //               color: AppColors.darkText,
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-
-    //       const SizedBox(
-    //         height: 12,
-    //       ),
-    //       TextButton(
-    //         onPressed: () {
-    //           setState(() {
-    //             widget.selectedSortItem = LocaleKeys.new_text.tr();
-    //             //_selectedSortItem = LocaleKeys.new_text.tr();
-    //             //  'New';
-    //           });
-    //         },
-    //         child: Text(
-    //           LocaleKeys.new_text.tr(),
-    //           // 'New',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //    SizedBox(height: 8,),
-    //       TextButton(
-    //         onPressed: () {},
-    //         child: Text(
-    //           LocaleKeys.popular.tr(),
-    //           // 'Popular',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //     SizedBox(height: 8,),
-    //       TextButton(
-    //         onPressed: () {},
-    //         child: Text(
-    //           LocaleKeys.price_high_to_low.tr(),
-    //           // 'Price high to low',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //     SizedBox(height: 8,),
-    //       TextButton(
-    //         onPressed: () {},
-    //         child: Text(
-    //           LocaleKeys.price_low_to_high.tr(),
-    //           // 'Price low to high',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //     SizedBox(height: 8,),
-    //       TextButton(
-    //         onPressed: () {},
-    //         child: Text(
-    //           LocaleKeys.featured.tr(),
-    //           // 'Featured',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //      SizedBox(height: 8,),
-    //       TextButton(
-    //         onPressed: () {},
-    //         child: Text(
-    //           LocaleKeys.sales.tr(),
-    //           // 'Sale',
-    //           style: const TextStyle(
-    //             fontSize: 14,
-    //             fontWeight: FontWeight.w400,
-    //             color: AppColors.darkGreyText,
-    //           ),
-    //         ),
-    //       ),
-    //       //      SizedBox(height: 8,),
-
-    //       const SizedBox(
-    //         height: 12,
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }
