@@ -5,13 +5,14 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_screen.dart';
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ClothingScreen extends StatefulWidget {
-  final Function() onBackButtonPressed;
+  //final VoidCallback onBackButtonPressed;
   const ClothingScreen({
-    required this.onBackButtonPressed,
+    //required this.onBackButtonPressed,
     Key? key,
   }) : super(key: key);
 
@@ -42,10 +43,10 @@ class _ClothingScreenState extends State<ClothingScreen> {
   }
 
   void navigateAndDisplaySelection(BuildContext context) async {
-    final List<double>? result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const FilterScreen()),
-    );
+    final List<double>? result = await Navigation.mainAppNav.currentState
+            ?.pushNamed(
+                '/home_screen/catalogue_screen/clothing_screen/filter_screen')
+        as List<double>?;
     setState(() {
       startPrice = result?[0] ?? null;
       endPrice = result?[1] ?? null;
@@ -87,67 +88,66 @@ class _ClothingScreenState extends State<ClothingScreen> {
                 decoration: const BoxDecoration(
                   gradient: AppGradient.purpleGradient,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: widget.onBackButtonPressed,
-                        child: SvgPicture.asset(
-                          'assets/icons/arrow_left.svg',
-                        ),
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigation.mainListNav.currentState
+                          ?.pop(), // widget.onBackButtonPressed,
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow_left.svg',
                       ),
-                      Text(
-                        LocaleKeys.clothing.tr(),
+                    ),
+                    Text(
+                      LocaleKeys.clothing.tr(),
 
-                        // 'Clothing',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 19,
-                          color: Colors.white,
-                        ),
+                      // 'Clothing',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 19,
+                        color: Colors.white,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          navigateAndDisplaySelection(context);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/filter_icon.svg',
-                        ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        navigateAndDisplaySelection(context);
+                      },
+                      child: SvgPicture.asset(
+                        'assets/icons/filter_icon.svg',
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(
                 top: 108,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: SizedBox(
-                    width: 375,
-                    height: 44,
-                    child: TextField(
-                      onChanged: (val) {
-                        setState(() {
-                          query = val;
-                          print(query);
-                        });
-                      },
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: LocaleKeys.home_searchbar
-                            .tr(), //'What are you looking for',
+
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  width: 375,
+                  height: 44,
+                  child: TextField(
+                    onChanged: (val) {
+                      setState(() {
+                        query = val;
+                        print(query);
+                      });
+                    },
+                    textAlignVertical: TextAlignVertical.bottom,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(40),
                       ),
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: LocaleKeys.home_searchbar
+                          .tr(), //'What are you looking for',
                     ),
                   ),
                 ),
+                //  ),
               ),
             ],
           ),
@@ -164,42 +164,40 @@ class _ClothingScreenState extends State<ClothingScreen> {
                 context,
                 index,
               ) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedTab = index;
-                      });
-                    },
-                    child: Container(
-                      height: 26,
-                      padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
-                        top: 4,
-                        bottom: 4,
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedTab = index;
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(8),
+                    height: 26,
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 12,
+                      top: 4,
+                      bottom: 4,
+                    ),
+                    // width: 88,
+                    // height: 88,
+                    decoration: BoxDecoration(
+                      color: _selectedTab == index
+                          ? AppColors.yellow
+                          : Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(40),
                       ),
-                      // width: 88,
-                      // height: 88,
-                      decoration: BoxDecoration(
-                        color: _selectedTab == index
-                            ? AppColors.yellow
-                            : Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(40),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          LocaleKeys.all.tr(), //'All',
-                          style: TextStyle(
-                            color: _selectedTab == index
-                                ? Colors.white
-                                : AppColors.darkGreyText,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        LocaleKeys.all.tr(), //'All',
+                        style: TextStyle(
+                          color: _selectedTab == index
+                              ? Colors.white
+                              : AppColors.darkGreyText,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),

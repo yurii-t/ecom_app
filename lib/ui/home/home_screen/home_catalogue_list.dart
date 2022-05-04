@@ -20,49 +20,44 @@ class HomeCatalogueList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final DocumentSnapshot? data = snapshot.data?.docs[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: //FutureBuilder<dynamic>(
-                          // future: FireBaseStorageService().getImg('img_gal.jpg'),
-                          // builder: (context, snapshot) {
-                          // if (snapshot.connectionState == ConnectionState.done) {
-                          Container(
-                        width: 88,
-                        height: 88,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8)),
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(
-                              data?['imageUrl'].toString() ?? 'Loading...',
-                            ),
-                            colorFilter: ColorFilter.mode(
-                              Colors.grey.withOpacity(0.5),
-                              BlendMode.color,
-                            ),
-                            // AssetImage('assets/images/img_gal.jpg'),
+                    return Container(
+                      margin: const EdgeInsets.all(8),
+                      width: 88,
+                      height: 88,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(
+                            data?['imageUrl'].toString() ?? 'Loading...',
                           ),
+                          colorFilter: ColorFilter.mode(
+                            Colors.grey.withOpacity(0.5),
+                            BlendMode.color,
+                          ),
+                          // AssetImage('assets/images/img_gal.jpg'),
                         ),
-                        child: Center(
-                          child: Text(
-                            data?['title'].toString() ?? 'Loading...',
-                            textAlign: TextAlign.center,
-                            // LocaleKeys.phones.tr(), //'Phones',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          data?['title'].toString() ?? 'Loading...',
+                          textAlign: TextAlign.center,
+                          // LocaleKeys.phones.tr(), //'Phones',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      // }
-
-                      // return const CircularProgressIndicator();
-
-                      // ),
                     );
+                    // }
+
+                    // return const CircularProgressIndicator();
+
+                    // ),
+                    // );
                   },
                 );
         },

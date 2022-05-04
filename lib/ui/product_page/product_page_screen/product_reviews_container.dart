@@ -6,27 +6,22 @@ import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductReviewsContainer extends StatefulWidget {
+class ProductReviewsContainer extends StatelessWidget {
   final String productId;
   const ProductReviewsContainer({required this.productId, Key? key})
       : super(key: key);
 
   @override
-  State<ProductReviewsContainer> createState() =>
-      _ProductReviewsContainerState();
-}
-
-class _ProductReviewsContainerState extends State<ProductReviewsContainer> {
-  late Timestamp datafirstTime;
-  late DateTime dateFirst;
-  String datafirstTimeFormatDate = '';
-
-  @override
   Widget build(BuildContext context) {
+    late Timestamp datafirstTime;
+    late DateTime dateFirst;
+    String datafirstTimeFormatDate = '';
+    int value = 0;
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('products')
-          .doc(widget.productId)
+          .doc(productId)
           .collection('reviews')
           .snapshots(),
       // .doc().get(),
@@ -97,6 +92,17 @@ class _ProductReviewsContainerState extends State<ProductReviewsContainer> {
                                 final DateTime date = time.toDate();
                                 final String formatDate =
                                     DateFormat.yMMMd().add_jm().format(date);
+                                value = snapshot.data?.docs.fold<num>(
+                                      0,
+                                      (previousValue, element) {
+                                        return (previousValue +
+                                            (element['rating'] as num) /
+                                                (snapshot.data?.docs.length ??
+                                                    1));
+                                      },
+                                    ).toInt() ??
+                                    0;
+                                print(value);
 
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
@@ -141,7 +147,9 @@ class _ProductReviewsContainerState extends State<ProductReviewsContainer> {
                                           Expanded(
                                             child: Row(
                                               children: [
-                                                const StarIconList(),
+                                                StarIconList(
+                                                  value: value,
+                                                ),
                                                 Text(
                                                   '${data?['rating'].toString()} ${LocaleKeys.reviews.tr()}',
                                                   style: const TextStyle(
@@ -280,7 +288,9 @@ class _ProductReviewsContainerState extends State<ProductReviewsContainer> {
                   Expanded(
                     child: Row(
                       children: [
-                        const StarIconList(),
+                        StarIconList(
+                          value: value,
+                        ),
                         Text(
                           '${dataFirst?['rating'].toString()}  ${LocaleKeys.reviews.tr()}',
                           style: const TextStyle(

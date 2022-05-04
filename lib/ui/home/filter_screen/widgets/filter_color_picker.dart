@@ -35,12 +35,14 @@ class _FilterColorPickerState extends State<FilterColorPicker> {
 
   @override
   Widget build(BuildContext context) {
+    const double _size = 50;
+
     return SizedBox(
       width: double.infinity,
       height: 52,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 50,
+          maxCrossAxisExtent: _size,
           childAspectRatio: 1 / 1,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

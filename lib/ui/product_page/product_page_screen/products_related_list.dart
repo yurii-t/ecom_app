@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_screen.dart';
+import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -41,14 +42,14 @@ class _ProductsRelatedListState extends State<ProductsRelatedList> {
 
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => ProductPageScreen(
-                              productId: productId,
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute<void>(
+                        //     builder: (context) => ProductPageScreen(
+                        //       productId: productId,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8),
@@ -141,26 +142,8 @@ class _ProductsRelatedListState extends State<ProductsRelatedList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    _iconStar,
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    _iconStar,
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    _iconStar,
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    _iconStar,
-                                    const SizedBox(
-                                      width: 3,
-                                    ),
-                                    _iconStar,
-                                  ],
+                                StarIconList(
+                                  value: 0,
                                 ),
                                 const SizedBox(
                                   height: 8,

@@ -133,6 +133,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  if (widget.item == 0) return null;
                                   // _itemCounter--;
                                   widget.item--;
                                 });

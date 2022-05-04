@@ -30,7 +30,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 //123456
   bool isLoading = false;
 
-  late String verificationId;
+  String verificationId = '';
 
   TextEditingController pinController = TextEditingController();
   // ..text = "123456";
@@ -52,6 +52,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
+
+  //   @override
+  // void dispose() {
+  //   pinController.dispose();
+  //   otpCode.dispose();
+  //   super.dispose();
+  // }
 
 /////////
   Future<void> verifyPhoneNumber() async {
@@ -94,7 +101,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void dispose() {
     errorController?.close();
-
+    pinController.dispose();
+    otpCode.dispose();
     super.dispose();
   }
 
@@ -120,19 +128,19 @@ class _VerificationScreenState extends State<VerificationScreen> {
               width: MediaQuery.of(context).size.width,
               //375,
               height: 197,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
-                child: Text(
-                  LocaleKeys.verif_title.tr(),
-                  // 'Verification Code',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+
+              padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
+              child: Text(
+                LocaleKeys.verif_title.tr(),
+                // 'Verification Code',
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
                 ),
               ),
+
               decoration: const BoxDecoration(
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(300)),
@@ -190,11 +198,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
             const SizedBox(
               height: 24,
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 24,right: 24),
-            //   child: PinVerificationBodyWidget(),
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: Center(
@@ -234,7 +237,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 ),
               ),
             ),
-
             const SizedBox(
               height: 24,
             ),

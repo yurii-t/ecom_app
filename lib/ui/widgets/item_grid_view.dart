@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_page_screen.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,9 +31,27 @@ class ItemGridView extends StatefulWidget {
 
 class _ItemGridViewState extends State<ItemGridView> {
   bool favorite = false;
-
+  int value = 0;
   CollectionReference products =
       FirebaseFirestore.instance.collection('products');
+  num val = 1;
+
+  //  Stream .collection('products')
+  //       .doc(widget.productId)
+  //       .collection('reviews')
+  //       .snapshots(),
+  //       int value=0;
+
+  //    value = snapshot.data?.docs.fold<num>(
+  //                                   0,
+  //                                   (previousValue, element) {
+  //                                     return (previousValue +
+  //                                         (element['rating'] as num) /
+  //                                             (snapshot.data?.docs.length ??
+  //                                                 1));
+  //                                   },
+  //                                 ).toInt() ??
+  //                                 0;
 
   // Future<void> updateProductFavorite() {
   //   return products.doc(widget.productId).update({'isFavorite': favorite}).then(
@@ -52,6 +71,7 @@ class _ItemGridViewState extends State<ItemGridView> {
             : GridView.builder(
                 scrollDirection: widget.scrollDirections,
                 itemCount: snapshot.data?.docs.length, //6,
+                // physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: MediaQuery.of(context).orientation ==
@@ -67,16 +87,33 @@ class _ItemGridViewState extends State<ItemGridView> {
                   final DocumentSnapshot? data = snapshot.data?.docs[index];
                   final String productId = data?.id ?? '';
 
+                  // Stream<QuerySnapshot?> iconRating =
+                  //     products.doc(productId).collection('reviews').snapshots();
+
+                  // var ratingValue = iconRating.fold<num>(
+                  //   0,
+                  //   (previousValue, element) {
+                  //     return (previousValue +
+                  //             ((element as dynamic)['rating'] as num) /
+                  //                 (snapshot.data?.docs.length ?? 1))
+                  //         .toDouble();
+                  //   },
+                  // ).then((value) => val = value);
+
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push<void>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductPageScreen(
-                            productId: productId,
-                          ),
-                        ),
+                      Navigation.mainAppNav.currentState?.pushNamed(
+                        '/home_screen/product_screen',
+                        arguments: productId,
                       );
+                      // Navigator.push<void>(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => ProductPageScreen(
+                      //       productId: productId,
+                      //     ),
+                      //   ),
+                      //);
                     },
                     child: Column(
                       children: [
@@ -133,7 +170,6 @@ class _ItemGridViewState extends State<ItemGridView> {
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.white,
                                   shape: const CircleBorder(),
-                                  // padding: EdgeInsets.all(36),
                                 ),
                                 onPressed: () async {
                                   print('tap');
@@ -167,7 +203,9 @@ class _ItemGridViewState extends State<ItemGridView> {
                             // mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const StarIconList(),
+                              StarIconList(
+                                value: val.toInt(),
+                              ),
                               const SizedBox(
                                 height: 8,
                               ),

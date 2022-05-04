@@ -4,6 +4,7 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/check_out_screen.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,55 +51,59 @@ class _CartScreenState extends State<CartScreen> {
                       decoration: const BoxDecoration(
                         gradient: AppGradient.purpleGradient,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: SvgPicture.asset(
-                                'assets/icons/arrow_left.svg',
-                              ),
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Future.delayed(Duration.zero, () {
+                              //   Navigation.mainListNav.currentState!
+                              //       .popAndPushNamed(
+                              //     'home_screen/home_content_screen',
+                              //   );
+                              //  });
+                              Navigator.of(context).pop();
+                            },
+                            child: SvgPicture.asset(
+                              'assets/icons/arrow_left.svg',
                             ),
-                            Text(
-                              LocaleKeys.cart.tr(),
-                              // 'Cart',
+                          ),
+                          Text(
+                            LocaleKeys.cart.tr(),
+                            // 'Cart',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 19,
+                              color: Colors.white,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // final col = FirebaseFirestore.instance
+                              //     .collection('cart')
+                              //     .snapshots();
+
+                              final snap = snapshot.data?.docs;
+                              if (snap != null) {
+                                for (final el in snap) {
+                                  el.reference.delete();
+                                }
+                              }
+
+                              // DocumentSnapshot snap = snapshot.data.docs;
+                            },
+                            child: Text(
+                              LocaleKeys.delete.tr(),
+                              // 'Delete',
                               style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 19,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
                                 color: Colors.white,
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                // final col = FirebaseFirestore.instance
-                                //     .collection('cart')
-                                //     .snapshots();
-
-                                final snap = snapshot.data?.docs;
-                                if (snap != null) {
-                                  for (final el in snap) {
-                                    el.reference.delete();
-                                  }
-                                }
-
-                                // DocumentSnapshot snap = snapshot.data.docs;
-                              },
-                              child: Text(
-                                LocaleKeys.delete.tr(),
-                                // 'Delete',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -150,7 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                                     )
                                   : null,
                               boxShadow: index ==
-                                      snapshot.data?.docs.last //listSize.last
+                                      snapshot.data?.docs.length //listSize.last
                                   ? [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
@@ -250,6 +255,9 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        if (data?['quantity'] == 0) {
+                                          return null;
+                                        }
                                         FirebaseFirestore.instance
                                             .collection('cart')
                                             .doc(productId)
@@ -326,13 +334,18 @@ class _CartScreenState extends State<CartScreen> {
                           minimumSize: const Size(373, 48),
                         ),
                         onPressed: () {
-                          Navigator.push<void>(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CheckOutScreen(
-                                itemsPrice: totalSum ?? 0,
-                              ),
-                            ),
+                          // Navigator.push<void>(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => CheckOutScreen(
+                          //       itemsPrice: totalSum ?? 0,
+                          //     ),
+                          //   ),
+                          // );
+
+                          Navigation.mainAppNav.currentState?.pushNamed(
+                            '/home_screen/cart_screen/check_out_screen',
+                            arguments: totalSum ?? 0,
                           );
                         },
                         child: Text(

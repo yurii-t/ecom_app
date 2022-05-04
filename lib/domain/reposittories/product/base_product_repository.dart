@@ -1,5 +1,5 @@
-// import 'package:ecom_app/data/models/product_model.dart';
+import 'package:ecom_app/data/models/product.dart';
 
-// abstract class BaseProductRepository {
-//   Stream<List<ProductModel>> getAllProducts();
-// }
+abstract class BaseProductRepository {
+  Stream<List<Product>> getAllProducts();
+}

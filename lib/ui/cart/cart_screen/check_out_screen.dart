@@ -5,7 +5,8 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/check%20_out_popup_dialog.dart';
-import 'package:ecom_app/ui/cart/cart_screen/widgets/delivery_picker.dart';
+
+import 'package:ecom_app/ui/cart/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,8 +14,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 // assets\translations\locale_keys.g.dart
 
 class CheckOutScreen extends StatefulWidget {
-  final num itemsPrice;
-  const CheckOutScreen({required this.itemsPrice, Key? key}) : super(key: key);
+  //final num itemsPrice;
+  const CheckOutScreen({
+    // required this.itemsPrice,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -26,286 +30,285 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String address = '225 Highland Ave Springfield, IL 62704, USA';
   String cardNumber = '5678 5678 5678 5678';
   int delivery = 0;
-  late num totalPrice;
+  //late num totalPrice;
   @override
   @override
   Widget build(BuildContext context) {
-    totalPrice = widget.itemsPrice + delivery;
+    final itemPrice = ModalRoute.of(context)?.settings.arguments as num;
+    final num totalPrice = itemPrice + delivery;
 
     return Scaffold(
       backgroundColor: AppColors.backGround,
       body: ListView(children: [
-        Column(children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 88,
-            decoration: const BoxDecoration(
-              gradient: AppGradient.purpleGradient,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 150),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 88,
+          decoration: const BoxDecoration(
+            gradient: AppGradient.purpleGradient,
+          ),
+          padding: const EdgeInsets.only(left: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+              ),
+              Text(
+                LocaleKeys.check_out.tr(),
+                // 'check_out'.tr(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 19,
+                  color: Colors.white,
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/icons/arrow_left.svg',
+                color: Colors.transparent,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+                  SvgPicture.asset('assets/icons/location.svg'),
+                  const SizedBox(
+                    width: 12,
                   ),
                   Text(
-                    LocaleKeys.check_out.tr(),
-                    // 'check_out'.tr(),
+                    LocaleKeys.shipping_addresses.tr(),
+                    //  'Shipping Address',
                     style: const TextStyle(
-                      fontWeight: FontWeight.w700,
                       fontSize: 19,
-                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.darkText,
                     ),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-          const SizedBox(
-            height: 25,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          width: MediaQuery.of(context).size.width,
+          height: 92,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 6),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/location.svg'),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      LocaleKeys.shipping_addresses.tr(),
-                      //  'Shipping Address',
-                      style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Oleh Chabanov',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
                         color: AppColors.darkText,
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            width: MediaQuery.of(context).size.width,
-            height: 92,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Oleh Chabanov',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.darkText,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          LocaleKeys.change.tr(),
-                          // 'Change ',
-                          style: const TextStyle(
-                            color: AppColors.darkText,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: null,
-                          child: SvgPicture.asset(
-                            'assets/icons/arrow_right.svg',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 165),
-                  child: Text(
-                    '225 Highland Ave Springfield, IL 62704, USA',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.darkGreyText,
-                      decoration: TextDecoration.underline,
-                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/icons/delivery.svg'),
-                const SizedBox(
-                  width: 12,
-                ),
-                Text(
-                  LocaleKeys.delivery.tr(),
-                  // 'Delivery',
-                  style: const TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 18, right: 18),
-            child: DeliveryPicker(
-              onDeliveryPickedPrice: (val) {
-                setState(() {
-                  delivery = val;
-                });
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/creditcard.svg'),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      LocaleKeys.paymentmethod.tr(),
-                      // 'Payment Method',
-                      style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.darkText,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Container(
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            width: MediaQuery.of(context).size.width,
-            height: 59,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Row(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      FutureBuilder<dynamic>(
-                        future:
-                            FireBaseStorageService().getImg('mastercard.png'),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return Image.network(snapshot.data.toString());
-                          }
-
-                          return const CircularProgressIndicator();
-                        },
-                      ),
-                      // Image.asset(
-                      //   'assets/images/mastercard.png',
-                      //   // width: 80,
-                      //   // height: 80,
-                      // ),
-                      const Text(
-                        '   **** **** **** 5678',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                      Text(
+                        LocaleKeys.change.tr(),
+                        // 'Change ',
+                        style: const TextStyle(
                           color: AppColors.darkText,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: null,
+                        child: SvgPicture.asset(
+                          'assets/icons/arrow_right.svg',
                         ),
                       ),
                     ],
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(right: 165),
+                child: Text(
+                  '225 Highland Ave Springfield, IL 62704, USA',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.darkGreyText,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      LocaleKeys.change.tr(),
-                      // 'Change ',
-                      style: const TextStyle(
-                        color: AppColors.darkText,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 33,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              SvgPicture.asset('assets/icons/delivery.svg'),
+              const SizedBox(
+                width: 12,
+              ),
+              Text(
+                LocaleKeys.delivery.tr(),
+                // 'Delivery',
+                style: const TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.darkText,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 18, right: 18),
+          child: DeliveryPicker(
+            onDeliveryPickedPrice: (val) {
+              setState(() {
+                delivery = val;
+              });
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 33,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset('assets/icons/creditcard.svg'),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    LocaleKeys.paymentmethod.tr(),
+                    // 'Payment Method',
+                    style: const TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.darkText,
                     ),
-                    GestureDetector(
-                      onTap: null,
-                      child: SvgPicture.asset('assets/icons/arrow_right.svg'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Container(
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          width: MediaQuery.of(context).size.width,
+          height: 59,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    FutureBuilder<dynamic>(
+                      future: FireBaseStorageService().getImg('mastercard.png'),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Image.network(snapshot.data.toString());
+                        }
+
+                        return const CircularProgressIndicator();
+                      },
+                    ),
+                    // Image.asset(
+                    //   'assets/images/mastercard.png',
+                    //   // width: 80,
+                    //   // height: 80,
+                    // ),
+                    const Text(
+                      '   **** **** **** 5678',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkText,
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    LocaleKeys.change.tr(),
+                    // 'Change ',
+                    style: const TextStyle(
+                      color: AppColors.darkText,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: null,
+                    child: SvgPicture.asset('assets/icons/arrow_right.svg'),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ]),
+        ),
       ]),
       ////checkout
       bottomNavigationBar: Container(
@@ -342,7 +345,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ),
                 Text(
-                  '\$${widget.itemsPrice}',
+                  '\$$itemPrice',
+                  // '\$${widget.itemsPrice}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

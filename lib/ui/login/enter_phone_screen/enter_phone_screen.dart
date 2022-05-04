@@ -4,6 +4,7 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/home_screen/home_screen.dart';
 import 'package:ecom_app/ui/login/verefication_screen/verification_screen.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,14 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   bool otpVisibility = false;
-
+  String testNumber = '';
   String verificationID = '';
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +47,19 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
               width: MediaQuery.of(context).size.width,
               //375,
               height: 197,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
-                child: Text(
-                  LocaleKeys.phone_verif_title.tr(),
-                  // 'What Is Your Phone Number?',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+
+              padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
+              child: Text(
+                LocaleKeys.phone_verif_title.tr(),
+                // 'What Is Your Phone Number?',
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
                 ),
               ),
+
               decoration: const BoxDecoration(
                 color: Colors.purple,
                 borderRadius:
@@ -79,12 +86,13 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
             const SizedBox(
               height: 24,
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: InternationalPhoneNumberInput(
                 onInputChanged: (number) {
                   print(number.phoneNumber);
+                  testNumber = number.phoneNumber ?? '';
+                  print('TESTTTT$testNumber');
                 },
 
                 selectorConfig: const SelectorConfig(
@@ -112,14 +120,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                 ),
               ),
             ),
-
-            // SizedBox(
-            //   width: 327,
-            //   height:64 ,
-            //   child: TextFormField(
-            //     keyboardType: TextInputType.phone,
-            //     autofocus: true,
-            //   )),
             const SizedBox(
               height: 24,
             ),
@@ -130,14 +130,18 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                 minimumSize: const Size(327, 64),
               ),
               onPressed: () {
-                Navigator.push<void>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VerificationScreen(
-                      phone: controller.text,
-                      // phone: number.phoneNumber.toString(),
-                    ),
-                  ),
+                // Navigator.push<void>(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => VerificationScreen(
+                //       phone: testNumber, //controller.text,
+                //       // phone: number.phoneNumber.toString(),
+                //     ),
+                //   ),
+                // );
+                Navigation.mainAppNav.currentState?.pushNamed(
+                  '/pin_virification_screen',
+                  arguments: testNumber,
                 );
               },
               child: Text(
@@ -157,11 +161,14 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
               padding: const EdgeInsets.only(left: 24, right: 24),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push<void>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ),
+                  // Navigator.push<void>(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const HomeScreen(),
+                  //   ),
+                  // );
+                  Navigation.mainAppNav.currentState!.pushReplacementNamed(
+                    '/home_screen',
                   );
                 },
                 child: Text(

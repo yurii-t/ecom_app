@@ -15,9 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductPageScreen extends StatefulWidget {
-  final String productId;
-  const ProductPageScreen({required this.productId, Key? key})
-      : super(key: key);
+//  final String productId;
+  const ProductPageScreen({
+    //required this.productId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ProductPageScreen> createState() => _ProductPageScreenState();
@@ -30,6 +32,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
     'assets/images/product_img12.jpg',
     'assets/images/content_img1.png',
   ];
+
   String pickedProductColor = '';
   String pickedProductSizes = '';
   late String dataName;
@@ -48,20 +51,22 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
   static double _minHeight = 175;
   final double _maxHeight = 600;
 
-  void openReview() {
-    if (!_isOpen) {
-      setState(() {
-        _minHeight = _maxHeight;
-      });
-    } else {
-      setState(() {
-        _minHeight = 175;
-      });
-    }
-  }
+  // void openReview() {
+  //   if (!_isOpen) {
+  //     setState(() {
+  //       _minHeight = _maxHeight;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _minHeight = 175;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+
     return SafeArea(
       child: Scaffold(
         extendBody: false,
@@ -69,203 +74,204 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
         backgroundColor: AppColors.backGround,
         body: ListView(
           children: [
-            Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 708,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
+            //   Column(
+            //     children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 708,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 6),
                   ),
-                  child: Column(
-                    children: [
-                      ProductPageCarousel(
-                        productId: widget.productId,
-                      ),
-                      const SizedBox(
-                        height: 14,
-                      ),
-                      FutureBuilder<DocumentSnapshot>(
-                        future: FirebaseFirestore.instance
-                            .collection('products')
-                            .doc(widget.productId)
-                            .get(),
-                        builder: (context, snapshot) {
-                          final DocumentSnapshot? data = snapshot.data;
-                          if (data != null) {
-                            dataName = data['name'].toString();
-                            dataPrice = data['price'] as num;
-                            dataimgUrl = data['imageUrl'].toString();
-                            // review = data['reviews'].toString(),
-                          }
+                ],
+              ),
+              child: Column(
+                children: [
+                  ProductPageCarousel(
+                    productId: productId, //widget.productId,
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  FutureBuilder<DocumentSnapshot>(
+                    future: FirebaseFirestore.instance
+                        .collection('products')
+                        .doc(productId)
+                        //.doc(widget.productId)
+                        .get(),
+                    builder: (context, snapshot) {
+                      final DocumentSnapshot? data = snapshot.data;
+                      if (data != null) {
+                        dataName = data['name'].toString();
+                        dataPrice = data['price'] as num;
+                        dataimgUrl = data['imageUrl'].toString();
+                        // review = data['reviews'].toString(),
+                      }
 
-                          return !snapshot.hasData
-                              ? const CircularProgressIndicator()
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                      return !snapshot.hasData
+                          ? const CircularProgressIndicator()
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Row(
-                                              children: [
-                                                const StarIconList(),
-                                                Text(
-                                                  '80 ${LocaleKeys.reviews.tr()}',
-                                                  style: const TextStyle(
-                                                    color:
-                                                        AppColors.darkGreyText,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            StarIconList(
+                                              value: 0,
                                             ),
-                                          ),
-                                          Text(
-                                            LocaleKeys.in_stock.tr(),
-                                            // 'In Stock',
-                                            style: const TextStyle(
-                                              color: AppColors.greenText,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
+                                            Text(
+                                              '80 ${LocaleKeys.reviews.tr()}',
+                                              style: const TextStyle(
+                                                color: AppColors.darkGreyText,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 14,
-                                      ),
-                                      Text(
-                                        // data['name'].toString(),
-                                        dataName,
-                                        //LocaleKeys.product_title.tr(),
-                                        // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
-                                        style: const TextStyle(
-                                          color: AppColors.darkText,
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.w400,
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
                                       Text(
-                                        '\$ $dataPrice',
-                                        // '\$ ${data['price']}',
+                                        LocaleKeys.in_stock.tr(),
+                                        // 'In Stock',
                                         style: const TextStyle(
-                                          color: AppColors.darkText,
-                                          fontSize: 25,
+                                          color: AppColors.greenText,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        LocaleKeys.colors.tr(),
-                                        // 'Colors',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: AppColors.greyText,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      ProductColorPicker(
-                                        onProductPicked: (val) {
-                                          pickedProductColor = val;
-                                        },
-                                        // availableProductColor: [
-                                        //   'assets/images/content_img1.png',
-                                        //   'assets/images/imgcolor2.png',
-                                        //   'assets/images/imgcolor3.png',
-                                        //   'assets/images/imgcolor4.png',
-                                        //   'assets/images/imgcolor1.png',
-                                        //   'assets/images/imgcolor6.png',
-                                        // ],
-                                      ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        LocaleKeys.sizes.tr(),
-                                        // 'Sizes',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: AppColors.greyText,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      SizePicker(
-                                        onSizePicked: (val) {
-                                          pickedProductSizes = val;
-                                        },
-                                        // availableSizes: [
-                                        //   'xss',
-                                        //   'xs',
-                                        //   's',
-                                        //   'm',
-                                        //   'l',
-                                        //   'xl',
-                                        // ],
-                                      ),
                                     ],
                                   ),
-                                );
-                        },
-                      ),
-                    ],
+                                  const SizedBox(
+                                    height: 14,
+                                  ),
+                                  Text(
+                                    // data['name'].toString(),
+                                    dataName,
+                                    //LocaleKeys.product_title.tr(),
+                                    // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
+                                    style: const TextStyle(
+                                      color: AppColors.darkText,
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    '\$ $dataPrice',
+                                    // '\$ ${data['price']}',
+                                    style: const TextStyle(
+                                      color: AppColors.darkText,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    LocaleKeys.colors.tr(),
+                                    // 'Colors',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: AppColors.greyText,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  ProductColorPicker(
+                                    onProductPicked: (val) {
+                                      pickedProductColor = val;
+                                    },
+                                    // availableProductColor: [
+                                    //   'assets/images/content_img1.png',
+                                    //   'assets/images/imgcolor2.png',
+                                    //   'assets/images/imgcolor3.png',
+                                    //   'assets/images/imgcolor4.png',
+                                    //   'assets/images/imgcolor1.png',
+                                    //   'assets/images/imgcolor6.png',
+                                    // ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    LocaleKeys.sizes.tr(),
+                                    // 'Sizes',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: AppColors.greyText,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  SizePicker(
+                                    onSizePicked: (val) {
+                                      pickedProductSizes = val;
+                                    },
+                                    // availableSizes: [
+                                    //   'xss',
+                                    //   'xs',
+                                    //   's',
+                                    //   'm',
+                                    //   'l',
+                                    //   'xl',
+                                    // ],
+                                  ),
+                                ],
+                              ),
+                            );
+                    },
                   ),
-                ),
-                ProductDetailsContainer(
-                  productId: widget.productId,
-                ),
-                ProductReviewsContainer(
-                  productId: widget.productId,
-                ),
-                const SizedBox(
-                  height: 34,
-                ),
-                Text(
-                  LocaleKeys.products_list_title.tr(),
-                  // 'Products related to this item',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 19,
-                    color: AppColors.darkText,
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const ProductsRelatedList(),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+                ],
+              ),
             ),
+            ProductDetailsContainer(
+              productId: productId, //widget.productId,
+            ),
+            ProductReviewsContainer(
+              productId: productId, //widget.productId,
+            ),
+            const SizedBox(
+              height: 34,
+            ),
+            Text(
+              LocaleKeys.products_list_title.tr(),
+              // 'Products related to this item',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 19,
+                color: AppColors.darkText,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const ProductsRelatedList(),
+            const SizedBox(
+              height: 20,
+            ),
+            //  ],
+            //  ),
           ],
         ),
         bottomNavigationBar: Container(
@@ -328,7 +334,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                       builder: (context) {
                         return AddToCartScreen(
                           item: _itemCounter,
-                          productId: widget.productId,
+                          productId: productId, // widget.productId,
                         );
                       },
                     );

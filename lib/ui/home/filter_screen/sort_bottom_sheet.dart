@@ -52,7 +52,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
             ),
           ]),
           onTap: () {
-            showBottomSheet<Widget?>(
+            showModalBottomSheet<Widget?>(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(24),
@@ -85,24 +85,27 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                         height: 12,
                       ),
                       for (final sortItem in sortItems)
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _selectedSortItem =
-                                  sortItem; //LocaleKeys.new_text.tr();
-                              //  'New';
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            sortItem,
-                            // LocaleKeys.new_text.tr(),
-                            textAlign: TextAlign.start,
-                            // 'New',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkGreyText,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedSortItem =
+                                    sortItem; //LocaleKeys.new_text.tr();
+                                //  'New';
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              sortItem,
+                              // LocaleKeys.new_text.tr(),
+                              textAlign: TextAlign.start,
+                              // 'New',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.darkGreyText,
+                              ),
                             ),
                           ),
                         ),

@@ -50,7 +50,7 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
             ),
           ]),
           onTap: () {
-            showBottomSheet<Widget?>(
+            showModalBottomSheet<Widget?>(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(24),
@@ -83,23 +83,26 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                         height: 12,
                       ),
                       for (final category in categories)
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _selectedCategoryItem =
-                                  category; //LocaleKeys.clothing.tr();
-                              // 'Clothing';
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            category,
-                            // LocaleKeys.clothing.tr(),
-                            // 'Clothing',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkGreyText,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedCategoryItem =
+                                    category; //LocaleKeys.clothing.tr();
+                                // 'Clothing';
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              category,
+                              // LocaleKeys.clothing.tr(),
+                              // 'Clothing',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.darkGreyText,
+                              ),
                             ),
                           ),
                         ),

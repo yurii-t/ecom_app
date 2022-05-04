@@ -155,15 +155,17 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
   // };
   @override
   Widget build(BuildContext context) {
+    const double _size = 110;
+
     return SizedBox(
       width: double.infinity,
-      height: 110,
+      height: _size,
       child: GridView.builder(
         clipBehavior: Clip.none,
         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
         scrollDirection: Axis.vertical,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 110,
+          maxCrossAxisExtent: _size,
           childAspectRatio: 1 / 1,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,

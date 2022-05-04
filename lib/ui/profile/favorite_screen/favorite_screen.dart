@@ -5,6 +5,7 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -48,28 +49,40 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             decoration: const BoxDecoration(
               gradient: AppGradient.purpleGradient,
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 150),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+            padding: const EdgeInsets.only(
+              left: 16,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigation.mainListNav.currentState!.popAndPushNamed(
+                      'home_screen/home_content_screen',
+                    );
+                    // Future.delayed(Duration.zero, () {
+                    //   Navigator.pop(context);
+                    // });
+
+                    //  Navigator.of(context).pop();
+                    // Navigation.mainListNav.currentState?.pop();
+                  },
+                  child: SvgPicture.asset('assets/icons/arrow_left.svg'),
+                ),
+                Text(
+                  LocaleKeys.favorite.tr(),
+                  // 'Favorite',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 19,
+                    color: Colors.white,
                   ),
-                  Text(
-                    LocaleKeys.favorite.tr(),
-                    // 'Favorite',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 19,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                SvgPicture.asset(
+                  'assets/icons/arrow_left.svg',
+                  color: Colors.transparent,
+                ),
+              ],
             ),
           ),
           const SizedBox(

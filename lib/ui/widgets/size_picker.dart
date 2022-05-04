@@ -29,13 +29,15 @@ class _SizePickerState extends State<SizePicker> {
 
   @override
   Widget build(BuildContext context) {
+    const double _size = 50;
+
     return SizedBox(
       width: double.infinity,
-      height: 50,
+      height: _size,
       child: GridView.builder(
         scrollDirection: Axis.horizontal,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 50,
+          maxCrossAxisExtent: _size,
           childAspectRatio: 1 / 1,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

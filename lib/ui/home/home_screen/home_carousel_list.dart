@@ -24,10 +24,11 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      child: Stack(alignment: AlignmentDirectional.center, children: [
-        SizedBox(
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 16, right: 16),
           width: 343,
           height: 88,
           child: // Column(children: [
@@ -120,6 +121,7 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     LocaleKeys.see_all.tr(),
@@ -139,7 +141,8 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
             ],
           ),
         ),
-      ]),
+      ],
+      //),
     );
   }
 }

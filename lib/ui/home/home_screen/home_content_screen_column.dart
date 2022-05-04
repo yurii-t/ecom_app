@@ -39,165 +39,154 @@ class _HomeContentScreenColumnState extends State<HomeContentScreenColumn> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      // shrinkWrap: true,
+      shrinkWrap: true,
       children: [
-        Column(
+        Stack(
+          clipBehavior: Clip.none,
+          alignment: AlignmentDirectional.center,
           children: [
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: AlignmentDirectional.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 132,
-                  decoration: const BoxDecoration(
-                    gradient: AppGradient.purpleGradient,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset('assets/icons/menu_alt_2_1.svg'),
-                        // const Icon(
-                        //   Icons.menu,
-                        //   color: Colors.white,
-                        // ),
-                        RichText(
-                          text: const TextSpan(
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'My',
-                                style: TextStyle(color: AppColors.yellow),
-                              ),
-                              TextSpan(
-                                text: 'Shop',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        SvgPicture.asset('assets/icons/bell_1.svg'),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 108,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: SizedBox(
-                      width: 375,
-                      height: 44,
-                      child: TextField(
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: const Icon(Icons.search),
-                          hintText: LocaleKeys.home_searchbar
-                              .tr(), //'What are you looking for',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 34,
-            ),
-            const HomeCarouselList(),
-            const SizedBox(
-              height: 24,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
+            Container(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              width: MediaQuery.of(context).size.width,
+              height: 132,
+              decoration: const BoxDecoration(
+                gradient: AppGradient.purpleGradient,
               ),
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    LocaleKeys.catalogue.tr(),
-                    // 'Catalogue',
-                    style: const TextStyle(
-                      fontSize: 19,
-                      color: AppColors.darkText,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push<void>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CatalogueScreen(),
-                        ),
-                      );
-                    },
-                    child: Row(
+                  SvgPicture.asset('assets/icons/menu_alt_2_1.svg'),
+                  RichText(
+                    text: const TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
                       children: [
-                        Text(
-                          LocaleKeys.see_all.tr(),
-                          // 'See All',
-                          style: const TextStyle(
-                            color: AppColors.greyText,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                          ),
+                        TextSpan(
+                          text: 'My',
+                          style: TextStyle(color: AppColors.yellow),
                         ),
-                        const Icon(
-                          Icons.chevron_right,
-                          color: AppColors.greyText,
+                        TextSpan(
+                          text: 'Shop',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
                   ),
+                  SvgPicture.asset('assets/icons/bell_1.svg'),
                 ],
               ),
+              // ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            const HomeCatalogueList(),
-            const SizedBox(
-              height: 32,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  LocaleKeys.popular.tr(), //'Featured',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
+            Positioned(
+              top: 108,
+              child: Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                width: 375,
+                height: 44,
+                child: TextField(
+                  textAlignVertical: TextAlignVertical.bottom,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: LocaleKeys.home_searchbar
+                        .tr(), //'What are you looking for',
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            SizedBox(
-              height: 300,
-              child: ItemGridView(
-                collectRef: productsCollRef,
-                scrollDirections: Axis.vertical,
+          ],
+        ),
+        const SizedBox(
+          height: 34,
+        ),
+        const HomeCarouselList(),
+        const SizedBox(
+          height: 24,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.catalogue.tr(),
+                // 'Catalogue',
+                style: const TextStyle(
+                  fontSize: 19,
+                  color: AppColors.darkText,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push<void>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CatalogueScreen(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      LocaleKeys.see_all.tr(),
+                      // 'See All',
+                      style: const TextStyle(
+                        color: AppColors.greyText,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: AppColors.greyText,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        const HomeCatalogueList(),
+        const SizedBox(
+          height: 32,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              LocaleKeys.popular.tr(), //'Featured',
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 19,
+                fontWeight: FontWeight.w700,
               ),
             ),
-          ],
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        SizedBox(
+          height: 300,
+          child: ItemGridView(
+            collectRef: productsCollRef,
+            scrollDirections: Axis.vertical,
+          ),
         ),
       ],
     );
