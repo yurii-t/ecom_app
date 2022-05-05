@@ -6,6 +6,7 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_screen.dart';
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
+import 'package:ecom_app/ui/widgets/sort_popup_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,26 +22,20 @@ class ClothingScreen extends StatefulWidget {
 }
 
 class _ClothingScreenState extends State<ClothingScreen> {
-  String dropdownvalue = LocaleKeys.featured.tr(); //'Featured';
-  List<String> dropButtonItems = [
-    LocaleKeys.featured.tr(), //'Featured',
-    LocaleKeys.new_text.tr(), // 'New',
-    LocaleKeys.popular.tr(), // 'Popular',
-    LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
-    LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
-  ];
+  // String dropdownvalue = LocaleKeys.featured.tr(); //'Featured';
+  // List<String> dropButtonItems = [
+  //   LocaleKeys.featured.tr(), //'Featured',
+  //   LocaleKeys.new_text.tr(), // 'New',
+  //   LocaleKeys.popular.tr(), // 'Popular',
+  //   LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
+  //   LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
+  // ];
   String query = '';
   late Stream<QuerySnapshot> collectionRef;
   dynamic startPrice = null;
   dynamic endPrice = null;
   int _selectedTab = 0;
-  late String _currentItemSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentItemSelected = dropButtonItems[0];
-  }
+  // late String _currentItemSelected;
 
   void navigateAndDisplaySelection(BuildContext context) async {
     final List<double>? result = await Navigation.mainAppNav.currentState
@@ -225,44 +220,45 @@ class _ClothingScreenState extends State<ClothingScreen> {
                     ),
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      LocaleKeys.sort_by.tr(),
-                      // 'Sort by:',
-                      style: const TextStyle(
-                        color: AppColors.greyText,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                    PopupMenuButton<String>(
-                      itemBuilder: (context) {
-                        return dropButtonItems.map((str) {
-                          return PopupMenuItem(
-                            value: str,
-                            child: Text(str),
-                          );
-                        }).toList();
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(_currentItemSelected),
-                          //Icon(Icons.arrow_drop_down),
-                          const Icon(Icons.keyboard_arrow_down),
-                        ],
-                      ),
-                      onSelected: (v) {
-                        setState(() {
-                          print('!!!===== ');
-                          _currentItemSelected = v;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                const SortPopupMenuButton(),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       LocaleKeys.sort_by.tr(),
+                //       // 'Sort by:',
+                //       style: const TextStyle(
+                //         color: AppColors.greyText,
+                //         fontWeight: FontWeight.w700,
+                //         fontSize: 12,
+                //       ),
+                //     ),
+                //     PopupMenuButton<String>(
+                //       itemBuilder: (context) {
+                //         return dropButtonItems.map((str) {
+                //           return PopupMenuItem(
+                //             value: str,
+                //             child: Text(str),
+                //           );
+                //         }).toList();
+                //       },
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: <Widget>[
+                //           Text(_currentItemSelected),
+                //           //Icon(Icons.arrow_drop_down),
+                //           const Icon(Icons.keyboard_arrow_down),
+                //         ],
+                //       ),
+                //       onSelected: (v) {
+                //         setState(() {
+                //           print('!!!===== ');
+                //           _currentItemSelected = v;
+                //         });
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

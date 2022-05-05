@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/add_to_cart_screen.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/add_to_cart_bottom_sheet.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_details_container.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_page_carousel.dart';
+import 'package:ecom_app/ui/product_page/product_page_screen/product_screen_carousel.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/product_reviews_container.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/products_related_list.dart';
 import 'package:ecom_app/ui/product_page/product_page_screen/widgets/product_color_picker.dart';
@@ -14,42 +14,28 @@ import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductPageScreen extends StatefulWidget {
+class ProductScreen extends StatelessWidget {
 //  final String productId;
-  const ProductPageScreen({
+  const ProductScreen({
     //required this.productId,
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<ProductPageScreen> createState() => _ProductPageScreenState();
-}
+  // final List<String> imgSlider = [
+  //   'assets/images/img_gal.jpg',
+  //   'assets/images/product_img1.png',
+  //   'assets/images/product_img12.jpg',
+  //   'assets/images/content_img1.png',
+  // ];
 
-class _ProductPageScreenState extends State<ProductPageScreen> {
-  final List<String> imgSlider = [
-    'assets/images/img_gal.jpg',
-    'assets/images/product_img1.png',
-    'assets/images/product_img12.jpg',
-    'assets/images/content_img1.png',
-  ];
-
-  String pickedProductColor = '';
-  String pickedProductSizes = '';
-  late String dataName;
-  late num dataPrice;
-  late String dataimgUrl;
-  int _itemCounter = 0;
-  var _icon = SvgPicture.asset(
-    'assets/icons/heart11.svg',
-  );
   // var _iconStar = SvgPicture.asset(
   //   'assets/icons/star.svg',
   // );
   // int _sliderProductCurrent = 0;
   // final CarouselController _sliderProductController = CarouselController();
-  bool _isOpen = false;
-  static double _minHeight = 175;
-  final double _maxHeight = 600;
+  // bool _isOpen = false;
+  // static double _minHeight = 175;
+  // final double _maxHeight = 600;
 
   // void openReview() {
   //   if (!_isOpen) {
@@ -65,6 +51,15 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String pickedProductColor = '';
+    String pickedProductSizes = '';
+    // late String dataName;
+    // late num dataPrice;
+    // late String dataimgUrl;
+//  final int _itemCounter = 1;
+    final _icon = SvgPicture.asset(
+      'assets/icons/heart11.svg',
+    );
     final productId = ModalRoute.of(context)?.settings.arguments as String;
 
     return SafeArea(
@@ -95,7 +90,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
               ),
               child: Column(
                 children: [
-                  ProductPageCarousel(
+                  ProductScreenCarousel(
                     productId: productId, //widget.productId,
                   ),
                   const SizedBox(
@@ -109,12 +104,12 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                         .get(),
                     builder: (context, snapshot) {
                       final DocumentSnapshot? data = snapshot.data;
-                      if (data != null) {
-                        dataName = data['name'].toString();
-                        dataPrice = data['price'] as num;
-                        dataimgUrl = data['imageUrl'].toString();
-                        // review = data['reviews'].toString(),
-                      }
+                      // if (data != null) {
+                      // //  String dataName = data['name'].toString();
+                      // // final num  dataPrice = data['price'] as num;
+                      // //  final String dataimgUrl = data['imageUrl'].toString();
+                      //   // review = data['reviews'].toString(),
+                      // }
 
                       return !snapshot.hasData
                           ? const CircularProgressIndicator()
@@ -131,7 +126,7 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                         child: Row(
                                           children: [
                                             StarIconList(
-                                              value: 0,
+                                              productId: productId,
                                             ),
                                             Text(
                                               '80 ${LocaleKeys.reviews.tr()}',
@@ -159,8 +154,8 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                     height: 14,
                                   ),
                                   Text(
-                                    // data['name'].toString(),
-                                    dataName,
+                                    data?['name'].toString() ?? 'Loading...',
+                                    // dataName,
                                     //LocaleKeys.product_title.tr(),
                                     // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                     style: const TextStyle(
@@ -173,8 +168,8 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                                     height: 12,
                                   ),
                                   Text(
-                                    '\$ $dataPrice',
-                                    // '\$ ${data['price']}',
+                                    // '\$ $dataPrice',
+                                    '\$ ${data?['price']}',
                                     style: const TextStyle(
                                       color: AppColors.darkText,
                                       fontSize: 25,
@@ -254,13 +249,17 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
             const SizedBox(
               height: 34,
             ),
-            Text(
-              LocaleKeys.products_list_title.tr(),
-              // 'Products related to this item',
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 19,
-                color: AppColors.darkText,
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                LocaleKeys.products_list_title.tr(),
+
+                // 'Products related to this item',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 19,
+                  color: AppColors.darkText,
+                ),
               ),
             ),
             const SizedBox(
@@ -320,9 +319,9 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                     //   'quantity':_itemCounter,
                     // });
 
-                    setState(() {
-                      _itemCounter = 1;
-                    });
+                    // setState(() {
+                    //   _itemCounter = 1;
+                    // });
                     showModalBottomSheet<Widget?>(
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
@@ -332,8 +331,8 @@ class _ProductPageScreenState extends State<ProductPageScreen> {
                       context: context,
                       backgroundColor: Colors.white,
                       builder: (context) {
-                        return AddToCartScreen(
-                          item: _itemCounter,
+                        return AddToCartBottomSheet(
+                          item: 1,
                           productId: productId, // widget.productId,
                         );
                       },

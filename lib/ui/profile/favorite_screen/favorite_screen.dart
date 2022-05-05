@@ -6,39 +6,21 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
+import 'package:ecom_app/ui/widgets/sort_popup_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
-}
-
-class _FavoriteScreenState extends State<FavoriteScreen> {
-  String dropdownvalue = LocaleKeys.featured.tr(); //'Featured';
-  List<String> dropButtonItems = [
-    LocaleKeys.featured.tr(), //'Featured',
-    LocaleKeys.new_text.tr(), // 'New',
-    LocaleKeys.popular.tr(), // 'Popular',
-    LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
-    LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
-  ];
-  Stream<QuerySnapshot> favoriteProductCollRef = FirebaseFirestore.instance
-      .collection('products')
-      .where('isFavorite', isEqualTo: true)
-      .snapshots();
-  late String _currentItemSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentItemSelected = dropButtonItems[0];
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> favoriteProductCollRef = FirebaseFirestore
+        .instance
+        .collection('products')
+        .where('isFavorite', isEqualTo: true)
+        .snapshots();
+
     return Scaffold(
       backgroundColor: AppColors.backGround,
       body: Column(
@@ -96,7 +78,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    '5 ${LocaleKeys.items.tr()}',
+                    plural(LocaleKeys.item_amount.tr(), 1),
+
+                    // '${plural(
+                    //   LocaleKeys.item_amount.tr().plural(value)
+                    //   0,
+                    // )}', // format: NumberFormat()).tr()}',
+                    // 'item'.plural(0)
+                    //'5 ${LocaleKeys.items.tr()}',
                     style: const TextStyle(
                       fontSize: 19,
                       color: AppColors.darkText,
@@ -104,44 +93,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     ),
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      LocaleKeys.sort_by.tr(),
-                      // 'Sort by: ',
-                      style: const TextStyle(
-                        color: AppColors.greyText,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                    PopupMenuButton<String>(
-                      itemBuilder: (context) {
-                        return dropButtonItems.map((str) {
-                          return PopupMenuItem(
-                            value: str,
-                            child: Text(str),
-                          );
-                        }).toList();
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text('$_currentItemSelected '),
-                          SvgPicture.asset('assets/icons/dropdown.svg'),
-                          // const Icon(Icons.keyboard_arrow_down)
-                        ],
-                      ),
-                      onSelected: (v) {
-                        setState(() {
-                          print('!!!===== $v');
-                          _currentItemSelected = v;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                const SortPopupMenuButton(),
               ],
             ),
           ),

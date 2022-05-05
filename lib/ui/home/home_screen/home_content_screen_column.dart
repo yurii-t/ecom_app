@@ -9,27 +9,20 @@ import 'package:ecom_app/ui/home/home_screen/home_carousel_list.dart';
 import 'package:ecom_app/ui/home/home_screen/home_catalogue_list.dart';
 
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeContentScreenColumn extends StatefulWidget {
+class HomeContentScreenColumn extends StatelessWidget {
   const HomeContentScreenColumn({Key? key}) : super(key: key);
 
-  @override
-  State<HomeContentScreenColumn> createState() =>
-      _HomeContentScreenColumnState();
-}
-
-class _HomeContentScreenColumnState extends State<HomeContentScreenColumn> {
-  final List<String> imgSlider = [
-    'assets/images/img_gal.jpg',
-    'assets/images/img_content.png',
-    'assets/images/catalogue_img.png',
-    'assets/images/content_img1.png',
-  ];
-  bool favorite = false;
-  Stream<QuerySnapshot> productsCollRef =
-      FirebaseFirestore.instance.collection('products').snapshots();
+  // final List<String> imgSlider = [
+  //   'assets/images/img_gal.jpg',
+  //   'assets/images/img_content.png',
+  //   'assets/images/catalogue_img.png',
+  //   'assets/images/content_img1.png',
+  // ];
+  // bool favorite = false;
 
   // List<String> imgSlider = FireBaseStorageService().getListImg();
 
@@ -38,6 +31,9 @@ class _HomeContentScreenColumnState extends State<HomeContentScreenColumn> {
 
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> productsCollRef =
+        FirebaseFirestore.instance.collection('products').snapshots();
+
     return ListView(
       shrinkWrap: true,
       children: [
@@ -129,11 +125,14 @@ class _HomeContentScreenColumnState extends State<HomeContentScreenColumn> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push<void>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CatalogueScreen(),
-                    ),
+                  // Navigator.push<void>(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const CatalogueScreen(),
+                  //   ),
+                  // );
+                  Navigation.mainListNav.currentState?.pushNamed(
+                    '/home_screen/catalogue_screen',
                   );
                 },
                 child: Row(

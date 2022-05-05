@@ -5,6 +5,7 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/home_screen/home_screen.dart';
+import 'package:ecom_app/ui/widgets/navigation.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -72,9 +73,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ))
             .then((value) {
           if (value.user != null) {
-            Navigator.push<void>(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            // Navigator.push<void>(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const HomeScreen()),
+            // );
+            Navigation.mainAppNav.currentState?.pushReplacementNamed(
+              '/home_screen',
             );
           }
         });
@@ -255,11 +259,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   ))
                       .then((value) {
                     if (value.user != null) {
-                      Navigator.push<void>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
+                      // Navigator.push<void>(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const HomeScreen(),
+                      //   ),
+                      // );
+                      Navigation.mainAppNav.currentState?.pushReplacementNamed(
+                        '/home_screen',
                       );
                     }
                   });

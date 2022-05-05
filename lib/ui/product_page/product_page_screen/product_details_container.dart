@@ -3,52 +3,28 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
 
-class ProductDetailsContainer extends StatefulWidget {
+class ProductDetailsContainer extends StatelessWidget {
   final String productId;
   const ProductDetailsContainer({required this.productId, Key? key})
       : super(key: key);
 
   @override
-  State<ProductDetailsContainer> createState() =>
-      _ProductDetailsContainerState();
-}
-
-class _ProductDetailsContainerState extends State<ProductDetailsContainer> {
-  // int id = int.parse(widget.productId)
-  bool _isOpen = false;
-  static double _minHeight = 175;
-  final double _maxHeight = 600;
-
-  void openReview() {
-    if (!_isOpen) {
-      setState(() {
-        _minHeight = _maxHeight;
-      });
-    } else {
-      setState(() {
-        _minHeight = 175;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 300),
-      child: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance
-            .collection('products')
-            .doc(widget.productId)
-            .get(),
-        builder: (context, snapshot) {
-          final DocumentSnapshot? data = snapshot.data;
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance
+          .collection('products')
+          .doc(productId)
+          .get(),
+      builder: (context, snapshot) {
+        final DocumentSnapshot? data = snapshot.data;
 
-          return !snapshot.hasData
-              ? const CircularProgressIndicator()
-              : Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: _minHeight, //175,
+        return !snapshot.hasData
+            ? const CircularProgressIndicator()
+            : ExpandableNotifier(
+                child: Container(
+                  // color: Colors.amber,
                   padding: const EdgeInsets.only(
                     top: 24,
                     left: 16,
@@ -71,48 +47,60 @@ class _ProductDetailsContainerState extends State<ProductDetailsContainer> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         LocaleKeys.product_details.tr(),
                         // 'Product details',
+                        textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 19,
                           color: AppColors.darkText,
                         ),
                       ),
-                      Text(
-                        data?['description'].toString() ?? 'Loading...',
-                        // LocaleKeys.product_description.tr(),
-                        // 'Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF Women`s Casual V-Neck Pullover Sweater Long Sleeved Sweater Top with High Low Hemline is going to be the newest staple in your wardrobe! Living up to its namesake, this sweater is unbelievably soft, li bfmfamnbnmsfbfmsmnfs kadlk klfkk n NMF',
-                        overflow:
-                            _isOpen == false ? TextOverflow.ellipsis : null,
-                        maxLines: _isOpen == false ? 4 : null,
-
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: AppColors.darkText,
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expandable(
+                        collapsed: ExpandableButton(
+                          child: Text(
+                            data?['description'].toString() ?? 'Loading...',
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: AppColors.darkText,
+                            ),
+                          ),
+                        ),
+                        expanded: ExpandableButton(
+                          child: Text(
+                            data?['description'].toString() ?? 'Loading...',
+                          ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: IconButton(
-                          onPressed: () {
-                            openReview();
-                            setState(() {
-                              _isOpen = !_isOpen;
-                            });
-                          },
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                        ),
+                      Builder(
+                        builder: (context) {
+                          var controller =
+                              ExpandableController.of(context, required: true);
+
+                          return Align(
+                            alignment: Alignment.bottomCenter,
+                            child: GestureDetector(
+                              onTap: () {
+                                controller?.toggle();
+                              },
+                              child: Icon(Icons.keyboard_arrow_down),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
-                );
-        },
-      ),
+                ),
+              );
+      },
     );
   }
 }

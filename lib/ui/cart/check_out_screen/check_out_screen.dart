@@ -4,7 +4,7 @@ import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/cart/cart_screen/check%20_out_popup_dialog.dart';
+import 'package:ecom_app/ui/cart/check_out_screen/check%20_out_popup_dialog.dart';
 
 import 'package:ecom_app/ui/cart/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';

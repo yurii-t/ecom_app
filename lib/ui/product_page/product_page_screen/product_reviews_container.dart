@@ -92,17 +92,17 @@ class ProductReviewsContainer extends StatelessWidget {
                                 final DateTime date = time.toDate();
                                 final String formatDate =
                                     DateFormat.yMMMd().add_jm().format(date);
-                                value = snapshot.data?.docs.fold<num>(
-                                      0,
-                                      (previousValue, element) {
-                                        return (previousValue +
-                                            (element['rating'] as num) /
-                                                (snapshot.data?.docs.length ??
-                                                    1));
-                                      },
-                                    ).toInt() ??
-                                    0;
-                                print(value);
+                                // value = snapshot.data?.docs.fold<num>(
+                                //       0,
+                                //       (previousValue, element) {
+                                //         return (previousValue +
+                                //             (element['rating'] as num) /
+                                //                 (snapshot.data?.docs.length ??
+                                //                     1));
+                                //       },
+                                //     ).toInt() ??
+                                //     0;
+                                // print(value);
 
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
@@ -148,7 +148,7 @@ class ProductReviewsContainer extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 StarIconList(
-                                                  value: value,
+                                                  productId: productId,
                                                 ),
                                                 Text(
                                                   '${data?['rating'].toString()} ${LocaleKeys.reviews.tr()}',
@@ -289,7 +289,7 @@ class ProductReviewsContainer extends StatelessWidget {
                     child: Row(
                       children: [
                         StarIconList(
-                          value: value,
+                          productId: productId,
                         ),
                         Text(
                           '${dataFirst?['rating'].toString()}  ${LocaleKeys.reviews.tr()}',

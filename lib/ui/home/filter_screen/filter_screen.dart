@@ -97,10 +97,12 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      print('tap');
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute<void>(
-                          builder: (context) => const FilterScreen(),
+                        PageRouteBuilder<void>(
+                          transitionDuration: Duration.zero,
+                          pageBuilder: (_, __, ___) => const FilterScreen(),
                         ),
                       );
                     },

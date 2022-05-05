@@ -22,6 +22,11 @@
   "home": "Home",
   "favorite": "Favorite",
   "profile": "Profile",
+  "item_amount":{
+    "zero":"{} items",
+    "one":"{} item",
+    "other":"{} items"
+  },
   "items": "items",
   "clothing": "Clothing",
   "shoes": "Shoes",

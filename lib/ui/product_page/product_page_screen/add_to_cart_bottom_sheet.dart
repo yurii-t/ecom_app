@@ -7,17 +7,17 @@ import 'package:ecom_app/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddToCartScreen extends StatefulWidget {
+class AddToCartBottomSheet extends StatefulWidget {
   final String productId;
   int item;
-  AddToCartScreen({required this.item, required this.productId, Key? key})
+  AddToCartBottomSheet({required this.item, required this.productId, Key? key})
       : super(key: key);
 
   @override
-  State<AddToCartScreen> createState() => _AddToCartScreenState();
+  State<AddToCartBottomSheet> createState() => _AddToCartBottomSheetState();
 }
 
-class _AddToCartScreenState extends State<AddToCartScreen> {
+class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
   late String dataName;
   late num dataPrice;
   late String dataimgUrl;

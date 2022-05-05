@@ -7,14 +7,14 @@ class FilterColorPicker extends StatefulWidget {
   final List<Color> availableColors;
 
   // The default picked color
-  // final Color initialColor;
+  //  final Color initialColor;
 
   // Determnie shapes of color cells
   final bool circleItem;
 
   const FilterColorPicker({
     required this.availableColors,
-    // required this.initialColor,
+    //  required this.initialColor,
     Key? key,
     this.circleItem = true,
   }) : super(key: key);

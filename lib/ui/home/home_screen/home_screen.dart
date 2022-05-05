@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigation.mainListNav.currentState?.pushReplacementNamed(
+                    Navigation.mainListNav.currentState?.pushNamed(
                       'home_screen/home_content_screen',
                     );
                     // setState(() {
@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigation.mainListNav.currentState?.pushReplacementNamed(
+                    Navigation.mainListNav.currentState?.pushNamed(
                       '/home_screen/catalogue_screen',
                     );
                     setState(() {
@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigation.mainListNav.currentState?.pushReplacementNamed(
+                    Navigation.mainListNav.currentState?.pushNamed(
                       '/home_screen/favorite_screen',
                     );
                     setState(() {
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigation.mainListNav.currentState?.pushReplacementNamed(
+                    Navigation.mainListNav.currentState?.pushNamed(
                       '/home_screen/profile_screen',
                     );
                     setState(() {

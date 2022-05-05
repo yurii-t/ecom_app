@@ -2,16 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ProductPageCarousel extends StatefulWidget {
+class ProductScreenCarousel extends StatefulWidget {
   final String productId;
-  const ProductPageCarousel({required this.productId, Key? key})
+  const ProductScreenCarousel({required this.productId, Key? key})
       : super(key: key);
 
   @override
-  State<ProductPageCarousel> createState() => _ProductPageCoruselState();
+  State<ProductScreenCarousel> createState() => _ProductPageCoruselState();
 }
 
-class _ProductPageCoruselState extends State<ProductPageCarousel> {
+class _ProductPageCoruselState extends State<ProductScreenCarousel> {
   late List<dynamic> imgProductSlider;
   // 'assets/images/img_gal.jpg',
   // 'assets/images/product_img1.png',
