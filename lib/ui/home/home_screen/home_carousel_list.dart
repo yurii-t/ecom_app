@@ -45,7 +45,13 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
               }
 
               return !snapshot.hasData
-                  ? const CircularProgressIndicator()
+                  ? const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
                   : CarouselSlider.builder(
                       itemCount: imgSlider.length,
                       carouselController: _sliderController,

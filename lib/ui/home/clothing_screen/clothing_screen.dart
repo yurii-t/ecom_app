@@ -211,8 +211,12 @@ class _ClothingScreenState extends State<ClothingScreen> {
               children: [
                 Expanded(
                   child: Text(
+                    plural(
+                      LocaleKeys.item_amount,
+                      5,
+                    ),
                     // '${snapshot.data?.docs.length}
-                    '${LocaleKeys.items.tr()}',
+                    // '${LocaleKeys.items.tr()}',
                     style: const TextStyle(
                       fontSize: 19,
                       color: AppColors.darkText,

@@ -35,7 +35,7 @@ class HomeContentScreenColumn extends StatelessWidget {
         FirebaseFirestore.instance.collection('products').snapshots();
 
     return ListView(
-      shrinkWrap: true,
+      // shrinkWrap: true,
       children: [
         Stack(
           clipBehavior: Clip.none,
@@ -181,7 +181,6 @@ class HomeContentScreenColumn extends StatelessWidget {
           height: 16,
         ),
         SizedBox(
-          height: 300,
           child: ItemGridView(
             collectRef: productsCollRef,
             scrollDirections: Axis.vertical,

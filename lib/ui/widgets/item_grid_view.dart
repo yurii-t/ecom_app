@@ -40,13 +40,17 @@ class ItemGridView extends StatelessWidget {
           collectRef, //FirebaseFirestore.instance.collection('products').snapshots(),
       builder: (context, snapshot) {
         return !snapshot.hasData
-            ? const CircularProgressIndicator(
-                strokeWidth: 2,
+            ? const Center(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(),
+                ),
               )
             : GridView.builder(
                 scrollDirection: scrollDirections,
                 itemCount: snapshot.data?.docs.length, //6,
-                // physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: MediaQuery.of(context).orientation ==
@@ -63,136 +67,6 @@ class ItemGridView extends StatelessWidget {
                   final String productId = data?.id ?? '';
 
                   return ItemContainer(data: data, productId: productId);
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigation.mainAppNav.currentState?.pushNamed(
-                  //       '/home_screen/product_screen',
-                  //       arguments: productId,
-                  //     );
-                  //   },
-                  //   child: Column(
-                  //     children: [
-                  //       Stack(
-                  //         clipBehavior: Clip.none,
-                  //         children: [
-                  //           Container(
-                  //             width: 163,
-                  //             height: 163,
-                  //             decoration: BoxDecoration(
-                  //               borderRadius: const BorderRadius.all(
-                  //                 Radius.circular(8),
-                  //               ),
-                  //               image: DecorationImage(
-                  //                 fit: BoxFit.fill,
-                  //                 image: NetworkImage(
-                  //                   data?['imageUrl'].toString() ??
-                  //                       'Loading...',
-                  //                 ),
-                  //                 //   AssetImage(
-                  //                 // 'assets/images/img_content.png',
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           Positioned(
-                  //             top: 8,
-                  //             child: Container(
-                  //               width: 47,
-                  //               height: 20,
-                  //               decoration: const BoxDecoration(
-                  //                 borderRadius: BorderRadius.only(
-                  //                   topRight: Radius.circular(40),
-                  //                   bottomRight: Radius.circular(40),
-                  //                 ),
-                  //                 gradient: AppGradient.orangeGradient,
-                  //               ),
-                  //               child: const Center(
-                  //                 child: Text(
-                  //                   '-50%',
-                  //                   style: TextStyle(
-                  //                     color: Colors.white,
-                  //                     fontSize: 11,
-                  //                     fontWeight: FontWeight.w700,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           Positioned(
-                  //             top: 145,
-                  //             //right: 0,
-                  //             left: 110,
-                  //             child: ElevatedButton(
-                  //               style: ElevatedButton.styleFrom(
-                  //                 primary: Colors.white,
-                  //                 shape: const CircleBorder(),
-                  //               ),
-                  //               onPressed: () async {
-                  //                 print('tap');
-
-                  //                 final bool isFavorite =
-                  //                     data?['isFavorite'] as bool;
-
-                  //                 await data?.reference.update({
-                  //                   'isFavorite': !isFavorite,
-                  //                 }).then(
-                  //                   (value) => print('updated'),
-                  //                 );
-                  //               },
-                  //               child: data?['isFavorite'] == true
-                  //                   ? SvgPicture.asset(
-                  //                       'assets/icons/favorite_heart.svg',
-                  //                     )
-                  //                   : SvgPicture.asset(
-                  //                       'assets/icons/heart11.svg',
-                  //                     ),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       const SizedBox(
-                  //         height: 8,
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(left: 16),
-                  //         child: Column(
-                  //           // mainAxisAlignment: MainAxisAlignment.start,
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             StarIconList(
-                  //               productId: productId,
-                  //             ),
-                  //             const SizedBox(
-                  //               height: 8,
-                  //             ),
-                  //             Text(
-                  //               data?['name'].toString() ?? 'Loading',
-                  //               //LocaleKeys.product_title.tr(),
-                  //               // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
-                  //               overflow: TextOverflow.ellipsis,
-                  //               maxLines: 2,
-                  //               style: const TextStyle(
-                  //                 fontSize: 14,
-                  //                 fontWeight: FontWeight.w400,
-                  //                 color: Colors.black,
-                  //               ),
-                  //             ),
-                  //             const SizedBox(
-                  //               height: 8,
-                  //             ),
-                  //             Text(
-                  //               r'$' + '${data?['price']}',
-                  //               style: const TextStyle(
-                  //                 fontSize: 17,
-                  //                 fontWeight: FontWeight.w700,
-                  //                 color: Colors.black,
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // );
                 },
               );
       },

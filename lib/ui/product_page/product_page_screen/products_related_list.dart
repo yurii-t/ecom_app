@@ -20,7 +20,13 @@ class ProductsRelatedList extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection('products').snapshots(),
         builder: (context, snapshot) {
           return !snapshot.hasData
-              ? const CircularProgressIndicator()
+              ? const Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data?.docs.length,

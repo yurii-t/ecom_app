@@ -112,7 +112,13 @@ class ProductScreen extends StatelessWidget {
                       // }
 
                       return !snapshot.hasData
-                          ? const CircularProgressIndicator()
+                          ? const Center(
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
                           : Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,

@@ -12,7 +12,13 @@ class HomeCatalogueList extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection('Catalogue').snapshots(),
         builder: (context, snapshot) {
           return !snapshot.hasData
-              ? const CircularProgressIndicator()
+              ? const Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               : ListView.builder(
                   itemCount: snapshot.data?.docs.length,
                   // itemExtent: 88,

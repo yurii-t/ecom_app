@@ -56,7 +56,13 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
               }
 
               return !snapshot.hasData
-                  ? const CircularProgressIndicator()
+                  ? const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
                   : Row(
                       children: [
                         Expanded(

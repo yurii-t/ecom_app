@@ -78,14 +78,10 @@ class FavoriteScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    plural(LocaleKeys.item_amount.tr(), 1),
-
-                    // '${plural(
-                    //   LocaleKeys.item_amount.tr().plural(value)
-                    //   0,
-                    // )}', // format: NumberFormat()).tr()}',
-                    // 'item'.plural(0)
-                    //'5 ${LocaleKeys.items.tr()}',
+                    plural(
+                      LocaleKeys.item_amount,
+                      5,
+                    ),
                     style: const TextStyle(
                       fontSize: 19,
                       color: AppColors.darkText,

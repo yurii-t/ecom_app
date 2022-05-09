@@ -40,7 +40,19 @@ class _CartScreenState extends State<CartScreen> {
         );
 
         return !snapshot.hasData
-            ? const CircularProgressIndicator()
+            ? const Center(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: const Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+              )
             : Scaffold(
                 backgroundColor: AppColors.backGround,
                 body: Column(

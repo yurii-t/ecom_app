@@ -21,7 +21,13 @@ class ProductDetailsContainer extends StatelessWidget {
         final DocumentSnapshot? data = snapshot.data;
 
         return !snapshot.hasData
-            ? const CircularProgressIndicator()
+            ? const Center(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(),
+                ),
+              )
             : ExpandableNotifier(
                 child: Container(
                   // color: Colors.amber,

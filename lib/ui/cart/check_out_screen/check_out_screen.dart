@@ -31,7 +31,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String cardNumber = '5678 5678 5678 5678';
   int delivery = 0;
   //late num totalPrice;
-  @override
+
   @override
   Widget build(BuildContext context) {
     final itemPrice = ModalRoute.of(context)?.settings.arguments as num;
@@ -269,7 +269,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           return Image.network(snapshot.data.toString());
                         }
 
-                        return const CircularProgressIndicator();
+                        return const Center(
+                          child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                       },
                     ),
                     // Image.asset(

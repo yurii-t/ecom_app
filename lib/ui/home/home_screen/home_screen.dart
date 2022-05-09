@@ -339,7 +339,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           final int? dataLen = snapshot.data?.docs.length;
 
                           return !snapshot.hasData
-                              ? const CircularProgressIndicator()
+                              ? const Center(
+                                  child: SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                )
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
