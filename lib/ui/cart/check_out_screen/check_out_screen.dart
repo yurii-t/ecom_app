@@ -10,13 +10,8 @@ import 'package:ecom_app/ui/cart/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// import 'package:ecom_app/assets/translations/locale_keys.g.dart';
-// assets\translations\locale_keys.g.dart
-
 class CheckOutScreen extends StatefulWidget {
-  //final num itemsPrice;
   const CheckOutScreen({
-    // required this.itemsPrice,
     Key? key,
   }) : super(key: key);
 
@@ -30,7 +25,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String address = '225 Highland Ave Springfield, IL 62704, USA';
   String cardNumber = '5678 5678 5678 5678';
   int delivery = 0;
-  //late num totalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +52,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
               Text(
                 LocaleKeys.check_out.tr(),
-                // 'check_out'.tr(),
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 19,
@@ -87,7 +80,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   Text(
                     LocaleKeys.shipping_addresses.tr(),
-                    //  'Shipping Address',
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w700,
@@ -137,7 +129,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     children: [
                       Text(
                         LocaleKeys.change.tr(),
-                        // 'Change ',
                         style: const TextStyle(
                           color: AppColors.darkText,
                           fontWeight: FontWeight.w700,
@@ -186,7 +177,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
               Text(
                 LocaleKeys.delivery.tr(),
-                // 'Delivery',
                 style: const TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w700,
@@ -224,7 +214,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   Text(
                     LocaleKeys.paymentmethod.tr(),
-                    // 'Payment Method',
                     style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w700,
@@ -278,11 +267,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         );
                       },
                     ),
-                    // Image.asset(
-                    //   'assets/images/mastercard.png',
-                    //   // width: 80,
-                    //   // height: 80,
-                    // ),
                     const Text(
                       '   **** **** **** 5678',
                       style: TextStyle(
@@ -299,7 +283,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 children: [
                   Text(
                     LocaleKeys.change.tr(),
-                    // 'Change ',
                     style: const TextStyle(
                       color: AppColors.darkText,
                       fontWeight: FontWeight.w700,
@@ -316,7 +299,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
         ),
       ]),
-      ////checkout
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(left: 30, right: 30, top: 18),
         width: MediaQuery.of(context).size.width,
@@ -342,7 +324,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Expanded(
                   child: Text(
                     LocaleKeys.items.tr(),
-                    // 'Items',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -352,7 +333,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 Text(
                   '\$$itemPrice',
-                  // '\$${widget.itemsPrice}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -369,7 +349,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Expanded(
                   child: Text(
                     LocaleKeys.delivery.tr(),
-                    // 'Delivery',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -393,7 +372,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Expanded(
                   child: Text(
                     LocaleKeys.total_price.tr(),
-                    // 'Total price',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -438,7 +416,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               },
               child: Text(
                 LocaleKeys.pay.tr(),
-                // 'Pay',
                 style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,

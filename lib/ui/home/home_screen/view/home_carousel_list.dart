@@ -14,11 +14,7 @@ class HomeCarouselList extends StatefulWidget {
 
 class _HomeCarouselListState extends State<HomeCarouselList> {
   List<dynamic> imgSlider = <String>[];
-  //   'assets/images/img_gal.jpg',
-  //   'assets/images/img_content.png',>
-  //   'assets/images/catalogue_img.png',
-  //   'assets/images/content_img1.png',
-  // ];
+
   int _sliderCurrent = 0;
   final CarouselController _sliderController = CarouselController();
 
@@ -31,8 +27,7 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
           margin: const EdgeInsets.only(left: 16, right: 16),
           width: 343,
           height: 88,
-          child: // Column(children: [
-              FutureBuilder<DocumentSnapshot>(
+          child: FutureBuilder<DocumentSnapshot>(
             future: FirebaseFirestore.instance
                 .collection('carousel')
                 .doc('LMQaDghBVCoM807xIcTS')
@@ -59,7 +54,6 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
                         viewportFraction: 1,
                         autoPlay: true,
                         enlargeCenterPage: false,
-                        // aspectRatio: 2.0,
                         onPageChanged: (index, reason) {
                           setState(() {
                             _sliderCurrent = index;
@@ -99,7 +93,6 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
                     horizontal: 4,
                   ),
                   decoration: BoxDecoration(
-                    // shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     color: (Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
@@ -119,7 +112,6 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
             children: [
               Text(
                 LocaleKeys.fashion.tr(),
-                // 'Fashion Sale',
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -131,7 +123,6 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
                 children: [
                   Text(
                     LocaleKeys.see_all.tr(),
-                    // 'See More',
                     style: const TextStyle(
                       color: AppColors.yellow,
                       fontWeight: FontWeight.w700,

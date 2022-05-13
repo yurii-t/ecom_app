@@ -19,7 +19,7 @@ class Cart extends Equatable {
     required this.quantity,
   });
 
-  static Cart fromSnapShot(DocumentSnapshot snap) {
+  factory Cart.fromSnapShot(DocumentSnapshot snap) {
     Cart cart = Cart(
       name: snap['name'] as String,
       imageUrl: snap['imageUrl'] as String,
@@ -30,6 +30,28 @@ class Cart extends Equatable {
     );
     return cart;
   }
+
+  Map<String, Object> toDocument() {
+    return {
+      'name': name,
+      'price': price,
+      'imageUrl': imageUrl,
+      'quantity': quantity,
+      'colors': colors,
+      'sizes': sizes,
+    };
+  }
+  // static Cart fromSnapShot(DocumentSnapshot snap) {
+  //   Cart cart = Cart(
+  //     name: snap['name'] as String,
+  //     imageUrl: snap['imageUrl'] as String,
+  //     price: snap['price'] as num,
+  //     quantity: snap['quantity'] as int,
+  //     sizes: snap['sizes'] as String,
+  //     colors: snap['colors'] as String,
+  //   );
+  //   return cart;
+  // }
 
   @override
   List<Object?> get props => [

@@ -3,9 +3,9 @@ import 'package:ecom_app/data/models/catalogue.dart';
 import 'package:ecom_app/domain/reposittories/catalogue/base_catalogue_repository.dart';
 
 class CatalogueRepository extends BaseCatalogueRepository {
-  final FirebaseFirestore _firebaseFirestore;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  CatalogueRepository(this._firebaseFirestore);
+  // CatalogueRepository(this._firebaseFirestore);
 
   @override
   Stream<List<Catalogue>> getAllCatalogue() {
@@ -13,7 +13,8 @@ class CatalogueRepository extends BaseCatalogueRepository {
         .collection('Catalogue')
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) => Catalogue.fromSnapShot(doc)).toList();
+      return snapshot.docs.map(Catalogue.fromSnapShot).toList();
+      // return snapshot.docs.map((doc) => Catalogue.fromSnapShot(doc)).toList();
     });
   }
 }

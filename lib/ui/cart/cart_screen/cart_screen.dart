@@ -31,9 +31,6 @@ class _CartScreenState extends State<CartScreen> {
         totalSum = snapshot.data?.docs.fold<num>(
           0,
           (previousValue, element) {
-            //previousValue = (snapshot!.data['quantity']  * snapshot.data['price']) as num;
-            // print('PPP ${element['price']}');
-
             return previousValue +
                 (element['price'] * element['quantity'] as num);
           },
@@ -69,12 +66,6 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // Future.delayed(Duration.zero, () {
-                              //   Navigation.mainListNav.currentState!
-                              //       .popAndPushNamed(
-                              //     'home_screen/home_content_screen',
-                              //   );
-                              //  });
                               Navigator.of(context).pop();
                             },
                             child: SvgPicture.asset(
@@ -92,22 +83,15 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // final col = FirebaseFirestore.instance
-                              //     .collection('cart')
-                              //     .snapshots();
-
                               final snap = snapshot.data?.docs;
                               if (snap != null) {
                                 for (final el in snap) {
                                   el.reference.delete();
                                 }
                               }
-
-                              // DocumentSnapshot snap = snapshot.data.docs;
                             },
                             child: Text(
                               LocaleKeys.delete.tr(),
-                              // 'Delete',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
@@ -118,26 +102,22 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     ),
-
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
                           return const Divider(
                             height: 1,
                             thickness: 2,
-                            // color: Colors.red,
                           );
                         },
                         clipBehavior: Clip.hardEdge,
-                        itemCount: snapshot.data?.docs.length ??
-                            0, //listSize.length, //3,
+                        itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: (context, index) {
                           final DocumentSnapshot? data =
                               snapshot.data?.docs[index];
 
                           final String productId = data?.id ?? '';
 
-                          // final int lenght = snapshot.data?.size ?? 0;
                           _itemCounter = data?['quantity'] as int;
                           itemPrice = data?['price'] as num;
 
@@ -147,7 +127,6 @@ class _CartScreenState extends State<CartScreen> {
                           totalList.add(itemTotal);
 
                           print('LIST ${totalSum}');
-                          // totalSum = totalList.take(lenght);
 
                           return Container(
                             padding: const EdgeInsets.only(
@@ -182,11 +161,6 @@ class _CartScreenState extends State<CartScreen> {
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      // Image.asset(
-                                      //   'assets/images/content_img1.png',
-                                      //   width: 80,
-                                      //   height: 80,
-                                      // ),
                                       Image.network(
                                         data?['imageUrl'].toString() ??
                                             'Loading...',
@@ -207,10 +181,7 @@ class _CartScreenState extends State<CartScreen> {
                                               child: Text(
                                                 data?['name'].toString() ??
                                                     'Loading...',
-                                                // LocaleKeys.product_title.tr(),
-                                                // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                                 textAlign: TextAlign.start,
-                                                //overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
@@ -241,11 +212,6 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        // print('plust');
-                                        // print(productId);
-                                        // setState(() {
-                                        //   _itemCounter + 1;
-                                        // });
                                         print(_itemCounter);
                                         FirebaseFirestore.instance
                                             .collection('cart')
@@ -289,8 +255,6 @@ class _CartScreenState extends State<CartScreen> {
                         },
                       ),
                     ),
-                    //   },
-                    // ),
                   ],
                 ),
                 bottomNavigationBar: Container(
@@ -315,13 +279,10 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Text(
                               LocaleKeys.total_price.tr(),
-                              // 'Total price',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -346,15 +307,6 @@ class _CartScreenState extends State<CartScreen> {
                           minimumSize: const Size(373, 48),
                         ),
                         onPressed: () {
-                          // Navigator.push<void>(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => CheckOutScreen(
-                          //       itemsPrice: totalSum ?? 0,
-                          //     ),
-                          //   ),
-                          // );
-
                           Navigation.mainAppNav.currentState?.pushNamed(
                             '/home_screen/cart_screen/check_out_screen',
                             arguments: totalSum ?? 0,
@@ -362,7 +314,6 @@ class _CartScreenState extends State<CartScreen> {
                         },
                         child: Text(
                           LocaleKeys.check_out.tr(),
-                          // 'Check Out',
                           style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w700,

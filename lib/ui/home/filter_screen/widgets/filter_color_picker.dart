@@ -1,20 +1,13 @@
-// my_color_picker.dart
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FilterColorPicker extends StatefulWidget {
-  // List of pickable colors
   final List<Color> availableColors;
 
-  // The default picked color
-  //  final Color initialColor;
-
-  // Determnie shapes of color cells
   final bool circleItem;
 
   const FilterColorPicker({
     required this.availableColors,
-    //  required this.initialColor,
     Key? key,
     this.circleItem = true,
   }) : super(key: key);
@@ -24,14 +17,7 @@ class FilterColorPicker extends StatefulWidget {
 }
 
 class _FilterColorPickerState extends State<FilterColorPicker> {
-  // This variable used to determine where the checkmark will be
   Color _pickedColor = Colors.transparent;
-
-  // @override
-  // void initState() {
-  //   _pickedColor = widget.initialColor;
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,20 +61,11 @@ class _FilterColorPickerState extends State<FilterColorPicker> {
                   height: 37,
                   decoration: BoxDecoration(
                     color: itemColor,
-                    shape: //widget.circleItem == true
-                        widget.circleItem
-                            ? BoxShape.circle
-                            : BoxShape.rectangle,
+                    shape: widget.circleItem
+                        ? BoxShape.circle
+                        : BoxShape.rectangle,
                     border: Border.all(width: 1, color: Colors.grey.shade300),
                   ),
-                  // child: itemColor == _pickedColor
-                  //     ? const Center(
-                  //         child: Icon(
-                  //           Icons.check,
-                  //           color: Colors.white,
-                  //         ),
-                  //       )
-                  //     : Container(),
                 ),
               ),
             ),

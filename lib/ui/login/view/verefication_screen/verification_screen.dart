@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/home/home_screen/home_screen.dart';
+
 import 'package:ecom_app/ui/login/bloc/phone_auth_bloc.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 

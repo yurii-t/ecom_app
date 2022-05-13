@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class Product extends Equatable {
+  final String id;
   final String name;
   final String imageUrl;
   final String description;
@@ -14,6 +15,7 @@ class Product extends Equatable {
   final List img;
 
   const Product({
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.category,
@@ -25,8 +27,9 @@ class Product extends Equatable {
     required this.img,
   });
 
-  static Product fromSnapShot(DocumentSnapshot snap) {
+  factory Product.fromSnapShot(DocumentSnapshot snap) {
     Product product = Product(
+      id: snap.id,
       name: snap['name'] as String,
       imageUrl: snap['imageUrl'] as String,
       category: snap['category'] as String,
@@ -42,6 +45,7 @@ class Product extends Equatable {
 
   @override
   List<Object?> get props => [
+        // id,
         name,
         imageUrl,
         category,

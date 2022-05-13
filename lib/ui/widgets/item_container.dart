@@ -1,16 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom_app/data/models/product.dart';
 import 'package:ecom_app/style/app_gradient.dart';
+import 'package:ecom_app/ui/home/home_screen/bloc/home_screen_bloc.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ItemContainer extends StatelessWidget {
-  final DocumentSnapshot? data;
-  final String productId;
+  // final DocumentSnapshot? data;
+  // final String productId;
+  final Product product;
+  final Function updateFavorite;
   const ItemContainer({
-    required this.data,
-    required this.productId,
+    required this.updateFavorite,
+    required this.product,
+    // required this.data,
+    //required this.productId,
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +26,7 @@ class ItemContainer extends StatelessWidget {
       onTap: () {
         Navigation.mainAppNav.currentState?.pushNamed(
           '/home_screen/product_screen',
-          arguments: productId,
+          arguments: product.id, //productId,
         );
       },
       child: Column(
@@ -38,7 +44,8 @@ class ItemContainer extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      data?['imageUrl'].toString() ?? 'Loading...',
+                      product
+                          .imageUrl, //data?['imageUrl'].toString() ?? 'Loading...',
                     ),
                     //   AssetImage(
                     // 'assets/images/img_content.png',
@@ -80,22 +87,25 @@ class ItemContainer extends StatelessWidget {
                   ),
                   onPressed: () async {
                     print('tap');
+                    updateFavorite();
+                    // final bool isFavorite =
+                    //     product.isFavorite; //data?['isFavorite'] as bool;
 
-                    final bool isFavorite = data?['isFavorite'] as bool;
-
-                    await data?.reference.update({
-                      'isFavorite': !isFavorite,
-                    }).then(
-                      (value) => print('updated'),
-                    );
+                    // await data?.reference.update({
+                    //   'isFavorite': !isFavorite,
+                    // }).then(
+                    //   (value) => print('updated'),
+                    // );
                   },
-                  child: data?['isFavorite'] == true
-                      ? SvgPicture.asset(
-                          'assets/icons/favorite_heart.svg',
-                        )
-                      : SvgPicture.asset(
-                          'assets/icons/heart11.svg',
-                        ),
+                  child:
+                      // data?['isFavorite'] == true
+                      product.isFavorite
+                          ? SvgPicture.asset(
+                              'assets/icons/favorite_heart.svg',
+                            )
+                          : SvgPicture.asset(
+                              'assets/icons/heart11.svg',
+                            ),
                 ),
               ),
             ],
@@ -110,13 +120,13 @@ class ItemContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 StarIconList(
-                  productId: productId,
+                  productId: product.id, // productId,
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 Text(
-                  data?['name'].toString() ?? 'Loading',
+                  product.name, //data?['name'].toString() ?? 'Loading',
                   //LocaleKeys.product_title.tr(),
                   // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
                   overflow: TextOverflow.ellipsis,
@@ -131,7 +141,7 @@ class ItemContainer extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  r'$' + '${data?['price']}',
+                  r'$' + product.price.toString(), //'${data?['price']}',
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -145,4 +155,12 @@ class ItemContainer extends StatelessWidget {
       ),
     );
   }
+  //   void _updateFavorite() {
+  //   context.read<HomeScreenBloc>().add(
+  //         HomeScreenProductFavoriteUpdate(
+  //           product.isFavorite,
+  //           product.id,
+  //         ),
+  //       );
+  // }
 }

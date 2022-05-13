@@ -17,7 +17,7 @@ class CheckOut extends Equatable {
     required this.cardNumber,
   });
 
-  static CheckOut fromSnapShot(DocumentSnapshot snap) {
+  factory CheckOut.fromSnapShot(DocumentSnapshot snap) {
     CheckOut checkOut = CheckOut(
       customerName: snap['CustomerName'] as String,
       cardNumber: snap['cardNumber'] as String,

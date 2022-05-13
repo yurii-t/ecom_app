@@ -24,10 +24,9 @@ class ProductReviewsContainer extends StatelessWidget {
           .doc(productId)
           .collection('reviews')
           .snapshots(),
-      // .doc().get(),
       builder: (context, snapshot) {
         final DocumentSnapshot? dataFirst = snapshot.data?.docs.first;
-        //DateTime firstDate = dataFirst.
+
         if (dataFirst != null) {
           datafirstTime = dataFirst['date'] as Timestamp;
           dateFirst = datafirstTime.toDate();
@@ -92,17 +91,6 @@ class ProductReviewsContainer extends StatelessWidget {
                                 final DateTime date = time.toDate();
                                 final String formatDate =
                                     DateFormat.yMMMd().add_jm().format(date);
-                                // value = snapshot.data?.docs.fold<num>(
-                                //       0,
-                                //       (previousValue, element) {
-                                //         return (previousValue +
-                                //             (element['rating'] as num) /
-                                //                 (snapshot.data?.docs.length ??
-                                //                     1));
-                                //       },
-                                //     ).toInt() ??
-                                //     0;
-                                // print(value);
 
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
@@ -132,16 +120,12 @@ class ProductReviewsContainer extends StatelessWidget {
                                       Text(
                                         data?['userName'].toString() ??
                                             'Loading...',
-                                        // 'Olha Chabanova',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14,
                                           color: AppColors.darkText,
                                         ),
                                       ),
-                                      // const SizedBox(
-                                      //   height: 10,
-                                      // ),
                                       Row(
                                         children: [
                                           Expanded(
@@ -164,9 +148,6 @@ class ProductReviewsContainer extends StatelessWidget {
                                           ),
                                           Text(
                                             formatDate,
-                                            // date.toString(),
-                                            // data['date'] as DateTime,
-                                            // 'June 5,2021',
                                             style: const TextStyle(
                                               color: AppColors.darkGreyText,
                                               fontSize: 12,
@@ -181,8 +162,6 @@ class ProductReviewsContainer extends StatelessWidget {
                                       Text(
                                         data?['reviewText'].toString() ??
                                             'Loading...',
-                                        // LocaleKeys.review_text.tr(),
-                                        // 'I`m old (rolling through my 50`s). But, this is my daughter in law`s favorite color right now.❤️ So I wear it whenever we hang out! She`s my fashion consultant who keeps me on trend🤣',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 4,
                                         style: const TextStyle(
@@ -209,7 +188,6 @@ class ProductReviewsContainer extends StatelessWidget {
                                               onTap: null,
                                               child: Text(
                                                 LocaleKeys.comment.tr(),
-                                                // 'Comment',
                                                 style: const TextStyle(
                                                   decoration:
                                                       TextDecoration.underline,
@@ -228,7 +206,6 @@ class ProductReviewsContainer extends StatelessWidget {
                                             children: [
                                               Text(
                                                 LocaleKeys.helpful.tr(),
-                                                // 'Helpful ',
                                                 style: const TextStyle(
                                                   color: AppColors.greyText,
                                                   fontWeight: FontWeight.w400,
@@ -255,7 +232,6 @@ class ProductReviewsContainer extends StatelessWidget {
                       children: [
                         Text(
                           LocaleKeys.see_all.tr(),
-                          // 'See All',
                           style: const TextStyle(
                             color: AppColors.greyText,
                             fontWeight: FontWeight.w700,
@@ -265,10 +241,6 @@ class ProductReviewsContainer extends StatelessWidget {
                         SvgPicture.asset(
                           'assets/icons/arrow_right_grey.svg',
                         ),
-                        // const Icon(
-                        //   Icons.chevron_right,
-                        //   color: AppColors.greyText,
-                        // ),
                       ],
                     ),
                   ),
@@ -276,7 +248,6 @@ class ProductReviewsContainer extends StatelessWidget {
               ),
               Text(
                 dataFirst?['userName'].toString() ?? 'Loading...',
-                // 'Olha Chabanova',
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
@@ -304,7 +275,6 @@ class ProductReviewsContainer extends StatelessWidget {
                   ),
                   Text(
                     datafirstTimeFormatDate,
-                    // 'June 5,2021',
                     style: const TextStyle(
                       color: AppColors.darkGreyText,
                       fontSize: 12,
@@ -315,8 +285,6 @@ class ProductReviewsContainer extends StatelessWidget {
               ),
               Text(
                 dataFirst?['reviewText'].toString() ?? 'Loading...',
-                // LocaleKeys.review_text.tr(),
-                // 'I`m old (rolling through my 50`s). But, this is my daughter in law`s favorite color right now.❤️ So I wear it whenever we hang out! She`s my fashion consultant who keeps me on trend🤣',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
                 style: const TextStyle(
@@ -340,7 +308,6 @@ class ProductReviewsContainer extends StatelessWidget {
                       onTap: null,
                       child: Text(
                         LocaleKeys.comment.tr(),
-                        // 'Comment',
                         style: const TextStyle(
                           decoration: TextDecoration.underline,
                           color: AppColors.darkText,
@@ -356,7 +323,6 @@ class ProductReviewsContainer extends StatelessWidget {
                     children: [
                       Text(
                         LocaleKeys.helpful.tr(),
-                        // 'Helpful ',
                         style: const TextStyle(
                           color: AppColors.greyText,
                           fontWeight: FontWeight.w400,

@@ -1,8 +1,10 @@
+import 'package:ecom_app/domain/reposittories/login/base_phone_auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class PhoneAuthRepository {
+class PhoneAuthRepository extends BasePhoneAuthRepository {
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  @override
   Future<void> verifyPhone({
     required String phoneNumber,
     required Function(PhoneAuthCredential) verificationCompleted,

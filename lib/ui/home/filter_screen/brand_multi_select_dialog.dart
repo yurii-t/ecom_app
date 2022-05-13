@@ -14,7 +14,6 @@ class BrandMultiSelectDialog extends StatefulWidget {
 }
 
 class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
-  // this variable holds the selected items
   final List<String> _selectedItems = [];
 
   @override
@@ -22,7 +21,6 @@ class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
     return AlertDialog(
       title: Text(
         LocaleKeys.select_brand.tr(),
-        // 'Select Brand'
       ),
       content: SingleChildScrollView(
         child: ListBody(
@@ -41,14 +39,12 @@ class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
         TextButton(
           child: Text(
             LocaleKeys.cancel.tr(),
-            // 'Cancel'
           ),
           onPressed: _cancel,
         ),
         ElevatedButton(
           child: Text(
             LocaleKeys.submit.tr(),
-            // 'Submit'
           ),
           onPressed: _submit,
         ),
@@ -56,7 +52,6 @@ class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
     );
   }
 
-// This function is triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
     setState(() {
       if (isSelected) {
@@ -67,12 +62,10 @@ class _BrandMultiSelectDialogState extends State<BrandMultiSelectDialog> {
     });
   }
 
-  // this function is called when the Cancel button is pressed
   void _cancel() {
     Navigator.pop(context);
   }
 
-// this function is called when the Submit button is tapped
   void _submit() {
     Navigator.pop(context, _selectedItems);
   }

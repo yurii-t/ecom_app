@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SortBottomSheet extends StatefulWidget {
-  //String selectedSortItem;
   const SortBottomSheet({
-    //required this.selectedSortItem,
     Key? key,
   }) : super(key: key);
 
@@ -25,16 +23,14 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
     LocaleKeys.price_high_to_low.tr(),
     LocaleKeys.price_low_to_high.tr(),
   ];
-  String _selectedSortItem = LocaleKeys.featured.tr(); //'Featured';
+  String _selectedSortItem = LocaleKeys.featured.tr();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.only(left: 16, right: 22),
-      width:
-          //343,
-          MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       height: 48,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.grayLight),
@@ -45,8 +41,6 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
         return GestureDetector(
           child: Row(children: [
             Expanded(child: Text(_selectedSortItem)),
-            //Icon(Icons.arrow_drop_down),
-            // const Icon(Icons.keyboard_arrow_right),
             SvgPicture.asset(
               'assets/icons/arrow_right_grey.svg',
             ),
@@ -65,14 +59,12 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 33),
                           child: Text(
                             LocaleKeys.sort_by.tr(),
-                            // 'Sort by',
                             style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
@@ -90,17 +82,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _selectedSortItem =
-                                    sortItem; //LocaleKeys.new_text.tr();
-                                //  'New';
+                                _selectedSortItem = sortItem;
                               });
                               Navigator.of(context).pop();
                             },
                             child: Text(
                               sortItem,
-                              // LocaleKeys.new_text.tr(),
                               textAlign: TextAlign.start,
-                              // 'New',
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

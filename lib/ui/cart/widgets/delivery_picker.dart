@@ -1,4 +1,3 @@
-// my_color_picker.dart
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/data/service/firebase_storage_service.dart';
 import 'package:ecom_app/style/app_colors.dart';
@@ -10,7 +9,6 @@ class DeliveryPicker extends StatefulWidget {
 
   const DeliveryPicker({
     required this.onDeliveryPickedPrice,
-    // required this.availableDelivery,
     Key? key,
   }) : super(key: key);
 
@@ -45,11 +43,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
               );
             },
           ),
-          // Image.asset(
-          //   'assets/images/del1.png',
-          //   width: 71,
-          //   height: 16,
-          // ),
           const SizedBox(
             height: 22,
           ),
@@ -89,11 +82,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
               return const CircularProgressIndicator();
             },
           ),
-          // Image.asset(
-          //   'assets/images/del2.png',
-          //   width: 71,
-          //   height: 16,
-          // ),
           const SizedBox(
             height: 22,
           ),
@@ -119,12 +107,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
     Center(
       child: Column(
         children: [
-          //  Image.network(
-          //   snapshot.data.toString(),
-          //   width: 71,
-          //   height: 16,
-          // );
-
           Image.asset(
             'assets/images/del3.png',
             width: 71,
@@ -154,11 +136,7 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
     ),
   ];
   Widget? _pickedDelivery;
-  // Map<String, num> deliv = {
-  //   'Dhl': 15,
-  //   'Fedex': 18,
-  //   'Upsps': 20,
-  // };
+
   @override
   Widget build(BuildContext context) {
     const double _size = 110;
@@ -176,11 +154,9 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemCount: availableDelivery.length, // widget.availableDelivery.length,
+        itemCount: availableDelivery.length,
         itemBuilder: (context, index) {
-          final item =
-              availableDelivery[index]; //widget.availableDelivery[index];
-          // final itm = deliv.keys.
+          final item = availableDelivery[index];
 
           return GestureDetector(
             onTap: () {

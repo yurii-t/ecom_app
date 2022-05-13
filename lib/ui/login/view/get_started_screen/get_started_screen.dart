@@ -4,7 +4,6 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
-import 'package:ecom_app/ui/login/enter_phone_screen/enter_phone_screen.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 
 import 'package:flutter/material.dart';
@@ -14,11 +13,10 @@ class GetStartedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Duration _animationDuration = const Duration(seconds: 1);
-    double _top = 450;
-    // double _bottom = 10.0;
-    // double _right = 10.0;
-    double _left = 150;
+    // Duration _animationDuration = const Duration(seconds: 1);
+    // double _top = 450;
+
+    // double _left = 150;
 
     return SafeArea(
       child: Scaffold(
@@ -51,13 +49,6 @@ class GetStartedScreen extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            //  child: AnimatedPositioned(
-            //  duration: _animationDuration,
-            // top: _top,
-            //   bottom: _bottom,
-            //  right: _right,
-            //  left: _left,
-
             child: Container(
               width: 269,
               height: 146,
@@ -67,16 +58,13 @@ class GetStartedScreen extends StatelessWidget {
                     const BorderRadius.only(topLeft: Radius.circular(300)),
               ),
             ),
-            //   ),
           ),
-          //  ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               height: 291,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                //color: Colors.purple,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
@@ -123,24 +111,6 @@ class GetStartedScreen extends StatelessWidget {
                       Navigation.mainAppNav.currentState?.pushReplacementNamed(
                         '/enter_phone_screen',
                       );
-                      // FireBaseSt,orageService().getListImg();
-
-                      // Navigator.push<void>(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const EnterPhoneScreen(),
-                      //   ),
-                      // );
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => HomeWidget()));
-                      // setState(() {
-                      //   _top=0;
-                      // //  _right=200;
-                      // //  _bottom=100;
-                      //   _left=0;
-                      // });
                     },
                     style: ElevatedButton.styleFrom(
                       primary: AppColors.yellow,
@@ -149,7 +119,6 @@ class GetStartedScreen extends StatelessWidget {
                     ),
                     child: Text(
                       LocaleKeys.get_started.tr(),
-                      // 'Get Started',
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,

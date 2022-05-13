@@ -5,11 +5,9 @@ class FireBaseStorageService extends ChangeNotifier {
   FireBaseStorageService();
 
   Future getImg(String imageName) async {
-    // Create a storage reference from our app
     final storageRef = FirebaseStorage.instance.ref();
 
     final imageUrl =
-        // await storageRef.child("images/start_img.gif").getDownloadURL();
         await storageRef.child('images/$imageName').getDownloadURL();
 
     return imageUrl;

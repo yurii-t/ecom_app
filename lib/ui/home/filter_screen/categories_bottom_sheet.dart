@@ -23,16 +23,14 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
     LocaleKeys.girls_fashion.tr(),
     LocaleKeys.boys_fashion.tr(),
   ];
-  String _selectedCategoryItem = LocaleKeys.dresses.tr(); //'Dresses';
+  String _selectedCategoryItem = LocaleKeys.dresses.tr();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.only(left: 16, right: 22),
-      width:
-          //343,
-          MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       height: 48,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.grayLight),
@@ -43,8 +41,6 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
         return GestureDetector(
           child: Row(children: [
             Expanded(child: Text(_selectedCategoryItem)),
-            //Icon(Icons.arrow_drop_down),
-            // const Icon(Icons.keyboard_arrow_right),
             SvgPicture.asset(
               'assets/icons/arrow_right_grey.svg',
             ),
@@ -63,14 +59,12 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 33),
                           child: Text(
                             LocaleKeys.womens_fashion.tr(),
-                            // 'Women`s Fashion',
                             style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
@@ -88,16 +82,12 @@ class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _selectedCategoryItem =
-                                    category; //LocaleKeys.clothing.tr();
-                                // 'Clothing';
+                                _selectedCategoryItem = category;
                               });
                               Navigator.of(context).pop();
                             },
                             child: Text(
                               category,
-                              // LocaleKeys.clothing.tr(),
-                              // 'Clothing',
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

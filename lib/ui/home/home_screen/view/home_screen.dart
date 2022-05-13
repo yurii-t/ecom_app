@@ -5,10 +5,10 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
-import 'package:ecom_app/ui/home/clothing_screen/clothing_screen.dart';
-import 'package:ecom_app/ui/home/home_screen/home_content_screen_column.dart';
+import 'package:ecom_app/ui/home/clothing_screen/view/clothing_screen.dart';
+import 'package:ecom_app/ui/home/home_screen/view/home_content_screen_column.dart';
 
-import 'package:ecom_app/ui/profile/favorite_screen/favorite_screen.dart';
+import 'package:ecom_app/ui/profile/favorite_screen/view/favorite_screen.dart';
 import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
@@ -100,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigation.mainListNav.currentState?.pushNamed(
                       'home_screen/home_content_screen',
                     );
-                    // setState(() {
-                    //   _selectedTab = 0;
-                    // });
+                    setState(() {
+                      _selectedTab = 0;
+                    });
                   }, // => onSelectedTab,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
@@ -110,12 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //  Icon(Icons.home),
                             SvgPicture.asset(
                               'assets/icons/home_fill.svg',
-                              // color: Colors.purple,
                             ),
-
                             Text(
                               LocaleKeys.home.tr(),
                               // 'Home',
@@ -130,11 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Icon(Icons.home_outlined),
                             SvgPicture.asset('assets/icons/home_out.svg'),
                             Text(
                               LocaleKeys.home.tr(),
-                              // 'Home',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.greyText,

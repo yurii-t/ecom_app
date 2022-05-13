@@ -3,60 +3,28 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/add_to_cart_bottom_sheet.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_details_container.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_screen_carousel.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/product_reviews_container.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/products_related_list.dart';
-import 'package:ecom_app/ui/product_page/product_page_screen/widgets/product_color_picker.dart';
+import 'package:ecom_app/ui/product_screen/view/add_to_cart_bottom_sheet.dart';
+import 'package:ecom_app/ui/product_screen/view/product_details_container.dart';
+import 'package:ecom_app/ui/product_screen/view/product_reviews_container.dart';
+import 'package:ecom_app/ui/product_screen/view/product_screen_carousel.dart';
+import 'package:ecom_app/ui/product_screen/view/products_related_list.dart';
+import 'package:ecom_app/ui/product_screen/widgets/product_color_picker.dart';
+
 import 'package:ecom_app/ui/widgets/size_picker.dart';
 import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductScreen extends StatelessWidget {
-//  final String productId;
   const ProductScreen({
-    //required this.productId,
     Key? key,
   }) : super(key: key);
-
-  // final List<String> imgSlider = [
-  //   'assets/images/img_gal.jpg',
-  //   'assets/images/product_img1.png',
-  //   'assets/images/product_img12.jpg',
-  //   'assets/images/content_img1.png',
-  // ];
-
-  // var _iconStar = SvgPicture.asset(
-  //   'assets/icons/star.svg',
-  // );
-  // int _sliderProductCurrent = 0;
-  // final CarouselController _sliderProductController = CarouselController();
-  // bool _isOpen = false;
-  // static double _minHeight = 175;
-  // final double _maxHeight = 600;
-
-  // void openReview() {
-  //   if (!_isOpen) {
-  //     setState(() {
-  //       _minHeight = _maxHeight;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _minHeight = 175;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     String pickedProductColor = '';
     String pickedProductSizes = '';
-    // late String dataName;
-    // late num dataPrice;
-    // late String dataimgUrl;
-//  final int _itemCounter = 1;
+
     final _icon = SvgPicture.asset(
       'assets/icons/heart11.svg',
     );
@@ -65,12 +33,9 @@ class ProductScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBody: false,
-        // extendBody: true,
         backgroundColor: AppColors.backGround,
         body: ListView(
           children: [
-            //   Column(
-            //     children: [
             Container(
               width: MediaQuery.of(context).size.width,
               height: 708,
@@ -91,7 +56,7 @@ class ProductScreen extends StatelessWidget {
               child: Column(
                 children: [
                   ProductScreenCarousel(
-                    productId: productId, //widget.productId,
+                    productId: productId,
                   ),
                   const SizedBox(
                     height: 14,
@@ -100,16 +65,9 @@ class ProductScreen extends StatelessWidget {
                     future: FirebaseFirestore.instance
                         .collection('products')
                         .doc(productId)
-                        //.doc(widget.productId)
                         .get(),
                     builder: (context, snapshot) {
                       final DocumentSnapshot? data = snapshot.data;
-                      // if (data != null) {
-                      // //  String dataName = data['name'].toString();
-                      // // final num  dataPrice = data['price'] as num;
-                      // //  final String dataimgUrl = data['imageUrl'].toString();
-                      //   // review = data['reviews'].toString(),
-                      // }
 
                       return !snapshot.hasData
                           ? const Center(
@@ -147,7 +105,6 @@ class ProductScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         LocaleKeys.in_stock.tr(),
-                                        // 'In Stock',
                                         style: const TextStyle(
                                           color: AppColors.greenText,
                                           fontSize: 12,
@@ -161,9 +118,6 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     data?['name'].toString() ?? 'Loading...',
-                                    // dataName,
-                                    //LocaleKeys.product_title.tr(),
-                                    // 'Astylish Women Open Front Long Sleeve Chunky Knit Cardigan',
                                     style: const TextStyle(
                                       color: AppColors.darkText,
                                       fontSize: 19,
@@ -174,7 +128,6 @@ class ProductScreen extends StatelessWidget {
                                     height: 12,
                                   ),
                                   Text(
-                                    // '\$ $dataPrice',
                                     '\$ ${data?['price']}',
                                     style: const TextStyle(
                                       color: AppColors.darkText,
@@ -187,7 +140,6 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     LocaleKeys.colors.tr(),
-                                    // 'Colors',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
@@ -201,21 +153,12 @@ class ProductScreen extends StatelessWidget {
                                     onProductPicked: (val) {
                                       pickedProductColor = val;
                                     },
-                                    // availableProductColor: [
-                                    //   'assets/images/content_img1.png',
-                                    //   'assets/images/imgcolor2.png',
-                                    //   'assets/images/imgcolor3.png',
-                                    //   'assets/images/imgcolor4.png',
-                                    //   'assets/images/imgcolor1.png',
-                                    //   'assets/images/imgcolor6.png',
-                                    // ],
                                   ),
                                   const SizedBox(
                                     height: 16,
                                   ),
                                   Text(
                                     LocaleKeys.sizes.tr(),
-                                    // 'Sizes',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
@@ -229,14 +172,6 @@ class ProductScreen extends StatelessWidget {
                                     onSizePicked: (val) {
                                       pickedProductSizes = val;
                                     },
-                                    // availableSizes: [
-                                    //   'xss',
-                                    //   'xs',
-                                    //   's',
-                                    //   'm',
-                                    //   'l',
-                                    //   'xl',
-                                    // ],
                                   ),
                                 ],
                               ),
@@ -247,10 +182,10 @@ class ProductScreen extends StatelessWidget {
               ),
             ),
             ProductDetailsContainer(
-              productId: productId, //widget.productId,
+              productId: productId,
             ),
             ProductReviewsContainer(
-              productId: productId, //widget.productId,
+              productId: productId,
             ),
             const SizedBox(
               height: 34,
@@ -259,8 +194,6 @@ class ProductScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16),
               child: Text(
                 LocaleKeys.products_list_title.tr(),
-
-                // 'Products related to this item',
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 19,
@@ -275,8 +208,6 @@ class ProductScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            //  ],
-            //  ),
           ],
         ),
         bottomNavigationBar: Container(
@@ -303,7 +234,6 @@ class ProductScreen extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  //back to clothing page
                   Navigator.of(context).pop();
                 },
                 child: SvgPicture.asset('assets/icons/arrow_left_bottom.svg'),
@@ -316,18 +246,6 @@ class ProductScreen extends StatelessWidget {
                     minimumSize: const Size(215, 48),
                   ),
                   onPressed: () {
-                    // CollectionReference collectionRef =
-                    //     FirebaseFirestore.instance.collection('cart');
-                    // collectionRef.doc(widget.productId).set({
-                    //   'name': dataName,
-                    //   'price': dataPrice,
-                    //   'imageUrl': dataimgUrl,
-                    //   'quantity':_itemCounter,
-                    // });
-
-                    // setState(() {
-                    //   _itemCounter = 1;
-                    // });
                     showModalBottomSheet<Widget?>(
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
@@ -339,14 +257,13 @@ class ProductScreen extends StatelessWidget {
                       builder: (context) {
                         return AddToCartBottomSheet(
                           item: 1,
-                          productId: productId, // widget.productId,
+                          productId: productId,
                         );
                       },
                     );
                   },
                   child: Text(
                     LocaleKeys.add_to_cart.tr(),
-                    // 'Add to cart',
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
@@ -354,11 +271,9 @@ class ProductScreen extends StatelessWidget {
                     ),
                   ),
                 );
-                //  )
               }),
               GestureDetector(
                 onTap: () {
-                  //add to favorite
                   Navigator.of(context).pop();
                 },
                 child: _icon,

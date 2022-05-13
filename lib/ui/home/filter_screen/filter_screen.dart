@@ -27,8 +27,6 @@ class _FilterScreenState extends State<FilterScreen> {
   double _endValue = 5000;
   String pickedSize = '';
 
-  // String _selectedCategoryItem = LocaleKeys.dresses.tr(); //'Dresses';
-  // String _selectedSortItem = LocaleKeys.featured.tr(); //'Featured';
   List<String> _selectedItems = [];
 
   double get startControllerValue =>
@@ -74,21 +72,18 @@ class _FilterScreenState extends State<FilterScreen> {
               decoration: const BoxDecoration(
                 gradient: AppGradient.purpleGradient,
               ),
-
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Navigator.of(context).pop();
                       Navigation.mainAppNav.currentState?.pop();
                     },
                     child: SvgPicture.asset('assets/icons/arrow_left.svg'),
                   ),
                   Text(
                     LocaleKeys.filter.tr(),
-                    // 'Filter',
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 19,
@@ -118,7 +113,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                 ],
               ),
-              //  ),
             ),
             const SizedBox(
               height: 24,
@@ -129,7 +123,6 @@ class _FilterScreenState extends State<FilterScreen> {
                 children: [
                   Text(
                     LocaleKeys.price.tr(),
-                    // 'Price',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -151,17 +144,14 @@ class _FilterScreenState extends State<FilterScreen> {
                         _endValue = values.end;
                         startController.text =
                             values.start.roundToDouble().toString();
-                        // r'$' + values.start.roundToDouble().toString();
+
                         endController.text =
                             values.end.roundToDouble().toString();
-                        // r'$' + values.end.roundToDouble().toString();
                       });
                     },
                   ),
                   Container(
-                    width:
-                        //343,
-                        MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
                     height: 48,
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.grayLight),
@@ -170,7 +160,6 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     child: Center(
                       child: Row(
-                        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
                             width: 170,
@@ -179,7 +168,6 @@ class _FilterScreenState extends State<FilterScreen> {
                                 border: InputBorder.none,
                               ),
                               controller: startController,
-                              // initialValue:'$_startValue' ,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -195,7 +183,6 @@ class _FilterScreenState extends State<FilterScreen> {
                                 border: InputBorder.none,
                               ),
                               controller: endController,
-                              // initialValue:endController.text ,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -208,7 +195,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Text(
                     LocaleKeys.categories.tr(),
-                    // 'Categories',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -221,7 +207,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Text(
                     LocaleKeys.brand.tr(),
-                    // 'Brand',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -231,9 +216,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     padding: const EdgeInsets.only(left: 16, right: 22),
-                    width:
-                        //343,
-                        MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
                     height: 48,
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.grayLight),
@@ -244,16 +227,11 @@ class _FilterScreenState extends State<FilterScreen> {
                       return GestureDetector(
                         child: Row(children: [
                           Expanded(child: Text(_selectedItems.join(', '))),
-                          //Icon(Icons.arrow_drop_down),
-                          //const Icon(Icons.keyboard_arrow_right),
                           SvgPicture.asset(
                             'assets/icons/arrow_right_grey.svg',
                           ),
                         ]),
                         onTap: _showMultiSelect,
-                        // () {
-                        //   _showMultiSelect();
-                        // },
                       );
                     }),
                   ),
@@ -262,7 +240,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Text(
                     LocaleKeys.colors.tr(),
-                    // 'Colors',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -287,7 +264,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Text(
                     LocaleKeys.sizes.tr(),
-                    // 'Sizes',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -301,14 +277,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     onSizePicked: (val) {
                       pickedSize = val;
                     },
-                    // availableSizes: ['xss', 'xs', 's', 'm', 'l', 'xl'],
                   ),
                   const SizedBox(
                     height: 24,
                   ),
                   Text(
                     LocaleKeys.sort_by.tr(),
-                    // 'Sort by',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -366,8 +340,6 @@ class _FilterScreenState extends State<FilterScreen> {
   }
 
   Future<void> _showMultiSelect() async {
-    // a list of selectable items
-    // these items can be hard-coded or dynamically fetched from a database/API
     final _items = <String>[
       'Lark & Ro',
       'Astylish',
@@ -384,7 +356,6 @@ class _FilterScreenState extends State<FilterScreen> {
       },
     );
 
-    // Update UI
     if (results != null) {
       setState(() {
         _selectedItems = results;

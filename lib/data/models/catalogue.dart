@@ -11,7 +11,7 @@ class Catalogue extends Equatable {
     required this.imageUrl,
   });
 
-  static Catalogue fromSnapShot(DocumentSnapshot snap) {
+  factory Catalogue.fromSnapShot(DocumentSnapshot snap) {
     Catalogue catalogue = Catalogue(
       title: snap['title'] as String,
       imageUrl: snap['imageUrl'] as String,

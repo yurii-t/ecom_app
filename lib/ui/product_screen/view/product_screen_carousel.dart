@@ -13,11 +13,6 @@ class ProductScreenCarousel extends StatefulWidget {
 
 class _ProductPageCoruselState extends State<ProductScreenCarousel> {
   late List<dynamic> imgProductSlider;
-  // 'assets/images/img_gal.jpg',
-  // 'assets/images/product_img1.png',
-  // 'assets/images/product_img12.jpg',
-  // 'assets/images/content_img1.png',
-  // ];
 
   int _sliderProductCurrent = 0;
   final CarouselController _sliderProductController = CarouselController();
@@ -41,11 +36,8 @@ class _ProductPageCoruselState extends State<ProductScreenCarousel> {
                 alignment: AlignmentDirectional.topCenter,
                 children: [
                   SizedBox(
-                    //  width: 343,
                     height: 375,
-
-                    child: // Column(children: [
-                        CarouselSlider.builder(
+                    child: CarouselSlider.builder(
                       itemCount: imgProductSlider.length,
                       carouselController: _sliderProductController,
                       options: CarouselOptions(
@@ -53,10 +45,8 @@ class _ProductPageCoruselState extends State<ProductScreenCarousel> {
                         viewportFraction: 1,
                         autoPlay: false,
                         enlargeCenterPage: false,
-                        // aspectRatio: 2.0,
                         onPageChanged: (index, reason) {
                           setState(() {
-                            // imgProductSlider.add(data['img'].toString());
                             _sliderProductCurrent = index;
                           });
                         },
@@ -90,7 +80,6 @@ class _ProductPageCoruselState extends State<ProductScreenCarousel> {
                             ),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              //borderRadius: const BorderRadius.all(Radius.circular(8)),
                               color: (Theme.of(context).brightness ==
                                           Brightness.dark
                                       ? Colors.white
