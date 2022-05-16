@@ -13,33 +13,24 @@ class HomeScreenLoaded extends HomeScreenState {
   final List<Product> products;
   // final Product product;
 
-  HomeScreenLoaded(
-      // this.product,
-      {
+  HomeScreenLoaded({
     this.products = const <Product>[],
   });
 
   @override
   List<Object> get props => [
         products,
-        // product,
       ];
 }
 
 class HomeScreenProductFavoriteUpdated extends HomeScreenState {
-  // final bool isFavorite;
   Product product;
-  // final String productId;
 
   HomeScreenProductFavoriteUpdated(
     this.product,
-    // this.isFavorite,
-    // this.productId,
   );
   @override
   List<Object> get props => [
         product,
-        // isFavorite,
-        //  productId
       ];
 }

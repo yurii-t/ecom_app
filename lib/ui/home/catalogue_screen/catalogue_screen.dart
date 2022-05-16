@@ -35,9 +35,7 @@ class CatalogueScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backGround,
-        body:
-            //IndexedStack(index: _pageIndex, children: [
-            BlocBuilder<CatalogueScreenBloc, CatalogueScreenState>(
+        body: BlocBuilder<CatalogueScreenBloc, CatalogueScreenState>(
           builder: (context, state) {
             if (state is CatalogueScreenLoading) {
               const Center(
@@ -114,32 +112,13 @@ class CatalogueScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 36),
                 SizedBox(
-                  // child: SizedBox(
-                  //   child: StreamBuilder<QuerySnapshot>(
-                  //     stream: FirebaseFirestore.instance
-                  //         .collection('Catalogue')
-                  //         .snapshots(),
-                  //     builder: (context, snapshot) {
-                  //       return !snapshot.hasData
-                  //           ? const Center(
-                  //               child: SizedBox(
-                  //                 width: 24,
-                  //                 height: 24,
-                  //                 child: CircularProgressIndicator(),
-                  //               ),
-                  //             )
-                  //           :
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:
-                        state.catalogue.length, //snapshot.data?.docs.length,
+                    itemCount: state.catalogue.length,
                     itemExtent: 120, //88,
                     itemBuilder: (context, index) {
-                      // final DocumentSnapshot? data =
-                      //     snapshot.data?.docs[index];
-
                       return Stack(
                         children: [
                           Container(
@@ -176,8 +155,6 @@ class CatalogueScreen extends StatelessWidget {
                                     ),
                                     child: Text(
                                       state.catalogue[index].title,
-                                      // data?['title'].toString() ??
-                                      //     'Loading...',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.darkText,
@@ -189,8 +166,6 @@ class CatalogueScreen extends StatelessWidget {
                                 ),
                                 Image.network(
                                   state.catalogue[index].imageUrl,
-                                  // data?['imageUrl'].toString() ??
-                                  //     'Loading...',
                                   fit: BoxFit.cover,
                                   height: 176,
                                 ),
@@ -282,10 +257,7 @@ class CatalogueScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  //   },
-                  // ),
                 ),
-                // ),
               ]);
             }
             ;

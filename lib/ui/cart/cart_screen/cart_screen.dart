@@ -8,23 +8,19 @@ import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-List<int> listSize = [0, 1, 2];
-
-class _CartScreenState extends State<CartScreen> {
-  late num itemPrice;
-  final totalList = <num>[];
-  late num itemTotal;
-  late num? totalSum;
-  late dynamic _itemCounter;
-  @override
   Widget build(BuildContext context) {
+    final List<int> listSize = [0, 1, 2];
+
+    late num itemPrice;
+    final totalList = <num>[];
+    late num itemTotal;
+    late num? totalSum;
+    late dynamic _itemCounter;
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('cart').snapshots(),
       builder: (context, snapshot) {

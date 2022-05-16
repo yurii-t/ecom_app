@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/data/models/cart.dart';
 import 'package:ecom_app/data/models/product.dart';
-import 'package:ecom_app/domain/reposittories/cart/base_cart_repository.dart';
+import 'package:ecom_app/domain/repositories/cart/base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

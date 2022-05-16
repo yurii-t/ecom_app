@@ -18,12 +18,6 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final Stream<QuerySnapshot> favoriteProductCollRef = FirebaseFirestore
-    //     .instance
-    // .collection('products')
-    // .where('isFavorite', isEqualTo: true)
-    // .snapshots();
-
     return Scaffold(
       backgroundColor: AppColors.backGround,
       body: BlocBuilder<FavoriteScreenBloc, FavoriteScreenState>(
@@ -57,12 +51,6 @@ class FavoriteScreen extends StatelessWidget {
                           Navigation.mainListNav.currentState!.popAndPushNamed(
                             'home_screen/home_content_screen',
                           );
-                          // Future.delayed(Duration.zero, () {
-                          //   Navigator.pop(context);
-                          // });
-
-                          //  Navigator.of(context).pop();
-                          // Navigation.mainListNav.currentState?.pop();
                         },
                         child: SvgPicture.asset('assets/icons/arrow_left.svg'),
                       ),
@@ -112,18 +100,8 @@ class FavoriteScreen extends StatelessWidget {
                   height: 16,
                 ),
                 Expanded(
-                  // child: ItemGridView(
-                  //   physics: AlwaysScrollableScrollPhysics(),
-                  //   products: [],
-                  //   func1: () {},
-                  // ),
                   child: GridView.builder(
-                    //scrollDirection: //scrollDirections,
                     itemCount: state.products.length,
-                    // products
-                    //     .length, //state.products.length, //snapshot.data?.docs.length, //6,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    //physics,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: MediaQuery.of(context).orientation ==
@@ -136,11 +114,6 @@ class FavoriteScreen extends StatelessWidget {
                       childAspectRatio: 2 / 2,
                     ),
                     itemBuilder: (context, index) {
-                      // final DocumentSnapshot? data = snapshot.data?.docs[index];
-                      // final String productId = data?.id ?? '';
-                      // var idx = state.products[index];
-                      // var id = state.products.where((element) => element.category);
-                      // return ItemContainer(data: data, productId: productId);
                       void _updateFavorite() {
                         final bool isFav = state.products[index].isFavorite;
 
@@ -149,18 +122,13 @@ class FavoriteScreen extends StatelessWidget {
                                 state.products[index], // state.products.first,
                                 !isFav,
                                 state.products,
-                                // state.products.where((element) => element.isFavorite)
-                                //     as bool,
-                                // state.products.map((e1) => e1.isFavorite).first,
-                                // state.products.map((e) => e.id).toString(),
                               ),
                             );
                       }
 
                       return ItemContainer(
                         product: state.products[index],
-                        updateFavorite:
-                            _updateFavorite, //_updateFavorite, //func1,
+                        updateFavorite: _updateFavorite,
                       );
                     },
                   ),

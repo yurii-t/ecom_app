@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/data/models/catalogue.dart';
-import 'package:ecom_app/domain/reposittories/catalogue/base_catalogue_repository.dart';
+import 'package:ecom_app/domain/repositories/catalogue/base_catalogue_repository.dart';
 
 class CatalogueRepository extends BaseCatalogueRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

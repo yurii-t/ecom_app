@@ -217,6 +217,7 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
                     'colors': colorsJoined,
                     'sizes': sizesJoined,
                   });
+                  Navigator.of(context).pop();
                 },
                 child: Text(
                   LocaleKeys.add_to_cart.tr(),

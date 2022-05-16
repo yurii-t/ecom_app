@@ -42,25 +42,6 @@ class _ClothingScreenState extends State<ClothingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // if (query != '' && query != null) {
-    //   collectionRef = FirebaseFirestore.instance
-    //       .collection('products')
-    //       .where('name', isGreaterThanOrEqualTo: query)
-    //       .where('name', isLessThanOrEqualTo: '$query\uf7ff')
-    //       .snapshots();
-    // } else if (startPrice != null && endPrice != null) {
-    //   collectionRef = FirebaseFirestore.instance
-    //       .collection('products')
-    //       .where('price', isGreaterThanOrEqualTo: startPrice)
-    //       .where('price', isLessThanOrEqualTo: endPrice)
-    //       .snapshots();
-    // } else {
-    //   collectionRef = FirebaseFirestore.instance
-    //       .collection('products')
-    //       .where('category', isEqualTo: 'Clothing')
-    //       .snapshots();
-    // }
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backGround,
@@ -227,18 +208,9 @@ class _ClothingScreenState extends State<ClothingScreen> {
                   height: 19,
                 ),
                 SizedBox(
-                  // child: ItemGridView(
-                  //   products: [],
-                  //   physics: AlwaysScrollableScrollPhysics(),
-                  //   func1: () {},
-                  // ),
                   child: GridView.builder(
-                    //scrollDirection: //scrollDirections,
                     itemCount: state.products.length,
-                    // products
-                    //     .length, //state.products.length, //snapshot.data?.docs.length, //6,
                     physics: const NeverScrollableScrollPhysics(),
-                    //physics,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: MediaQuery.of(context).orientation ==
@@ -251,30 +223,20 @@ class _ClothingScreenState extends State<ClothingScreen> {
                       childAspectRatio: 2 / 2,
                     ),
                     itemBuilder: (context, index) {
-                      // final DocumentSnapshot? data = snapshot.data?.docs[index];
-                      // final String productId = data?.id ?? '';
-                      // var idx = state.products[index];
-                      // var id = state.products.where((element) => element.category);
-                      // return ItemContainer(data: data, productId: productId);
                       void _updateFavorite() {
                         final bool isFav = state.products[index].isFavorite;
 
                         context.read<ClothingScreenBloc>().add(
                               ClothingProductFavoriteUpdate(
-                                state.products[index], // state.products.first,
+                                state.products[index],
                                 !isFav,
-                                // state.products.where((element) => element.isFavorite)
-                                //     as bool,
-                                // state.products.map((e1) => e1.isFavorite).first,
-                                // state.products.map((e) => e.id).toString(),
                               ),
                             );
                       }
 
                       return ItemContainer(
                         product: state.products[index],
-                        updateFavorite:
-                            _updateFavorite, //_updateFavorite, //func1,
+                        updateFavorite: _updateFavorite,
                       );
                     },
                   ),

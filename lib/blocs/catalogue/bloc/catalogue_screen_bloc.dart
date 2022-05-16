@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecom_app/data/models/catalogue.dart';
-import 'package:ecom_app/domain/reposittories/catalogue/catalogue_repository.dart';
+import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'catalogue_screen_event.dart';

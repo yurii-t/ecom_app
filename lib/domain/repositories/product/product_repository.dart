@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/data/models/product.dart';
 
-import 'package:ecom_app/domain/reposittories/product/base_product_repository.dart';
+import 'package:ecom_app/domain/repositories/product/base_product_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class ProductRepository extends BaseProductRepository {
@@ -28,16 +28,8 @@ class ProductRepository extends BaseProductRepository {
   ) {
     return _firebaseFirestore
         .collection('products')
-        .doc(product.id) //product.id)
-        .update({'isFavorite': isFavorite}); //product.isFavorite});
-
-    // final bool isFavorite = data?['isFavorite'] as bool;
-
-    // await data?.reference.update({
-    //   'isFavorite': !isFavorite,
-    // }).then(
-    //   (value) => print('updated'),
-    // );
+        .doc(product.id)
+        .update({'isFavorite': isFavorite});
   }
 
   @override

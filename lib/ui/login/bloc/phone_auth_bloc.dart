@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecom_app/domain/reposittories/login/phone_auth_repository.dart';
+import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

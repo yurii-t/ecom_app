@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/product_screen/view/add_to_cart_bottom_sheet.dart';
+import 'package:ecom_app/ui/product_screen/view/add_to_cart_button.dart';
 import 'package:ecom_app/ui/product_screen/view/product_details_container.dart';
 import 'package:ecom_app/ui/product_screen/view/product_reviews_container.dart';
 import 'package:ecom_app/ui/product_screen/view/product_screen_carousel.dart';

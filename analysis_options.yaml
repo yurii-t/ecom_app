@@ -109,7 +109,7 @@ linter:
     - no_logic_in_create_state
     - no_runtimeType_toString
     - null_check_on_nullable_type_parameter
-    - omit_local_variable_types
+    #- omit_local_variable_types
     #    - one_member_abstracts
     - only_throw_errors
     - package_api_docs

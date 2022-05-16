@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecom_app/data/models/product.dart';
-import 'package:ecom_app/domain/reposittories/product/product_repository.dart';
+import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'home_screen_event.dart';
@@ -14,7 +14,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   HomeScreenBloc({
     required this.productRepository,
-    // required this.product
   }) : super(HomeScreenLoading()) {
     on<HomeScreenLoadProduct>(_onHomeScreenLoadProduct);
     on<HomeScreenUpdateProduct>(_onHomeScreenUpdateProduct);
@@ -45,11 +44,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   void _onHomeScreenProductFavoriteUpdate(
       HomeScreenProductFavoriteUpdate event, Emitter<HomeScreenState> emit) {
-    // Product product= pr;
-    // var fav = product.isFavorite;
-    // event.isFavorite;
-    // if (product.isFavorite == true) {}
     productRepository.updateProductFavorite(event.product, event.isFavorite);
-    // emit(HomeScreenProductFavoriteUpdated(event.isFavorite, event.productId));
   }
 }

@@ -11,36 +11,25 @@ class FavoriteScreenLoading extends FavoriteScreenState {}
 
 class FavoriteScreenLoaded extends FavoriteScreenState {
   final List<Product> products;
-  // final Product product;
 
-  FavoriteScreenLoaded(
-      // this.product,
-      {
+  FavoriteScreenLoaded({
     this.products = const <Product>[],
   });
 
   @override
   List<Object> get props => [
         products,
-        // product,
       ];
 }
 
 class FavoriteScreenProductFavoriteUpdated extends FavoriteScreenState {
-  // final bool isFavorite;
-  // Product product;
   final List<Product> products;
-  // final String productId;
 
   FavoriteScreenProductFavoriteUpdated(
     this.products,
-    // this.isFavorite,
-    // this.productId,
   );
   @override
   List<Object> get props => [
         products,
-        // isFavorite,
-        //  productId
       ];
 }

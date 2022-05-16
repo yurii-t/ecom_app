@@ -12,8 +12,6 @@ class HomeCatalogueList extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: BlocBuilder<CatalogueScreenBloc, CatalogueScreenState>(
-        //StreamBuilder<QuerySnapshot>(
-        // stream: FirebaseFirestore.instance.collection('Catalogue').snapshots(),
         builder: (context, state) {
           if (state is CatalogueScreenLoading) {
             return const Center(
@@ -26,11 +24,9 @@ class HomeCatalogueList extends StatelessWidget {
           }
           if (state is CatalogueScreenLoaded) {
             return ListView.builder(
-              itemCount: state.catalogue.length, //snapshot.data?.docs.length,
+              itemCount: state.catalogue.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                // final DocumentSnapshot? data = snapshot.data?.docs[index];
-
                 return Container(
                   margin: const EdgeInsets.all(8),
                   width: 88,
@@ -52,7 +48,6 @@ class HomeCatalogueList extends StatelessWidget {
                   child: Center(
                     child: Text(
                       state.catalogue[index].title,
-                      // data?['title'].toString() ?? 'Loading...',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,

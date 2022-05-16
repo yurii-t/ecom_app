@@ -1,4 +1,4 @@
-import 'package:ecom_app/domain/reposittories/login/base_phone_auth_repository.dart';
+import 'package:ecom_app/domain/repositories/login/base_phone_auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class PhoneAuthRepository extends BasePhoneAuthRepository {

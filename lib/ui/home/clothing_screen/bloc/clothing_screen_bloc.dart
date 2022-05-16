@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecom_app/data/models/product.dart';
-import 'package:ecom_app/domain/reposittories/product/product_repository.dart';
+import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'clothing_screen_event.dart';

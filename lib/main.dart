@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
+import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
+import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
+import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 
-import 'package:ecom_app/domain/reposittories/catalogue/catalogue_repository.dart';
-import 'package:ecom_app/domain/reposittories/login/phone_auth_repository.dart';
-import 'package:ecom_app/domain/reposittories/product/product_repository.dart';
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/cart/check_out_screen/check_out_screen.dart';
 import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';

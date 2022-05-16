@@ -29,138 +29,120 @@ class ItemContainer extends StatelessWidget {
           arguments: product.id, //productId,
         );
       },
-      child: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                width: 163,
-                height: 163,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-                      product
-                          .imageUrl, //data?['imageUrl'].toString() ?? 'Loading...',
+      child: Stack(children: [
+        Column(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 163,
+                  height: 163,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
                     ),
-                    //   AssetImage(
-                    // 'assets/images/img_content.png',
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        product
+                            .imageUrl, //data?['imageUrl'].toString() ?? 'Loading...',
+                      ),
+                      //   AssetImage(
+                      // 'assets/images/img_content.png',
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: 8,
-                child: Container(
-                  width: 47,
-                  height: 20,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
+                Positioned(
+                  top: 8,
+                  child: Container(
+                    width: 47,
+                    height: 20,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
+                      gradient: AppGradient.orangeGradient,
                     ),
-                    gradient: AppGradient.orangeGradient,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      '-50%',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
+                    child: const Center(
+                      child: Text(
+                        '-50%',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: 145,
-                //right: 0,
-                left: 110,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    shape: const CircleBorder(),
-                  ),
-                  onPressed: () async {
-                    print('tap');
-                    updateFavorite();
-                    // final bool isFavorite =
-                    //     product.isFavorite; //data?['isFavorite'] as bool;
-
-                    // await data?.reference.update({
-                    //   'isFavorite': !isFavorite,
-                    // }).then(
-                    //   (value) => print('updated'),
-                    // );
-                  },
-                  child:
-                      // data?['isFavorite'] == true
-                      product.isFavorite
-                          ? SvgPicture.asset(
-                              'assets/icons/favorite_heart.svg',
-                            )
-                          : SvgPicture.asset(
-                              'assets/icons/heart11.svg',
-                            ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                StarIconList(
-                  productId: product.id, // productId,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  product.name, //data?['name'].toString() ?? 'Loading',
-                  //LocaleKeys.product_title.tr(),
-                  // 'ECOWISH Womens Color Block Striped Draped K kslkfajklsajlk',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  r'$' + product.price.toString(), //'${data?['price']}',
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                  ),
-                ),
               ],
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  StarIconList(
+                    productId: product.id, // productId,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    product.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    r'$' + product.price.toString(),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+          top: 145,
+          //right: 0,
+          left: 110,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              shape: const CircleBorder(),
+            ),
+            onPressed: () async {
+              print('tap');
+              updateFavorite();
+            },
+            child: product.isFavorite
+                ? SvgPicture.asset(
+                    'assets/icons/favorite_heart.svg',
+                  )
+                : SvgPicture.asset(
+                    'assets/icons/heart11.svg',
+                  ),
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
-  //   void _updateFavorite() {
-  //   context.read<HomeScreenBloc>().add(
-  //         HomeScreenProductFavoriteUpdate(
-  //           product.isFavorite,
-  //           product.id,
-  //         ),
-  //       );
-  // }
 }

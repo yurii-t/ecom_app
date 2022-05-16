@@ -29,12 +29,12 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
   bool otpVisibility = false;
   String testNumber = '';
 
-  // @override
-  // void dispose() {
-  //   controller.dispose();
+  @override
+  void dispose() {
+    _controller.dispose();
 
-  //   super.dispose();
-  // }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,43 +72,7 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                :
-
-                // BlocListener<PhoneAuthBloc, PhoneAuthState>(
-                //   listener: (context, state) {
-                //     if (state is PhoneAuthCodeSentSuccess) {
-                //       Navigation.mainAppNav.currentState?.pushNamed(
-                //         '/pin_virification_screen',
-                //         arguments: {
-                //           'verificationId': state.verificationId,
-                //           'phoneNumber': testNumber,
-                //         },
-                //       );
-                //     }
-
-                //     if (state is PhoneAuthError) {
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(
-                //           content: Text(state.error),
-                //         ),
-                //       );
-                //     }
-                //   },
-                // child:
-                // return BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
-                //   builder: (context, state) {
-                //     if (state is PhoneAuthLoading) {
-                //       return const Center(
-                //         child: SizedBox(
-                //           width: 24,
-                //           height: 24,
-                //           child: CircularProgressIndicator(),
-                //         ),
-                //       );
-                //     }
-
-                //return
-                Column(
+                : Column(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,

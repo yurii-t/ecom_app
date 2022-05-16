@@ -39,31 +39,7 @@ class HomeContentScreenColumn extends StatelessWidget {
           );
         }
         if (state is HomeScreenLoaded) {
-          // bool isFavorite = state.products.first.isFavorite;
           late bool isFav;
-          // for (var item in state.products) {
-          //   product[item];
-          //   isFav = item.isFavorite;
-          // }
-          // late Product pr;
-          // for (var i = 0; i < state.products.length; i++) {
-          //   pr = state.products[i];
-          //   print('AAAAAAA$pr');
-          //   isFav = state.products[i].isFavorite;
-          // }
-          // _updateFavorite() {
-          //   // bool isFav = state.product.isFavorite;
-          //   context.read<HomeScreenBloc>().add(
-          //         HomeScreenProductFavoriteUpdate(
-          //           state., //state.products[product], // state.products.first,
-          //           !isFav,
-          //           // state.products.where((element) => element.isFavorite)
-          //           //     as bool,
-          //           // state.products.map((e1) => e1.isFavorite).first,
-          //           // state.products.map((e) => e.id).toString(),
-          //         ),
-          //       );
-          // }
 
           return ListView(
             children: [
@@ -201,12 +177,8 @@ class HomeContentScreenColumn extends StatelessWidget {
               ),
               SizedBox(
                 child: GridView.builder(
-                  //scrollDirection: //scrollDirections,
                   itemCount: state.products.length,
-                  // products
-                  //     .length, //state.products.length, //snapshot.data?.docs.length, //6,
                   physics: const NeverScrollableScrollPhysics(),
-                  //physics,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: MediaQuery.of(context).orientation ==
@@ -215,15 +187,10 @@ class HomeContentScreenColumn extends StatelessWidget {
                         : 2,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    mainAxisExtent: 260,
+                    mainAxisExtent: 260, //260,
                     childAspectRatio: 2 / 2,
                   ),
                   itemBuilder: (context, index) {
-                    // final DocumentSnapshot? data = snapshot.data?.docs[index];
-                    // final String productId = data?.id ?? '';
-                    // var idx = state.products[index];
-                    // var id = state.products.where((element) => element.category);
-                    // return ItemContainer(data: data, productId: productId);
                     _updateFavorite() {
                       bool isFav = state.products[index].isFavorite;
 
@@ -231,26 +198,16 @@ class HomeContentScreenColumn extends StatelessWidget {
                             HomeScreenProductFavoriteUpdate(
                               state.products[index], // state.products.first,
                               !isFav,
-                              // state.products.where((element) => element.isFavorite)
-                              //     as bool,
-                              // state.products.map((e1) => e1.isFavorite).first,
-                              // state.products.map((e) => e.id).toString(),
                             ),
                           );
                     }
 
                     return ItemContainer(
                       product: state.products[index],
-                      updateFavorite:
-                          _updateFavorite, //_updateFavorite, //func1,
+                      updateFavorite: _updateFavorite,
                     );
                   },
                 ),
-                // child: ItemGridView(
-                //   physics: NeverScrollableScrollPhysics(),
-                //   products: state.products,
-                //   func1: _updateFavorite,
-                // ),
               ),
             ],
           );

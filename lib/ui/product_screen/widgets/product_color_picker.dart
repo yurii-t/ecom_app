@@ -2,14 +2,11 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductColorPicker extends StatefulWidget {
-  //final Function onSelectSize;
   final Function(String) onProductPicked;
 
   const ProductColorPicker({
     required this.onProductPicked,
-    // required this.availableProductColor,
     Key? key,
-    // required this.onSelectSize,
   }) : super(key: key);
 
   @override
@@ -64,11 +61,6 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                // color: pick.contains(itemColor)
-                //     ? AppColors.yellowColor
-                //     : Colors.white,
-                //itemColor == _pickedColor ? AppColors.yellowColor: Colors.white,
-
                 border: pick.contains(itemColor)
                     ? Border.all(width: 2, color: AppColors.yellow)
                     : Border.all(width: 0, color: Colors.transparent),
@@ -79,14 +71,6 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
                       index]), //widget.availableProductColor[index]),
                 ),
               ),
-              // child: Center(
-              //   child: Text(
-              //     itemColor,
-              //     style: pick.contains(itemColor)
-              //         ? const TextStyle(color: Colors.white)
-              //         : const TextStyle(color: AppColors.darkTextColor),
-              //   ),
-              // ),
             ),
           );
         },

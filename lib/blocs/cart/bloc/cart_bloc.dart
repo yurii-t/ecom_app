@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:ecom_app/data/models/cart.dart';
 import 'package:ecom_app/data/models/product.dart';
-import 'package:ecom_app/domain/reposittories/cart/cart_repository.dart';
+import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'cart_event.dart';
@@ -43,7 +43,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _onAddProduct() {}
+  void _onAddProduct(
+    AddProduct event,
+    Emitter<CartState> emit,
+  ) {}
 
-  void _onRemoveProducts() {}
+  void _onRemoveProducts(
+    RemoveProducts event,
+    Emitter<CartState> emit,
+  ) {}
 }
