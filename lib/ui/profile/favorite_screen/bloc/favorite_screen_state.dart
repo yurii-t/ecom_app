@@ -21,15 +21,3 @@ class FavoriteScreenLoaded extends FavoriteScreenState {
         products,
       ];
 }
-
-class FavoriteScreenProductFavoriteUpdated extends FavoriteScreenState {
-  final List<Product> products;
-
-  FavoriteScreenProductFavoriteUpdated(
-    this.products,
-  );
-  @override
-  List<Object> get props => [
-        products,
-      ];
-}

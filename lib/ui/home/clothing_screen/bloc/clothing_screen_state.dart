@@ -21,15 +21,3 @@ class ClothingScreenLoaded extends ClothingScreenState {
         products,
       ];
 }
-
-class ClothingProductFavoriteUpdated extends ClothingScreenState {
-  Product product;
-
-  ClothingProductFavoriteUpdated(
-    this.product,
-  );
-  @override
-  List<Object> get props => [
-        product,
-      ];
-}

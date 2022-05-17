@@ -1,24 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
+import 'package:ecom_app/data/models/cart.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/product_screen/widgets/product_color_picker.dart';
 
 import 'package:ecom_app/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddToCartBottomSheet extends StatefulWidget {
+class AddToCartButton extends StatefulWidget {
   final String productId;
   int item;
-  AddToCartBottomSheet({required this.item, required this.productId, Key? key})
+  AddToCartButton({required this.item, required this.productId, Key? key})
       : super(key: key);
 
   @override
-  State<AddToCartBottomSheet> createState() => _AddToCartBottomSheetState();
+  State<AddToCartButton> createState() => _AddToCartButtonState();
 }
 
-class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
+class _AddToCartButtonState extends State<AddToCartButton> {
   late String dataName;
   late num dataPrice;
   late String dataimgUrl;
@@ -207,16 +210,27 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
                   minimumSize: const Size(215, 48),
                 ),
                 onPressed: () {
-                  final CollectionReference collectionRef =
-                      FirebaseFirestore.instance.collection('cart');
-                  collectionRef.doc(widget.productId).set({
-                    'name': dataName,
-                    'price': dataPrice,
-                    'imageUrl': dataimgUrl,
-                    'quantity': widget.item,
-                    'colors': colorsJoined,
-                    'sizes': sizesJoined,
-                  });
+                  // final CollectionReference collectionRef =
+                  //     FirebaseFirestore.instance.collection('cart');
+                  // collectionRef.doc(widget.productId).set({
+                  //   'name': dataName,
+                  //   'price': dataPrice,
+                  //   'imageUrl': dataimgUrl,
+                  //   'quantity': widget.item,
+                  //   'colors': colorsJoined,
+                  //   'sizes': sizesJoined,
+                  // });
+                  Cart cartItem = Cart(
+                    id: widget.productId,
+                    name: dataName,
+                    imageUrl: dataimgUrl,
+                    colors: colorsJoined,
+                    sizes: sizesJoined,
+                    price: dataPrice,
+                    quantity: widget.item,
+                  );
+                  BlocProvider.of<CartBloc>(context)
+                      .add(AddProduct(cartItem, widget.productId));
                   Navigator.of(context).pop();
                 },
                 child: Text(

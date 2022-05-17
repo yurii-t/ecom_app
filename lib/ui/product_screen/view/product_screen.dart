@@ -255,7 +255,7 @@ class ProductScreen extends StatelessWidget {
                       context: context,
                       backgroundColor: Colors.white,
                       builder: (context) {
-                        return AddToCartBottomSheet(
+                        return AddToCartButton(
                           item: 1,
                           productId: productId,
                         );

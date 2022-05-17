@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
+import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
 import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
@@ -61,6 +63,10 @@ Future<void> main() async {
           create: (context) =>
               FavoriteScreenBloc(productRepository: ProductRepository())
                 ..add(FavoriteScreenLoadProduct()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CartBloc(cartRepository: CartRepository())..add(LoadCart()),
         ),
       ],
       child: EasyLocalization(

@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SortBottomSheet extends StatefulWidget {
-  const SortBottomSheet({
+class SortButton extends StatefulWidget {
+  const SortButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SortBottomSheet> createState() => _SortBottomSheetState();
+  State<SortButton> createState() => _SortButtonState();
 }
 
-class _SortBottomSheetState extends State<SortBottomSheet> {
+class _SortButtonState extends State<SortButton> {
   List<String> sortItems = [
     LocaleKeys.sales.tr(),
     LocaleKeys.featured.tr(),

@@ -22,15 +22,3 @@ class HomeScreenLoaded extends HomeScreenState {
         products,
       ];
 }
-
-class HomeScreenProductFavoriteUpdated extends HomeScreenState {
-  Product product;
-
-  HomeScreenProductFavoriteUpdated(
-    this.product,
-  );
-  @override
-  List<Object> get props => [
-        product,
-      ];
-}

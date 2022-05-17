@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -12,6 +13,7 @@ import 'package:ecom_app/ui/profile/favorite_screen/view/favorite_screen.dart';
 import 'package:ecom_app/ui/profile/profile_screen/profile_screen.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -318,51 +320,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/icons/shopping_cart_1.svg'),
-                      StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('cart')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          final num? totalSum = snapshot.data?.docs.fold<num>(
-                            0,
-                            (previousValue, element) {
-                              return previousValue +
-                                  (element['price'] * element['quantity']
-                                      as num);
-                            },
+                      BlocSelector<CartBloc, CartState, num>(
+                        selector: (state) => state is CartLoaded
+                            ? state.cartItems.fold(
+                                0,
+                                (previousValue, element) =>
+                                    previousValue +
+                                    (element.price * element.quantity),
+                              )
+                            : 0,
+                        builder: (
+                          context,
+                          totalSum,
+                        ) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '\$ ${totalSum.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 11,
+                                ),
+                              ),
+                              BlocSelector<CartBloc, CartState, int>(
+                                selector: (state) => state is CartLoaded
+                                    ? state.cartItems.length
+                                    : 0,
+                                builder: (context, length) {
+                                  return Text(
+                                    '${length} ${LocaleKeys.items.tr()}',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 11,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           );
-                          final int? dataLen = snapshot.data?.docs.length;
-
-                          return !snapshot.hasData
-                              ? const Center(
-                                  child: SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                )
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '\$$totalSum',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 11,
-                                      ),
-                                    ),
-                                    Text(
-                                      '$dataLen ${LocaleKeys.items.tr()}',
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 11,
-                                      ),
-                                    ),
-                                  ],
-                                );
                         },
                       ),
                     ],

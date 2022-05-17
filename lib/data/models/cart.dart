@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends Equatable {
+  final String id;
   final String name;
   final String imageUrl;
   final String colors;
@@ -11,6 +12,7 @@ class Cart extends Equatable {
   final int quantity;
 
   const Cart({
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.colors,
@@ -21,6 +23,7 @@ class Cart extends Equatable {
 
   factory Cart.fromSnapShot(DocumentSnapshot snap) {
     Cart cart = Cart(
+      id: snap.id,
       name: snap['name'] as String,
       imageUrl: snap['imageUrl'] as String,
       price: snap['price'] as num,
@@ -33,6 +36,7 @@ class Cart extends Equatable {
 
   Map<String, Object> toDocument() {
     return {
+      'id': id,
       'name': name,
       'price': price,
       'imageUrl': imageUrl,
@@ -55,6 +59,7 @@ class Cart extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         imageUrl,
         price,

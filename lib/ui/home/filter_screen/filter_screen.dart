@@ -201,7 +201,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       color: AppColors.greyText,
                     ),
                   ),
-                  const CategoriesBottomSheet(),
+                  const CategoriesButton(),
                   const SizedBox(
                     height: 24,
                   ),
@@ -289,7 +289,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       color: AppColors.greyText,
                     ),
                   ),
-                  const SortBottomSheet(),
+                  const SortButton(),
                   const SizedBox(
                     height: 32,
                   ),

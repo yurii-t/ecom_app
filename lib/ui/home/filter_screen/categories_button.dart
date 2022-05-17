@@ -4,14 +4,14 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoriesBottomSheet extends StatefulWidget {
-  const CategoriesBottomSheet({Key? key}) : super(key: key);
+class CategoriesButton extends StatefulWidget {
+  const CategoriesButton({Key? key}) : super(key: key);
 
   @override
-  State<CategoriesBottomSheet> createState() => _CategoriesBottomSheetState();
+  State<CategoriesButton> createState() => _CategoriesButtonState();
 }
 
-class _CategoriesBottomSheetState extends State<CategoriesBottomSheet> {
+class _CategoriesButtonState extends State<CategoriesButton> {
   final List<String> categories = [
     LocaleKeys.clothing.tr(),
     LocaleKeys.shoes.tr(),
