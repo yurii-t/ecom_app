@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
+import 'package:ecom_app/blocs/search/bloc/search_bloc.dart';
 import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
 import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
-import 'package:ecom_app/ui/cart/check_out_screen/check_out_screen.dart';
+import 'package:ecom_app/ui/cart/check_out_screen/view/check_out_screen.dart';
+
 import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
 import 'package:ecom_app/ui/home/filter_screen/filter_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/bloc/home_screen_bloc.dart';
@@ -67,6 +69,11 @@ Future<void> main() async {
         BlocProvider(
           create: (context) =>
               CartBloc(cartRepository: CartRepository())..add(LoadCart()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SearchBloc(productRepository: ProductRepository())
+                ..add(SearchLoad('')),
         ),
       ],
       child: EasyLocalization(

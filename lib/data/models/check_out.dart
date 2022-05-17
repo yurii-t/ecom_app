@@ -27,6 +27,15 @@ class CheckOut extends Equatable {
     );
     return checkOut;
   }
+  Map<String, Object> toDocument() {
+    return {
+      'CustomerName': customerName,
+      'cardNumber': cardNumber,
+      'address': address,
+      'price': totalPrice,
+      'delivery': delivery,
+    };
+  }
 
   @override
   List<Object?> get props => [

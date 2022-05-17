@@ -59,4 +59,15 @@ class ProductRepository extends BaseProductRepository {
   ) {
     return _firebaseFirestore.collection('products').doc(product.id).get();
   }
+
+  Stream<List<Product>> searchProducts(String query) {
+    return _firebaseFirestore
+        .collection('products')
+        .where('name', isGreaterThanOrEqualTo: query)
+        .where('name', isLessThanOrEqualTo: '$query\uf7ff')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map(Product.fromSnapShot).toList();
+    });
+  }
 }

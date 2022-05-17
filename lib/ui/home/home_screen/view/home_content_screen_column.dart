@@ -14,6 +14,7 @@ import 'package:ecom_app/ui/widgets/item_container.dart';
 
 import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
+import 'package:ecom_app/ui/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -80,25 +81,26 @@ class HomeContentScreenColumn extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 108,
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      width: 375,
-                      height: 44,
-                      child: TextField(
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: const Icon(Icons.search),
-                          hintText: LocaleKeys.home_searchbar.tr(),
-                        ),
-                      ),
-                    ),
+                    child: SearchBar(),
+                    // Container(
+                    //   margin: const EdgeInsets.only(left: 20, right: 20),
+                    //   width: 375,
+                    //   height: 44,
+                    //   child: TextField(
+                    //     textAlignVertical: TextAlignVertical.bottom,
+                    //     decoration: InputDecoration(
+                    //       filled: true,
+                    //       fillColor: Colors.white,
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(40),
+                    //       ),
+                    //       prefixIcon: const Icon(Icons.search),
+                    //       hintText: LocaleKeys.home_searchbar.tr(),
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                 ],
               ),

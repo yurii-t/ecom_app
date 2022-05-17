@@ -5,7 +5,7 @@ import 'package:ecom_app/data/models/cart.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/cart/check_out_screen/check_out_screen.dart';
+
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +17,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<int> listSize = [0, 1, 2];
+    num totalSumm = 0;
 
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       if (state is CartLoading) {
@@ -271,6 +272,7 @@ class CartScreen extends StatelessWidget {
                             )
                           : 0,
                       builder: (context, totalSum) {
+                        totalSumm = totalSum;
                         return Text(
                           '\$ ${totalSum.toStringAsFixed(2)}', //$totalSum',
                           style: const TextStyle(
@@ -292,7 +294,7 @@ class CartScreen extends StatelessWidget {
                   onPressed: () {
                     Navigation.mainAppNav.currentState?.pushNamed(
                       '/home_screen/cart_screen/check_out_screen',
-                      // arguments: totalSum ?? 0,
+                      arguments: totalSumm,
                     );
                   },
                   child: Text(
