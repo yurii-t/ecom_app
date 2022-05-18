@@ -70,4 +70,37 @@ class ProductRepository extends BaseProductRepository {
       return snapshot.docs.map(Product.fromSnapShot).toList();
     });
   }
+
+  Stream<List<Product>> sortByDateProducts() {
+    return _firebaseFirestore
+        .collection('products')
+        //  .where('category', isEqualTo: 'Clothing')
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map(Product.fromSnapShot).toList();
+    });
+  }
+
+  Stream<List<Product>> sortPriceHightToLow() {
+    return _firebaseFirestore
+        .collection('products')
+        //  .where('category', isEqualTo: 'Clothing')
+        .orderBy('price', descending: true)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map(Product.fromSnapShot).toList();
+    });
+  }
+
+  Stream<List<Product>> sortPriceLowToHigh() {
+    return _firebaseFirestore
+        .collection('products')
+        //  .where('category', isEqualTo: 'Clothing')
+        .orderBy('price', descending: false)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map(Product.fromSnapShot).toList();
+    });
+  }
 }

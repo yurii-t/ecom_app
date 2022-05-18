@@ -37,3 +37,9 @@ class ClothingProductFavoriteUpdate extends ClothingScreenEvent {
         product,
       ];
 }
+
+class SortByDateProduct extends ClothingScreenEvent {}
+
+class SortHighToLow extends ClothingScreenEvent {}
+
+class SortLowToHigh extends ClothingScreenEvent {}

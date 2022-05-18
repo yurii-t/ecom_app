@@ -18,13 +18,21 @@ class ClothingScreenBloc
     on<ClothingScreenLoadProduct>(_onClothingLoadProduct);
     on<ClothingScreenUpdateProduct>(_onClothingUpdateProduct);
     on<ClothingProductFavoriteUpdate>(_onClothingProductFavoriteUpdate);
+    on<SortByDateProduct>(_onSortByDateProduct);
+    on<SortHighToLow>(_onSortHighToLow);
+    on<SortLowToHigh>(_onSortLowToHigh);
+  }
+  @override
+  Future<void> close() {
+    proudctSubscription?.cancel();
+
+    return super.close();
   }
 
   void _onClothingLoadProduct(
     ClothingScreenLoadProduct event,
     Emitter<ClothingScreenState> emit,
   ) {
-    proudctSubscription?.cancel();
     proudctSubscription = productRepository.getAllClothingProducts().listen(
           (
             products,
@@ -49,5 +57,32 @@ class ClothingScreenBloc
     Emitter<ClothingScreenState> emit,
   ) {
     productRepository.updateProductFavorite(event.product, event.isFavorite);
+  }
+
+  void _onSortByDateProduct(
+    SortByDateProduct event,
+    Emitter<ClothingScreenState> emit,
+  ) {
+    productRepository.sortByDateProducts().listen(
+          (val) => add(ClothingScreenUpdateProduct(val)),
+        );
+  }
+
+  void _onSortHighToLow(
+    SortHighToLow event,
+    Emitter<ClothingScreenState> emit,
+  ) {
+    productRepository.sortPriceHightToLow().listen(
+          (val) => add(ClothingScreenUpdateProduct(val)),
+        );
+  }
+
+  void _onSortLowToHigh(
+    SortLowToHigh event,
+    Emitter<ClothingScreenState> emit,
+  ) {
+    productRepository.sortPriceLowToHigh().listen(
+          (val) => add(ClothingScreenUpdateProduct(val)),
+        );
   }
 }

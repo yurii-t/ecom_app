@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/models/product.dart';
+import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SortPopupMenuButton extends StatefulWidget {
@@ -42,12 +46,13 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
             fontSize: 12,
           ),
         ),
-        PopupMenuButton<String>(
+        PopupMenuButton(
           itemBuilder: (context) {
+            // return map1.entries.map((str) {
             return dropButtonItems.map((str) {
               return PopupMenuItem(
                 value: str,
-                child: Text(str),
+                child: Text(str.toString()),
               );
             }).toList();
           },
@@ -62,8 +67,15 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
           onSelected: (v) {
             setState(() {
               print('!!!===== $v');
-              _currentItemSelected = v;
+              _currentItemSelected = v.toString();
             });
+            if (v == dropButtonItems[1]) {
+              context.read<ClothingScreenBloc>().add(SortByDateProduct());
+            } else if (v == dropButtonItems[3]) {
+              context.read<ClothingScreenBloc>().add(SortHighToLow());
+            } else if (v == dropButtonItems[4]) {
+              context.read<ClothingScreenBloc>().add(SortLowToHigh());
+            }
           },
         ),
       ],
