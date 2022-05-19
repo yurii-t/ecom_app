@@ -43,3 +43,16 @@ class SortByDateProduct extends ClothingScreenEvent {}
 class SortHighToLow extends ClothingScreenEvent {}
 
 class SortLowToHigh extends ClothingScreenEvent {}
+
+class FiltePriceSelect extends ClothingScreenEvent {
+  final num startPrice;
+  final num endPrice;
+
+  FiltePriceSelect(this.startPrice, this.endPrice);
+
+  @override
+  List<Object> get props => [
+        startPrice,
+        endPrice,
+      ];
+}

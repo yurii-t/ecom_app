@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/models/filter.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
 import 'package:ecom_app/ui/home/filter_screen/brand_multi_select_dialog.dart';
 import 'package:ecom_app/ui/home/filter_screen/categories_button.dart';
 import 'package:ecom_app/ui/home/filter_screen/sort_button.dart';
@@ -9,6 +11,7 @@ import 'package:ecom_app/ui/home/filter_screen/widgets/filter_color_picker.dart'
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -23,9 +26,14 @@ class _FilterScreenState extends State<FilterScreen> {
   double maxValue = 8000;
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
+  String pickedSize = '';
+  Color initColor = Colors.transparent;
+  String initCategory = LocaleKeys.clothing.tr();
+  String initSortitem = LocaleKeys.featured.tr();
+  List<String> initSelctedSize = [];
+  List<String> inintBrandItem = [];
   double _startValue = 0;
   double _endValue = 5000;
-  String pickedSize = '';
 
   List<String> _selectedItems = [];
 
@@ -44,8 +52,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    // startController.text = '\$$_startValue';
-    // endController.text = '\$$_endValue';
+
     startController.text = '$_startValue';
     endController.text = '$_endValue';
     startController.addListener(_setStartValue);
@@ -93,13 +100,18 @@ class _FilterScreenState extends State<FilterScreen> {
                   GestureDetector(
                     onTap: () {
                       print('tap');
-                      Navigator.pushReplacement(
-                        context,
-                        PageRouteBuilder<void>(
-                          transitionDuration: Duration.zero,
-                          pageBuilder: (_, __, ___) => const FilterScreen(),
-                        ),
-                      );
+                      setState(() {
+                        final Filter filterInit = Filter.initial();
+                        startController.text = filterInit.minValue.toString();
+
+                        endController.text = filterInit.maxValue.toString();
+
+                        initSelctedSize = filterInit.selectedSizeItems;
+                        initColor = filterInit.selectedColor;
+                        initCategory = filterInit.selectedCategoryItem;
+                        initSortitem = filterInit.selectedSortItem;
+                        _selectedItems = filterInit.selectedBrandItem;
+                      });
                     },
                     child: Text(
                       LocaleKeys.clear.tr(),
@@ -201,7 +213,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       color: AppColors.greyText,
                     ),
                   ),
-                  const CategoriesButton(),
+                  CategoriesButton(
+                    initCategory: initCategory,
+                  ),
                   const SizedBox(
                     height: 24,
                   ),
@@ -249,8 +263,9 @@ class _FilterScreenState extends State<FilterScreen> {
                   const SizedBox(
                     height: 13,
                   ),
-                  const FilterColorPicker(
-                    availableColors: [
+                  FilterColorPicker(
+                    initColor: initColor,
+                    availableColors: const [
                       Colors.blue,
                       Colors.green,
                       Colors.greenAccent,
@@ -274,6 +289,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     height: 24,
                   ),
                   SizePicker(
+                    initPick: initSelctedSize,
                     onSizePicked: (val) {
                       pickedSize = val;
                     },
@@ -289,7 +305,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       color: AppColors.greyText,
                     ),
                   ),
-                  const SortButton(),
+                  SortButton(
+                    initSortItem: initSortitem,
+                  ),
                   const SizedBox(
                     height: 32,
                   ),
@@ -300,15 +318,32 @@ class _FilterScreenState extends State<FilterScreen> {
                       minimumSize: const Size(360, 50),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop([_startValue, _endValue]);
+                      Navigator.of(context).pop(
+                          // [_startValue, _endValue]
+                          );
+                      // context
+                      //     .read<ClothingScreenBloc>()
+                      //     .add(FiltePriceSelect(_startValue, _endValue));
                     },
-                    child: Text(
-                      '${LocaleKeys.result.tr()} (166)',
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
+                    child: BlocSelector<ClothingScreenBloc, ClothingScreenState,
+                        int>(
+                      selector: (state) => state is ClothingScreenLoaded
+                          ? state.products.length
+                          : 0,
+                      builder: (context, state) {
+                        context
+                            .read<ClothingScreenBloc>()
+                            .add(FiltePriceSelect(_startValue, _endValue));
+
+                        return Text(
+                          '${LocaleKeys.result.tr()} ($state)',
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(

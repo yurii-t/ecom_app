@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class SizePicker extends StatefulWidget {
   final Function(String) onSizePicked;
-
+  final List<String> initPick;
   const SizePicker({
+    required this.initPick,
     required this.onSizePicked,
     //required this.availableSizes,
     Key? key,
@@ -48,22 +49,32 @@ class _SizePickerState extends State<SizePicker> {
 
           return InkWell(
             onTap: () {
+              // setState(() {
+              //   if (pick.contains(itemColor)) {
+              //     pick.remove(itemColor);
+              //   } else {
+              //     pick.add(itemColor);
+              //   }
+              // });
+              // sizesJioned = pick.join(',');
               setState(() {
-                if (pick.contains(itemColor)) {
-                  pick.remove(itemColor);
+                if (widget.initPick.contains(itemColor)) {
+                  widget.initPick.remove(itemColor);
                 } else {
-                  pick.add(itemColor);
+                  widget.initPick.add(itemColor);
                 }
               });
-              sizesJioned = pick.join(',');
+              sizesJioned = widget.initPick.join(',');
               widget.onSizePicked(sizesJioned);
             },
             child: Container(
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color:
-                    pick.contains(itemColor) ? AppColors.yellow : Colors.white,
+                color: widget.initPick.contains(itemColor)
+                    ? AppColors.yellow
+                    : Colors
+                        .white, //pick.contains(itemColor) ? AppColors.yellow : Colors.white,
                 //itemColor == _pickedColor ? AppColors.yellowColor: Colors.white,
 
                 border: Border.all(color: AppColors.grayLight),
@@ -72,7 +83,8 @@ class _SizePickerState extends State<SizePicker> {
               child: Center(
                 child: Text(
                   itemColor,
-                  style: pick.contains(itemColor)
+                  style: widget.initPick
+                          .contains(itemColor) //pick.contains(itemColor)
                       ? const TextStyle(color: Colors.white)
                       : const TextStyle(color: AppColors.darkText),
                 ),

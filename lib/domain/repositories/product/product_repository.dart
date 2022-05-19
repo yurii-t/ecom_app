@@ -103,4 +103,16 @@ class ProductRepository extends BaseProductRepository {
       return snapshot.docs.map(Product.fromSnapShot).toList();
     });
   }
+
+  Stream<List<Product>> filterPriceSelect(num startPrice, num endPrice) {
+    // if (startPrice != null && endPrice != null) {
+    return _firebaseFirestore
+        .collection('products')
+        .where('price', isGreaterThanOrEqualTo: startPrice)
+        .where('price', isLessThanOrEqualTo: endPrice)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map(Product.fromSnapShot).toList();
+    });
+  }
 }

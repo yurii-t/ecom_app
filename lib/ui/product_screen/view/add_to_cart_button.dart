@@ -183,6 +183,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             height: 8,
           ),
           SizePicker(
+            initPick: [],
             onSizePicked: (val) {
               sizesJoined = val;
               print(sizesJoined);

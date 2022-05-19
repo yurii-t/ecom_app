@@ -169,6 +169,7 @@ class ProductScreen extends StatelessWidget {
                                     height: 8,
                                   ),
                                   SizePicker(
+                                    initPick: [],
                                     onSizePicked: (val) {
                                       pickedProductSizes = val;
                                     },

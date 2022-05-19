@@ -5,8 +5,9 @@ class FilterColorPicker extends StatefulWidget {
   final List<Color> availableColors;
 
   final bool circleItem;
-
-  const FilterColorPicker({
+  Color initColor;
+  FilterColorPicker({
+    required this.initColor,
     required this.availableColors,
     Key? key,
     this.circleItem = true,
@@ -40,7 +41,8 @@ class _FilterColorPickerState extends State<FilterColorPicker> {
           return InkWell(
             onTap: () {
               setState(() {
-                _pickedColor = itemColor;
+                // _pickedColor = itemColor;
+                widget.initColor = itemColor;
               });
             },
             child: Container(
@@ -48,9 +50,10 @@ class _FilterColorPickerState extends State<FilterColorPicker> {
               height: 47,
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                border: itemColor == _pickedColor
-                    ? Border.all(width: 2, color: AppColors.yellow)
-                    : Border.all(width: 0, color: Colors.transparent),
+                border: //itemColor == _pickedColor
+                    itemColor == widget.initColor
+                        ? Border.all(width: 2, color: AppColors.yellow)
+                        : Border.all(width: 0, color: Colors.transparent),
                 shape: BoxShape.circle,
               ),
               child: FractionallySizedBox(

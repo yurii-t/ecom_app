@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoriesButton extends StatefulWidget {
-  const CategoriesButton({Key? key}) : super(key: key);
+  String initCategory;
+  CategoriesButton({required this.initCategory, Key? key}) : super(key: key);
 
   @override
   State<CategoriesButton> createState() => _CategoriesButtonState();
@@ -23,7 +24,6 @@ class _CategoriesButtonState extends State<CategoriesButton> {
     LocaleKeys.girls_fashion.tr(),
     LocaleKeys.boys_fashion.tr(),
   ];
-  String _selectedCategoryItem = LocaleKeys.dresses.tr();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,11 @@ class _CategoriesButtonState extends State<CategoriesButton> {
       child: Builder(builder: (context) {
         return GestureDetector(
           child: Row(children: [
-            Expanded(child: Text(_selectedCategoryItem)),
+            Expanded(
+              child: Text(
+                widget.initCategory,
+              ),
+            ),
             SvgPicture.asset(
               'assets/icons/arrow_right_grey.svg',
             ),
@@ -82,7 +86,7 @@ class _CategoriesButtonState extends State<CategoriesButton> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _selectedCategoryItem = category;
+                                widget.initCategory = category;
                               });
                               Navigator.of(context).pop();
                             },

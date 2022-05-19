@@ -21,6 +21,7 @@ class ClothingScreenBloc
     on<SortByDateProduct>(_onSortByDateProduct);
     on<SortHighToLow>(_onSortHighToLow);
     on<SortLowToHigh>(_onSortLowToHigh);
+    on<FiltePriceSelect>(_onFilterPriceSelect);
   }
   @override
   Future<void> close() {
@@ -84,5 +85,14 @@ class ClothingScreenBloc
     productRepository.sortPriceLowToHigh().listen(
           (val) => add(ClothingScreenUpdateProduct(val)),
         );
+  }
+
+  void _onFilterPriceSelect(
+    FiltePriceSelect event,
+    Emitter<ClothingScreenState> emit,
+  ) {
+    productRepository
+        .filterPriceSelect(event.startPrice, event.endPrice)
+        .listen((val) => add(ClothingScreenUpdateProduct(val)));
   }
 }

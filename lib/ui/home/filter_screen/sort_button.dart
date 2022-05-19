@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SortButton extends StatefulWidget {
-  const SortButton({
+  String initSortItem;
+  SortButton({
+    required this.initSortItem,
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +27,6 @@ class _SortButtonState extends State<SortButton> {
     LocaleKeys.price_high_to_low.tr(),
     LocaleKeys.price_low_to_high.tr(),
   ];
-  String _selectedSortItem = LocaleKeys.featured.tr();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,11 @@ class _SortButtonState extends State<SortButton> {
       child: Builder(builder: (context) {
         return GestureDetector(
           child: Row(children: [
-            Expanded(child: Text(_selectedSortItem)),
+            Expanded(
+              child: Text(
+                widget.initSortItem,
+              ),
+            ),
             SvgPicture.asset(
               'assets/icons/arrow_right_grey.svg',
             ),
@@ -82,8 +89,21 @@ class _SortButtonState extends State<SortButton> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _selectedSortItem = sortItem;
+                                widget.initSortItem = sortItem;
                               });
+                              if (sortItem == sortItems[3]) {
+                                context
+                                    .read<ClothingScreenBloc>()
+                                    .add(SortByDateProduct());
+                              } else if (sortItem == sortItems[4]) {
+                                context
+                                    .read<ClothingScreenBloc>()
+                                    .add(SortHighToLow());
+                              } else if (sortItem == sortItems[5]) {
+                                context
+                                    .read<ClothingScreenBloc>()
+                                    .add(SortLowToHigh());
+                              }
                               Navigator.of(context).pop();
                             },
                             child: Text(
