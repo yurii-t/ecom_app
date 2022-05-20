@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
@@ -7,8 +5,6 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/login/bloc/phone_auth_bloc.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,23 +21,16 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-// +380 123456123
-//123456
-  bool isLoading = false;
-
-  TextEditingController pinController = TextEditingController();
-  // ..text = "123456";
+  final TextEditingController pinController = TextEditingController();
 
   bool hasError = false;
-  String currentText = '';
-  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map;
 
-    String phone = args['phoneNumber'] as String;
-    String verId = args['verificationId'] as String;
+    final String phone = args['phoneNumber'] as String;
+    final String verId = args['verificationId'] as String;
 
     return SafeArea(
       child: Scaffold(
@@ -68,9 +57,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    //375,
                     height: 197,
-
                     padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
                     child: Text(
                       LocaleKeys.verif_title.tr(),
@@ -82,7 +69,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         color: Colors.white,
                       ),
                     ),
-
                     decoration: const BoxDecoration(
                       borderRadius:
                           BorderRadius.only(bottomRight: Radius.circular(300)),
@@ -111,7 +97,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            phone, //'+380991234567',
+                            phone,
                             style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
@@ -144,6 +130,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     padding: const EdgeInsets.only(left: 24, right: 24),
                     child: Center(
                       child: PinCodeTextField(
+                        keyboardType: TextInputType.number,
                         length: 6,
                         obscureText: false,
                         animationType: AnimationType.fade,
@@ -155,25 +142,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           activeFillColor: Colors.white,
                         ),
                         animationDuration: const Duration(milliseconds: 100),
-                        //backgroundColor: Colors.blue.shade50,
                         enableActiveFill: false,
-
                         controller: pinController,
                         onCompleted: (v) {
                           print('Completed');
                         },
-                        onChanged: (value) {
-                          print(value);
-                          setState(() {
-                            currentText = value;
-                          });
-                        },
+                        onChanged: print,
                         beforeTextPaste: (text) {
                           print('Allowing to paste $text');
 
                           return true;
                         },
-                        appContext: context, // appContext: null,
+                        appContext: context,
                       ),
                     ),
                   ),
@@ -225,10 +205,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   void _verifyOtp({required String verificationId}) {
     context.read<PhoneAuthBloc>().add(VerifySentOtpEvent(
-          otpCode: currentText,
+          otpCode: pinController.text,
           verificationId: verificationId,
         ));
-
     @override
     void dispose() {
       pinController.dispose();

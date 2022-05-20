@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 class Filter {
   final double minValue;
   final double maxValue;
-  // final String category;
-  // final String brand;
+
   final List<String> selectedSizeItems;
   final String selectedCategoryItem;
   final String selectedSortItem;

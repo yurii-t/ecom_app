@@ -11,7 +11,6 @@ class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
   final List<Cart> cartItems;
-  // final Cart? cartItem;
 
   const CartLoaded({this.cartItems = const <Cart>[]});
 

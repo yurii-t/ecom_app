@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class Catalogue extends Equatable {
   final String title;
@@ -12,10 +11,11 @@ class Catalogue extends Equatable {
   });
 
   factory Catalogue.fromSnapShot(DocumentSnapshot snap) {
-    Catalogue catalogue = Catalogue(
+    final Catalogue catalogue = Catalogue(
       title: snap['title'] as String,
       imageUrl: snap['imageUrl'] as String,
     );
+
     return catalogue;
   }
 

@@ -1,22 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/data/models/product.dart';
 import 'package:ecom_app/style/app_gradient.dart';
-import 'package:ecom_app/ui/home/home_screen/bloc/home_screen_bloc.dart';
+
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ItemContainer extends StatelessWidget {
-  // final DocumentSnapshot? data;
-  // final String productId;
   final Product product;
-  final Function updateFavorite;
+  final VoidCallback updateFavorite;
   const ItemContainer({
     required this.updateFavorite,
     required this.product,
-    // required this.data,
-    //required this.productId,
     Key? key,
   }) : super(key: key);
 
@@ -26,7 +21,7 @@ class ItemContainer extends StatelessWidget {
       onTap: () {
         Navigation.mainAppNav.currentState?.pushNamed(
           '/home_screen/product_screen',
-          arguments: product.id, //productId,
+          arguments: product.id,
         );
       },
       child: Stack(children: [
@@ -45,11 +40,8 @@ class ItemContainer extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                        product
-                            .imageUrl, //data?['imageUrl'].toString() ?? 'Loading...',
+                        product.imageUrl,
                       ),
-                      //   AssetImage(
-                      // 'assets/images/img_content.png',
                     ),
                   ),
                 ),
@@ -85,11 +77,10 @@ class ItemContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StarIconList(
-                    productId: product.id, // productId,
+                    productId: product.id,
                   ),
                   const SizedBox(
                     height: 8,
@@ -122,17 +113,13 @@ class ItemContainer extends StatelessWidget {
         ),
         Positioned(
           top: 145,
-          //right: 0,
           left: 110,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary: Colors.white,
               shape: const CircleBorder(),
             ),
-            onPressed: () async {
-              print('tap');
-              updateFavorite();
-            },
+            onPressed: updateFavorite,
             child: product.isFavorite
                 ? SvgPicture.asset(
                     'assets/icons/favorite_heart.svg',

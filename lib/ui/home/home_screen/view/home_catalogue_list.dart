@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
-import 'package:ecom_app/ui/home/home_screen/bloc/home_screen_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +36,6 @@ class HomeCatalogueList extends StatelessWidget {
                       fit: BoxFit.fill,
                       image: NetworkImage(
                         state.catalogue[index].imageUrl,
-                        // data?['imageUrl'].toString() ?? 'Loading...',
                       ),
                       colorFilter: ColorFilter.mode(
                         Colors.grey.withOpacity(0.5),

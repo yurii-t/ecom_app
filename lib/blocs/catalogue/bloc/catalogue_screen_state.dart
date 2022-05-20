@@ -12,7 +12,7 @@ class CatalogueScreenLoading extends CatalogueScreenState {}
 class CatalogueScreenLoaded extends CatalogueScreenState {
   final List<Catalogue> catalogue;
 
-  CatalogueScreenLoaded({this.catalogue = const <Catalogue>[]});
+  const CatalogueScreenLoaded({this.catalogue = const <Catalogue>[]});
 
   @override
   List<Object> get props => [catalogue];

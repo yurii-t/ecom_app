@@ -2,12 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/data/models/product.dart';
 
 import 'package:ecom_app/domain/repositories/product/base_product_repository.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class ProductRepository extends BaseProductRepository {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-  //ProductRepository(this._firebaseFirestore);
 
   @override
   Stream<List<Product>> getAllProducts() {
@@ -16,14 +13,12 @@ class ProductRepository extends BaseProductRepository {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map(Product.fromSnapShot).toList();
-      // return snapshot.docs.map((doc) => Product.fromSnapShot(doc)).toList();
     });
   }
 
   @override
   Future<void> updateProductFavorite(
     Product product,
-    // String productId,
     bool isFavorite,
   ) {
     return _firebaseFirestore
@@ -54,12 +49,7 @@ class ProductRepository extends BaseProductRepository {
     });
   }
 
-  Future getProductsItem(
-    Product product,
-  ) {
-    return _firebaseFirestore.collection('products').doc(product.id).get();
-  }
-
+  @override
   Stream<List<Product>> searchProducts(String query) {
     return _firebaseFirestore
         .collection('products')
@@ -71,10 +61,10 @@ class ProductRepository extends BaseProductRepository {
     });
   }
 
+  @override
   Stream<List<Product>> sortByDateProducts() {
     return _firebaseFirestore
         .collection('products')
-        //  .where('category', isEqualTo: 'Clothing')
         .orderBy('date', descending: true)
         .snapshots()
         .map((snapshot) {
@@ -82,10 +72,10 @@ class ProductRepository extends BaseProductRepository {
     });
   }
 
+  @override
   Stream<List<Product>> sortPriceHightToLow() {
     return _firebaseFirestore
         .collection('products')
-        //  .where('category', isEqualTo: 'Clothing')
         .orderBy('price', descending: true)
         .snapshots()
         .map((snapshot) {
@@ -93,10 +83,10 @@ class ProductRepository extends BaseProductRepository {
     });
   }
 
+  @override
   Stream<List<Product>> sortPriceLowToHigh() {
     return _firebaseFirestore
         .collection('products')
-        //  .where('category', isEqualTo: 'Clothing')
         .orderBy('price', descending: false)
         .snapshots()
         .map((snapshot) {
@@ -104,8 +94,8 @@ class ProductRepository extends BaseProductRepository {
     });
   }
 
+  @override
   Stream<List<Product>> filterPriceSelect(num startPrice, num endPrice) {
-    // if (startPrice != null && endPrice != null) {
     return _firebaseFirestore
         .collection('products')
         .where('price', isGreaterThanOrEqualTo: startPrice)

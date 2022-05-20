@@ -8,4 +8,5 @@ abstract class BasePhoneAuthRepository {
     required Function(String, int?) codeSent,
     required Function(String) codeAutoRetrievalTimeout,
   });
+  Future<UserCredential> signInWithCredential(AuthCredential credential);
 }

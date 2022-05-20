@@ -11,7 +11,6 @@ class SearchLoading extends SearchState {}
 
 class SearchLoaded extends SearchState {
   final List<Product> products;
-  // final Product product;
 
   const SearchLoaded({
     this.products = const <Product>[],

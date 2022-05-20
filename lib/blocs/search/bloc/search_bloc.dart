@@ -20,16 +20,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchLoad event,
     Emitter<SearchState> emit,
   ) {
-    productSubscription?.cancel();
     productSubscription = productRepository.searchProducts(event.query).listen((
       products,
     ) {
-      if (event.query != '' && event.query != null) {
+      if (event.query != '') {
         add(
           SearchUpdate(products),
         );
       } else {
-        add(SearchUpdate(const []));
+        add(const SearchUpdate([]));
       }
     });
   }
@@ -39,5 +38,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) {
     emit(SearchLoaded(products: event.products));
+  }
+
+  @override
+  Future<void> close() {
+    productSubscription?.cancel();
+
+    return super.close();
   }
 }

@@ -20,14 +20,10 @@ class EnterPhoneScreen extends StatefulWidget {
 }
 
 class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
-  final TextEditingController _controller = TextEditingController();
-  String initialCountry = 'UA';
-  PhoneNumber number = PhoneNumber(isoCode: 'UA');
-
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  bool otpVisibility = false;
   String testNumber = '';
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void dispose() {
@@ -62,7 +58,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
 
             return state is PhoneAuthLoading;
           },
-
           builder: (context, showLoading) {
             return showLoading
                 ? const Center(
@@ -139,8 +134,8 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                             color: Colors.black,
                             fontSize: 19,
                           ),
-                          initialValue: number,
-                          textFieldController: _controller, // controller,
+                          initialValue: PhoneNumber(isoCode: 'UA'),
+                          textFieldController: _controller,
                           formatInput: true,
                           keyboardType: TextInputType.phone,
 
@@ -164,7 +159,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                           style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.darkGreyText,
                           ),
                         ),
                       ),
@@ -193,7 +187,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                     ],
                   );
           },
-          //  ),
         ),
       ),
     );

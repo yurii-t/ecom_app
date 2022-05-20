@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
-import 'package:ecom_app/data/models/cart.dart';
+
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -115,9 +114,7 @@ class CartScreen extends StatelessWidget {
                                 bottomRight: Radius.circular(24),
                               )
                             : null,
-                        boxShadow: index ==
-                                state.cartItems
-                                    .last //snapshot.data?.docs.length //listSize.last
+                        boxShadow: index == state.cartItems.last
                             ? [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.1),
@@ -134,7 +131,6 @@ class CartScreen extends StatelessWidget {
                               children: [
                                 Image.network(
                                   state.cartItems[index].imageUrl,
-                                  // data?['imageUrl'].toString() ?? 'Loading...',
                                   width: 80,
                                   height: 80,
                                 ),
@@ -151,8 +147,6 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         child: Text(
                                           state.cartItems[index].name,
-                                          // data?['name'].toString() ??
-                                          //     'Loading...',
                                           textAlign: TextAlign.start,
                                           style: const TextStyle(
                                             fontSize: 14,
@@ -165,7 +159,6 @@ class CartScreen extends StatelessWidget {
                                         height: 6,
                                       ),
                                       Text(
-                                        // '\$ ${data?['price']}',
                                         '\$ ${state.cartItems[index].price}',
                                         style: const TextStyle(
                                           fontSize: 17,
@@ -184,7 +177,6 @@ class CartScreen extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // var productid = state.cartItems[index].id;
                                   context.read<CartBloc>().add(IncreaseQuantity(
                                         state.cartItems[index].id,
                                       ));
@@ -198,7 +190,6 @@ class CartScreen extends StatelessWidget {
                               ),
                               Text(
                                 state.cartItems[index].quantity.toString(),
-                                // '${_itemCounter}'
                               ),
                               const SizedBox(
                                 height: 4,
@@ -273,8 +264,9 @@ class CartScreen extends StatelessWidget {
                           : 0,
                       builder: (context, totalSum) {
                         totalSumm = totalSum;
+
                         return Text(
-                          '\$ ${totalSum.toStringAsFixed(2)}', //$totalSum',
+                          '\$ ${totalSum.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,

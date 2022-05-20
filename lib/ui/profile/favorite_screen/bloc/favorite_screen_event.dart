@@ -11,10 +11,9 @@ class FavoriteScreenLoadProduct extends FavoriteScreenEvent {}
 
 class FavoriteScreenUpdateProduct extends FavoriteScreenEvent {
   final List<Product> products;
-  // final Product product;
-  FavoriteScreenUpdateProduct(
+
+  const FavoriteScreenUpdateProduct(
     this.products,
-    // this.product
   );
 
   @override
@@ -25,10 +24,10 @@ class FavoriteScreenUpdateProduct extends FavoriteScreenEvent {
 
 class FavoriteScreenProductFavoriteUpdate extends FavoriteScreenEvent {
   final bool isFavorite;
-  Product product;
+  final Product product;
   final List<Product> products;
 
-  FavoriteScreenProductFavoriteUpdate(
+  const FavoriteScreenProductFavoriteUpdate(
     this.product,
     this.isFavorite,
     this.products,

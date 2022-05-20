@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
-import 'package:ecom_app/blocs/search/bloc/search_bloc.dart';
+
 import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
 import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
@@ -21,7 +21,6 @@ import 'package:ecom_app/ui/login/view/get_started_screen/get_started_screen.dar
 import 'package:ecom_app/ui/login/view/verefication_screen/verification_screen.dart';
 import 'package:ecom_app/ui/product_screen/view/product_screen.dart';
 
-import 'package:ecom_app/ui/profile/favorite_screen/bloc/favorite_screen_bloc.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -63,17 +62,7 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) =>
-              FavoriteScreenBloc(productRepository: ProductRepository())
-                ..add(FavoriteScreenLoadProduct()),
-        ),
-        BlocProvider(
-          create: (context) =>
               CartBloc(cartRepository: CartRepository())..add(LoadCart()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              SearchBloc(productRepository: ProductRepository())
-                ..add(SearchLoad('')),
         ),
       ],
       child: EasyLocalization(

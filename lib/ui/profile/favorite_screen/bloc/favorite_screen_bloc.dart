@@ -11,22 +11,23 @@ part 'favorite_screen_state.dart';
 class FavoriteScreenBloc
     extends Bloc<FavoriteScreenEvent, FavoriteScreenState> {
   final ProductRepository productRepository;
-  StreamSubscription? proudctSubscription;
+  StreamSubscription? productSubscription;
   FavoriteScreenBloc({
     required this.productRepository,
   }) : super(FavoriteScreenLoading()) {
     on<FavoriteScreenLoadProduct>(_onFavoriteScreenLoadProduct);
     on<FavoriteScreenUpdateProduct>(_onFavoriteScreenUpdateProduct);
     on<FavoriteScreenProductFavoriteUpdate>(
-        _onFavoriteScreenProductFavoriteUpdate);
+      _onFavoriteScreenProductFavoriteUpdate,
+    );
   }
 
   void _onFavoriteScreenLoadProduct(
     FavoriteScreenLoadProduct event,
     Emitter<FavoriteScreenState> emit,
   ) {
-    proudctSubscription?.cancel();
-    proudctSubscription = productRepository.getAllFavoriteProducts().listen(
+    productSubscription?.cancel();
+    productSubscription = productRepository.getAllFavoriteProducts().listen(
           (
             products,
           ) =>
@@ -48,5 +49,12 @@ class FavoriteScreenBloc
     Emitter<FavoriteScreenState> emit,
   ) {
     productRepository.updateProductFavorite(event.product, event.isFavorite);
+  }
+
+  @override
+  Future<void> close() {
+    productSubscription?.cancel();
+
+    return super.close();
   }
 }

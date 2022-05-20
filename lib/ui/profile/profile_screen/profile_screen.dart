@@ -43,9 +43,7 @@ class ProfileScreen extends StatelessWidget {
         body: ListView(children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            //375,
             height: 146,
-
             padding: const EdgeInsets.fromLTRB(16, 56, 0, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,7 +98,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-
             decoration: const BoxDecoration(
               color: Colors.purple,
               borderRadius: BorderRadius.only(
@@ -125,12 +122,11 @@ class ProfileScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                // icon: SvgPicture.asset('assets/icons/location.svg'),
                 icon: SvgPicture.asset(setting.image),
                 label: Text(
                   setting.name,
                   // LocaleKeys.shipping_addresses.tr(),
-                  // 'Shipping Addresses',
+
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,

@@ -318,12 +318,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       minimumSize: const Size(360, 50),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(
-                          // [_startValue, _endValue]
-                          );
-                      // context
-                      //     .read<ClothingScreenBloc>()
-                      //     .add(FiltePriceSelect(_startValue, _endValue));
+                      Navigator.of(context).pop();
                     },
                     child: BlocSelector<ClothingScreenBloc, ClothingScreenState,
                         int>(

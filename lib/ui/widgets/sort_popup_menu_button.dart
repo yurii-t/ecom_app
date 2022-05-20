@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/data/models/product.dart';
-import 'package:ecom_app/domain/repositories/product/product_repository.dart';
+
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
@@ -26,12 +25,6 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
   ];
   String _currentItemSelected = LocaleKeys.featured.tr();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //  String _currentItemSelected = dropButtonItems[0];
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -48,7 +41,6 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
         ),
         PopupMenuButton(
           itemBuilder: (context) {
-            // return map1.entries.map((str) {
             return dropButtonItems.map((str) {
               return PopupMenuItem(
                 value: str,
@@ -61,7 +53,6 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
             children: <Widget>[
               Text('$_currentItemSelected '),
               SvgPicture.asset('assets/icons/dropdown.svg'),
-              // const Icon(Icons.keyboard_arrow_down)
             ],
           ),
           onSelected: (v) {

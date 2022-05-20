@@ -8,7 +8,6 @@ part 'phone_auth_state.dart';
 
 class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   final PhoneAuthRepository phoneAuthRepository;
-  final auth = FirebaseAuth.instance;
 
   PhoneAuthBloc({required this.phoneAuthRepository})
       : super(PhoneAuthInitial()) {
@@ -34,21 +33,21 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     try {
       await phoneAuthRepository.verifyPhone(
         phoneNumber: event.phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
+        verificationCompleted: (credential) async {
           add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
         },
-        verificationFailed: (FirebaseAuthException e) {
+        verificationFailed: (e) {
           add(OnPhoneAuthErrorEvent(error: e.code));
         },
-        codeSent: (String verificationId, int? resendToken) {
+        codeSent: (verificationId, resendToken) {
           add(OnPhoneOtpSent(
             verificationId: verificationId,
             token: resendToken,
           ));
         },
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        codeAutoRetrievalTimeout: (verificationId) {},
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(PhoneAuthError(error: e.toString()));
     }
   }
@@ -60,12 +59,12 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     try {
       emit(PhoneAuthLoading());
 
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      final PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: event.verificationId,
         smsCode: event.otpCode,
       );
       add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
-    } catch (e) {
+    } on Exception catch (e) {
       emit(PhoneAuthError(error: e.toString()));
     }
   }
@@ -75,14 +74,16 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     Emitter<PhoneAuthState> emit,
   ) async {
     try {
-      await auth.signInWithCredential(event.credential).then((user) {
+      await phoneAuthRepository
+          .signInWithCredential(event.credential)
+          .then((user) {
         if (user.user != null) {
           emit(PhoneAuthVerified());
         }
       });
     } on FirebaseAuthException catch (e) {
       emit(PhoneAuthError(error: e.code));
-    } catch (e) {
+    } on Exception catch (e) {
       emit(PhoneAuthError(error: e.toString()));
     }
   }

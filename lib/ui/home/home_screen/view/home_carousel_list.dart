@@ -139,7 +139,6 @@ class _HomeCarouselListState extends State<HomeCarouselList> {
           ),
         ),
       ],
-      //),
     );
   }
 }

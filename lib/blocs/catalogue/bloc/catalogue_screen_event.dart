@@ -12,7 +12,7 @@ class CatalogueScreenLoad extends CatalogueScreenEvent {}
 class CatalogueScreenUpdate extends CatalogueScreenEvent {
   final List<Catalogue> catalogue;
 
-  CatalogueScreenUpdate(this.catalogue);
+  const CatalogueScreenUpdate(this.catalogue);
   @override
   List<Object> get props => [catalogue];
 }

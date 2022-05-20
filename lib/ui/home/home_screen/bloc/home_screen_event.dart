@@ -12,7 +12,7 @@ class HomeScreenLoadProduct extends HomeScreenEvent {}
 class HomeScreenUpdateProduct extends HomeScreenEvent {
   final List<Product> products;
 
-  HomeScreenUpdateProduct(
+  const HomeScreenUpdateProduct(
     this.products,
   );
 
@@ -24,9 +24,9 @@ class HomeScreenUpdateProduct extends HomeScreenEvent {
 
 class HomeScreenProductFavoriteUpdate extends HomeScreenEvent {
   final bool isFavorite;
-  Product product;
+  final Product product;
 
-  HomeScreenProductFavoriteUpdate(
+  const HomeScreenProductFavoriteUpdate(
     this.product,
     this.isFavorite,
   );

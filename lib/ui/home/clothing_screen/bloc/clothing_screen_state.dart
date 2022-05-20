@@ -12,7 +12,7 @@ class ClothingScreenLoading extends ClothingScreenState {}
 class ClothingScreenLoaded extends ClothingScreenState {
   final List<Product> products;
 
-  ClothingScreenLoaded({
+  const ClothingScreenLoaded({
     this.products = const <Product>[],
   });
 

@@ -1,4 +1,3 @@
-// my_color_picker.dart
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,6 @@ class SizePicker extends StatefulWidget {
   const SizePicker({
     required this.initPick,
     required this.onSizePicked,
-    //required this.availableSizes,
     Key? key,
   }) : super(key: key);
 
@@ -49,14 +47,6 @@ class _SizePickerState extends State<SizePicker> {
 
           return InkWell(
             onTap: () {
-              // setState(() {
-              //   if (pick.contains(itemColor)) {
-              //     pick.remove(itemColor);
-              //   } else {
-              //     pick.add(itemColor);
-              //   }
-              // });
-              // sizesJioned = pick.join(',');
               setState(() {
                 if (widget.initPick.contains(itemColor)) {
                   widget.initPick.remove(itemColor);
@@ -73,18 +63,14 @@ class _SizePickerState extends State<SizePicker> {
               decoration: BoxDecoration(
                 color: widget.initPick.contains(itemColor)
                     ? AppColors.yellow
-                    : Colors
-                        .white, //pick.contains(itemColor) ? AppColors.yellow : Colors.white,
-                //itemColor == _pickedColor ? AppColors.yellowColor: Colors.white,
-
+                    : Colors.white,
                 border: Border.all(color: AppColors.grayLight),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
               child: Center(
                 child: Text(
                   itemColor,
-                  style: widget.initPick
-                          .contains(itemColor) //pick.contains(itemColor)
+                  style: widget.initPick.contains(itemColor)
                       ? const TextStyle(color: Colors.white)
                       : const TextStyle(color: AppColors.darkText),
                 ),

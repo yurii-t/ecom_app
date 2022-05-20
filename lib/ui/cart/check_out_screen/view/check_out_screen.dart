@@ -24,12 +24,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String customerName = 'Oleh Chabanov';
   String address = '225 Highland Ave Springfield, IL 62704, USA';
   String cardNumber = '5678 5678 5678 5678';
-  int delivery = 0;
-
+  // int delivery = 0;
+  // ValueNotifier<int> deleiveryNotifier = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<int> deleiveryNotifier = ValueNotifier(0);
+
     final itemPrice = ModalRoute.of(context)?.settings.arguments as num;
-    final num totalPrice = itemPrice + delivery;
+    // final num totalPrice = itemPrice + delivery;
 
     return Scaffold(
       backgroundColor: AppColors.backGround,
@@ -193,9 +195,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           padding: const EdgeInsets.only(left: 18, right: 18),
           child: DeliveryPicker(
             onDeliveryPickedPrice: (val) {
-              setState(() {
-                delivery = val;
-              });
+              deleiveryNotifier.value = val;
             },
           ),
         ),
@@ -317,113 +317,120 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    LocaleKeys.items.tr(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.greyText,
-                    ),
-                  ),
-                ),
-                Text(
-                  '\$${itemPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.greyText,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    LocaleKeys.delivery.tr(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.greyText,
-                    ),
-                  ),
-                ),
-                Text(
-                  '$delivery',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.greyText,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    LocaleKeys.total_price.tr(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.darkText,
-                    ),
-                  ),
-                ),
-                Text(
-                  '\$${totalPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.darkText,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: AppColors.yellow,
-                onPrimary: Colors.white,
-                minimumSize: const Size(373, 48),
-              ),
-              onPressed: () {
-                final CollectionReference collectionRef =
-                    FirebaseFirestore.instance.collection('checkout');
-                collectionRef.doc().set({
-                  'CustomerName': customerName,
-                  'address': address,
-                  'delivery': delivery,
-                  'cardNumber': cardNumber,
-                  'totalPrice': totalPrice,
-                });
+        child: ValueListenableBuilder(
+          valueListenable: deleiveryNotifier,
+          builder: (context, delivery, child) {
+            final num totalPrice = itemPrice + deleiveryNotifier.value;
 
-                showDialog<Dialog>(
-                  context: context,
-                  builder: (context) {
-                    return const CheckOutPopupDialog();
-                  },
-                );
-              },
-              child: Text(
-                LocaleKeys.pay.tr(),
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.items.tr(),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.greyText,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '\$${itemPrice.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.greyText,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
+                const SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.delivery.tr(),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.greyText,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      delivery.toString(), // '$delivery',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.greyText,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.total_price.tr(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.darkText,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '\$${totalPrice.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.darkText,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColors.yellow,
+                    onPrimary: Colors.white,
+                    minimumSize: const Size(373, 48),
+                  ),
+                  onPressed: () {
+                    final CollectionReference collectionRef =
+                        FirebaseFirestore.instance.collection('checkout');
+                    collectionRef.doc().set({
+                      'CustomerName': customerName,
+                      'address': address,
+                      'delivery': delivery,
+                      'cardNumber': cardNumber,
+                      'totalPrice': totalPrice,
+                    });
+
+                    showDialog<Dialog>(
+                      context: context,
+                      builder: (context) {
+                        return const CheckOutPopupDialog();
+                      },
+                    );
+                  },
+                  child: Text(
+                    LocaleKeys.pay.tr(),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

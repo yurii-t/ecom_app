@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class CheckOut extends Equatable {
   final String customerName;
@@ -18,13 +17,14 @@ class CheckOut extends Equatable {
   });
 
   factory CheckOut.fromSnapShot(DocumentSnapshot snap) {
-    CheckOut checkOut = CheckOut(
+    final CheckOut checkOut = CheckOut(
       customerName: snap['CustomerName'] as String,
       cardNumber: snap['cardNumber'] as String,
       address: snap['address'] as String,
       totalPrice: snap['price'] as num,
       delivery: snap['delivery'] as int,
     );
+
     return checkOut;
   }
   Map<String, Object> toDocument() {

@@ -10,7 +10,7 @@ abstract class SearchEvent extends Equatable {
 class SearchLoad extends SearchEvent {
   final String query;
 
-  SearchLoad(this.query);
+  const SearchLoad(this.query);
   @override
   List<Object> get props => [
         query,
@@ -20,7 +20,7 @@ class SearchLoad extends SearchEvent {
 class SearchUpdate extends SearchEvent {
   final List<Product> products;
 
-  SearchUpdate(
+  const SearchUpdate(
     this.products,
   );
 

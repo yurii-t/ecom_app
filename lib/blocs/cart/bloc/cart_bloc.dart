@@ -26,7 +26,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     LoadCart event,
     Emitter<CartState> emit,
   ) {
-    cartSubscription?.cancel();
     cartSubscription = cartRepository.getAllCartItems().listen(
           (
             cartItems,
@@ -50,7 +49,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     AddProduct event,
     Emitter<CartState> emit,
   ) {
-    // productRepository.updateProductFavorite(event.product, event.isFavorite);
     cartRepository.addCartItem(event.cartItem, event.productId);
   }
 
@@ -73,5 +71,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     Emitter<CartState> emit,
   ) {
     cartRepository.decreaseQuantity(event.productId);
+  }
+
+  @override
+  Future<void> close() {
+    cartSubscription?.cancel();
+
+    return super.close();
   }
 }

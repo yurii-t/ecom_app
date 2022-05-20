@@ -17,8 +17,7 @@ class GetStartedScreen extends StatelessWidget {
       child: Scaffold(
         body: Stack(alignment: AlignmentDirectional.center, children: [
           FutureBuilder<dynamic>(
-            future:
-                FireBaseStorageService().getImg('start_img.gif'), //getImg(),
+            future: FireBaseStorageService().getImg('start_img.gif'),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return SizedBox(
@@ -56,7 +55,8 @@ class GetStartedScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.yellow.withOpacity(0.7),
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(300)),
+                          topLeft: Radius.circular(300),
+                        ),
                       ),
                     ),
                   ),

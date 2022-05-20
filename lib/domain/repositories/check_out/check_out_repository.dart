@@ -14,7 +14,6 @@ class CheckOutRepository extends BaseCheckOutRepository {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map(CheckOut.fromSnapShot).toList();
-      // return snapshot.docs.map((doc) => CheckOut.fromSnapShot(doc)).toList();
     });
   }
 }

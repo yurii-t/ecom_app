@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class Cart extends Equatable {
   final String id;
@@ -22,7 +21,7 @@ class Cart extends Equatable {
   });
 
   factory Cart.fromSnapShot(DocumentSnapshot snap) {
-    Cart cart = Cart(
+    final Cart cart = Cart(
       id: snap.id,
       name: snap['name'] as String,
       imageUrl: snap['imageUrl'] as String,
@@ -31,6 +30,7 @@ class Cart extends Equatable {
       sizes: snap['sizes'] as String,
       colors: snap['colors'] as String,
     );
+
     return cart;
   }
 
@@ -45,17 +45,6 @@ class Cart extends Equatable {
       'sizes': sizes,
     };
   }
-  // static Cart fromSnapShot(DocumentSnapshot snap) {
-  //   Cart cart = Cart(
-  //     name: snap['name'] as String,
-  //     imageUrl: snap['imageUrl'] as String,
-  //     price: snap['price'] as num,
-  //     quantity: snap['quantity'] as int,
-  //     sizes: snap['sizes'] as String,
-  //     colors: snap['colors'] as String,
-  //   );
-  //   return cart;
-  // }
 
   @override
   List<Object?> get props => [

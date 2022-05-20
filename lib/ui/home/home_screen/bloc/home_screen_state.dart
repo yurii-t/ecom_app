@@ -11,9 +11,8 @@ class HomeScreenLoading extends HomeScreenState {}
 
 class HomeScreenLoaded extends HomeScreenState {
   final List<Product> products;
-  // final Product product;
 
-  HomeScreenLoaded({
+  const HomeScreenLoaded({
     this.products = const <Product>[],
   });
 

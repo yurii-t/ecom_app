@@ -10,7 +10,7 @@ part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final ProductRepository productRepository;
-  StreamSubscription? proudctSubscription;
+  StreamSubscription? productSubscription;
 
   HomeScreenBloc({
     required this.productRepository,
@@ -24,8 +24,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     HomeScreenLoadProduct event,
     Emitter<HomeScreenState> emit,
   ) {
-    proudctSubscription?.cancel();
-    proudctSubscription = productRepository.getAllProducts().listen(
+    productSubscription = productRepository.getAllProducts().listen(
           (
             products,
           ) =>
@@ -43,7 +42,16 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   }
 
   void _onHomeScreenProductFavoriteUpdate(
-      HomeScreenProductFavoriteUpdate event, Emitter<HomeScreenState> emit) {
+    HomeScreenProductFavoriteUpdate event,
+    Emitter<HomeScreenState> emit,
+  ) {
     productRepository.updateProductFavorite(event.product, event.isFavorite);
+  }
+
+  @override
+  Future<void> close() {
+    productSubscription?.cancel();
+
+    return super.close();
   }
 }

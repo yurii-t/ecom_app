@@ -20,4 +20,9 @@ class PhoneAuthRepository extends BasePhoneAuthRepository {
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
   }
+
+  @override
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    return auth.signInWithCredential(credential);
+  }
 }

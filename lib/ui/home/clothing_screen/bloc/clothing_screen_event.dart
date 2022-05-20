@@ -11,10 +11,9 @@ class ClothingScreenLoadProduct extends ClothingScreenEvent {}
 
 class ClothingScreenUpdateProduct extends ClothingScreenEvent {
   final List<Product> products;
-  // final Product product;
-  ClothingScreenUpdateProduct(
+
+  const ClothingScreenUpdateProduct(
     this.products,
-    // this.product
   );
 
   @override
@@ -25,9 +24,9 @@ class ClothingScreenUpdateProduct extends ClothingScreenEvent {
 
 class ClothingProductFavoriteUpdate extends ClothingScreenEvent {
   final bool isFavorite;
-  Product product;
+  final Product product;
 
-  ClothingProductFavoriteUpdate(
+  const ClothingProductFavoriteUpdate(
     this.product,
     this.isFavorite,
   );
@@ -48,7 +47,7 @@ class FiltePriceSelect extends ClothingScreenEvent {
   final num startPrice;
   final num endPrice;
 
-  FiltePriceSelect(this.startPrice, this.endPrice);
+  const FiltePriceSelect(this.startPrice, this.endPrice);
 
   @override
   List<Object> get props => [

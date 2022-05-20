@@ -16,7 +16,6 @@ class ProductReviewsContainer extends StatelessWidget {
     late Timestamp datafirstTime;
     late DateTime dateFirst;
     String datafirstTimeFormatDate = '';
-    int value = 0;
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance

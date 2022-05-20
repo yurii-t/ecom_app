@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
 
 class ProductDetailsContainer extends StatelessWidget {
   final String productId;
@@ -30,7 +30,6 @@ class ProductDetailsContainer extends StatelessWidget {
               )
             : ExpandableNotifier(
                 child: Container(
-                  // color: Colors.amber,
                   padding: const EdgeInsets.only(
                     top: 24,
                     left: 16,
@@ -88,7 +87,7 @@ class ProductDetailsContainer extends StatelessWidget {
                       ),
                       Builder(
                         builder: (context) {
-                          var controller =
+                          final controller =
                               ExpandableController.of(context, required: true);
 
                           return Align(
@@ -97,7 +96,7 @@ class ProductDetailsContainer extends StatelessWidget {
                               onTap: () {
                                 controller?.toggle();
                               },
-                              child: Icon(Icons.keyboard_arrow_down),
+                              child: const Icon(Icons.keyboard_arrow_down),
                             ),
                           );
                         },

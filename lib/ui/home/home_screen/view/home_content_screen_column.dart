@@ -1,18 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecom_app/data/models/product.dart';
 
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
+
 import 'package:ecom_app/ui/home/home_screen/bloc/home_screen_bloc.dart';
 
 import 'package:ecom_app/ui/home/home_screen/view/home_carousel_list.dart';
 import 'package:ecom_app/ui/home/home_screen/view/home_catalogue_list.dart';
 import 'package:ecom_app/ui/widgets/item_container.dart';
 
-import 'package:ecom_app/ui/widgets/item_grid_view.dart';
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +21,6 @@ class HomeContentScreenColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Stream<QuerySnapshot> productsCollRef =
-        FirebaseFirestore.instance.collection('products').snapshots();
-    late Product product;
-
     return BlocBuilder<HomeScreenBloc, HomeScreenState>(
       builder: (context, state) {
         if (state is HomeScreenLoading) {
@@ -40,8 +33,6 @@ class HomeContentScreenColumn extends StatelessWidget {
           );
         }
         if (state is HomeScreenLoaded) {
-          late bool isFav;
-
           return ListView(
             children: [
               Stack(
@@ -84,23 +75,6 @@ class HomeContentScreenColumn extends StatelessWidget {
                   const Positioned(
                     top: 108,
                     child: SearchBar(),
-                    // Container(
-                    //   margin: const EdgeInsets.only(left: 20, right: 20),
-                    //   width: 375,
-                    //   height: 44,
-                    //   child: TextField(
-                    //     textAlignVertical: TextAlignVertical.bottom,
-                    //     decoration: InputDecoration(
-                    //       filled: true,
-                    //       fillColor: Colors.white,
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(40),
-                    //       ),
-                    //       prefixIcon: const Icon(Icons.search),
-                    //       hintText: LocaleKeys.home_searchbar.tr(),
-                    //     ),
-                    //   ),
-                    // ),
                   ),
                 ],
               ),
@@ -189,16 +163,16 @@ class HomeContentScreenColumn extends StatelessWidget {
                         : 2,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    mainAxisExtent: 260, //260,
+                    mainAxisExtent: 260,
                     childAspectRatio: 2 / 2,
                   ),
                   itemBuilder: (context, index) {
-                    _updateFavorite() {
-                      bool isFav = state.products[index].isFavorite;
+                    void _updateFavorite() {
+                      final bool isFav = state.products[index].isFavorite;
 
                       context.read<HomeScreenBloc>().add(
                             HomeScreenProductFavoriteUpdate(
-                              state.products[index], // state.products.first,
+                              state.products[index],
                               !isFav,
                             ),
                           );
@@ -214,7 +188,8 @@ class HomeContentScreenColumn extends StatelessWidget {
             ],
           );
         }
-        return Text('Error');
+
+        return const Text('Error');
       },
     );
   }

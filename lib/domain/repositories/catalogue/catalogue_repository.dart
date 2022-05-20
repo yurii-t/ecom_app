@@ -5,8 +5,6 @@ import 'package:ecom_app/domain/repositories/catalogue/base_catalogue_repository
 class CatalogueRepository extends BaseCatalogueRepository {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  // CatalogueRepository(this._firebaseFirestore);
-
   @override
   Stream<List<Catalogue>> getAllCatalogue() {
     return _firebaseFirestore
@@ -14,7 +12,6 @@ class CatalogueRepository extends BaseCatalogueRepository {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map(Catalogue.fromSnapShot).toList();
-      // return snapshot.docs.map((doc) => Catalogue.fromSnapShot(doc)).toList();
     });
   }
 }

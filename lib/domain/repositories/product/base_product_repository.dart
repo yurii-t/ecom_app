@@ -4,9 +4,13 @@ abstract class BaseProductRepository {
   Stream<List<Product>> getAllProducts();
   Future<void> updateProductFavorite(
     Product product,
-    // String productId,
     bool isFavorite,
   );
   Stream<List<Product>> getAllClothingProducts();
   Stream<List<Product>> getAllFavoriteProducts();
+  Stream<List<Product>> searchProducts(String query);
+  Stream<List<Product>> sortByDateProducts();
+  Stream<List<Product>> sortPriceHightToLow();
+  Stream<List<Product>> sortPriceLowToHigh();
+  Stream<List<Product>> filterPriceSelect(num startPrice, num endPrice);
 }

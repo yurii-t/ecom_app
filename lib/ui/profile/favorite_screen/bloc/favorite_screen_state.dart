@@ -12,7 +12,7 @@ class FavoriteScreenLoading extends FavoriteScreenState {}
 class FavoriteScreenLoaded extends FavoriteScreenState {
   final List<Product> products;
 
-  FavoriteScreenLoaded({
+  const FavoriteScreenLoaded({
     this.products = const <Product>[],
   });
 

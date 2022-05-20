@@ -19,15 +19,25 @@ class CatalogueScreenBloc
   }
 
   void _onCatalogueScreenLoad(
-      CatalogueScreenLoad event, Emitter<CatalogueScreenState> emit) {
-    catalogueSubscription?.cancel();
+    CatalogueScreenLoad event,
+    Emitter<CatalogueScreenState> emit,
+  ) {
     catalogueSubscription = catalogueRepository.getAllCatalogue().listen(
           (catalogue) => add(CatalogueScreenUpdate(catalogue)),
         );
   }
 
   void _onCatalogueScreenUpdate(
-      CatalogueScreenUpdate event, Emitter<CatalogueScreenState> emit) {
+    CatalogueScreenUpdate event,
+    Emitter<CatalogueScreenState> emit,
+  ) {
     emit(CatalogueScreenLoaded(catalogue: event.catalogue));
+  }
+
+  @override
+  Future<void> close() {
+    catalogueSubscription?.cancel();
+
+    return super.close();
   }
 }

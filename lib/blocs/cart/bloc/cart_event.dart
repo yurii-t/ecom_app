@@ -11,10 +11,9 @@ class LoadCart extends CartEvent {}
 
 class UpdateCart extends CartEvent {
   final List<Cart> cartItems;
-  // final Product product;
-  UpdateCart(
+
+  const UpdateCart(
     this.cartItems,
-    // this.product
   );
 
   @override
@@ -25,7 +24,7 @@ class UpdateCart extends CartEvent {
 
 class AddProduct extends CartEvent {
   final Cart cartItem;
-  // final Product product;
+
   final String productId;
 
   const AddProduct(this.cartItem, this.productId);

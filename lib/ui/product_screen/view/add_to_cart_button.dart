@@ -136,7 +136,9 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (widget.item == 0) return null;
+                                  if (widget.item == 0) {
+                                    return null;
+                                  }
 
                                   widget.item--;
                                 });
@@ -183,7 +185,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             height: 8,
           ),
           SizePicker(
-            initPick: [],
+            initPick: const [],
             onSizePicked: (val) {
               sizesJoined = val;
               print(sizesJoined);
@@ -211,17 +213,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                   minimumSize: const Size(215, 48),
                 ),
                 onPressed: () {
-                  // final CollectionReference collectionRef =
-                  //     FirebaseFirestore.instance.collection('cart');
-                  // collectionRef.doc(widget.productId).set({
-                  //   'name': dataName,
-                  //   'price': dataPrice,
-                  //   'imageUrl': dataimgUrl,
-                  //   'quantity': widget.item,
-                  //   'colors': colorsJoined,
-                  //   'sizes': sizesJoined,
-                  // });
-                  Cart cartItem = Cart(
+                  final Cart cartItem = Cart(
                     id: widget.productId,
                     name: dataName,
                     imageUrl: dataimgUrl,

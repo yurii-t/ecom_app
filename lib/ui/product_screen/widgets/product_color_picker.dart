@@ -39,11 +39,9 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount:
-            availableProductColor.length, //widget.availableProductColor.length,
+        itemCount: availableProductColor.length,
         itemBuilder: (context, index) {
-          final itemColor = availableProductColor[
-              index]; //widget.availableProductColor[index];
+          final itemColor = availableProductColor[index];
 
           return InkWell(
             onTap: () {
@@ -67,8 +65,7 @@ class _MyProductColorPickerState extends State<ProductColorPicker> {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: AssetImage(availableProductColor[
-                      index]), //widget.availableProductColor[index]),
+                  image: AssetImage(availableProductColor[index]),
                 ),
               ),
             ),

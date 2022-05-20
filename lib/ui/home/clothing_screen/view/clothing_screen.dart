@@ -4,9 +4,9 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
-import 'package:ecom_app/ui/home/filter_screen/filter_screen.dart';
+
 import 'package:ecom_app/ui/widgets/item_container.dart';
-import 'package:ecom_app/ui/widgets/item_grid_view.dart';
+
 import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/sort_popup_menu_button.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +28,6 @@ class _ClothingScreenState extends State<ClothingScreen> {
   dynamic startPrice = null;
   dynamic endPrice = null;
   int _selectedTab = 0;
-
-  void navigateAndDisplaySelection(BuildContext context) async {
-    final List<double>? result = await Navigation.mainAppNav.currentState
-            ?.pushNamed(
-                '/home_screen/catalogue_screen/clothing_screen/filter_screen')
-        as List<double>?;
-    setState(() {
-      startPrice = result?[0] ?? null;
-      endPrice = result?[1] ?? null;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +78,9 @@ class _ClothingScreenState extends State<ClothingScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              navigateAndDisplaySelection(context);
+                              Navigation.mainAppNav.currentState?.pushNamed(
+                                '/home_screen/catalogue_screen/clothing_screen/filter_screen',
+                              );
                             },
                             child: SvgPicture.asset(
                               'assets/icons/filter_icon.svg',

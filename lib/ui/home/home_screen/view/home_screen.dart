@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
+
 import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
 import 'package:ecom_app/ui/home/clothing_screen/view/clothing_screen.dart';
 import 'package:ecom_app/ui/home/home_screen/view/home_content_screen_column.dart';
@@ -31,20 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backGround,
-        body:
-            // IndexedStack(
-            //   index: _selectedTab,
-            //   children: const [
-            //     HomeContentScreenColumn(),
-            //     CatalogueScreen(),
-            //     FavoriteScreen(),
-            //     ProfileScreen(),
-            //   ],
-            // ),
-            Navigator(
+        body: Navigator(
           key: Navigation.mainListNav,
           initialRoute: 'home_screen/home_content_screen',
-          onGenerateRoute: (RouteSettings settings) {
+          onGenerateRoute: (settings) {
             Widget page;
             switch (settings.name) {
               case '/':
@@ -93,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(24)),
             ),
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -105,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       _selectedTab = 0;
                     });
-                  }, // => onSelectedTab,
+                  },
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   child: _selectedTab == 0
@@ -156,7 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //  Icon(Icons.home),
                             SvgPicture.asset(
                               'assets/icons/catalogue_fill.svg',
                             ),
@@ -174,7 +161,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Icon(Icons.home_outlined),
                             SvgPicture.asset(
                               'assets/icons/catalogue_out.svg',
                             ),
@@ -205,7 +191,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //  Icon(Icons.home),
                             SvgPicture.asset(
                               'assets/icons/favorite_fill.svg',
                             ),
@@ -223,7 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Icon(Icons.home_outlined),
                             SvgPicture.asset(
                               'assets/icons/favorite_out.svg',
                             ),
@@ -254,7 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //  Icon(Icons.home),
                             SvgPicture.asset(
                               'assets/icons/profile_fill.svg',
                             ),
@@ -272,7 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Icon(Icons.home_outlined),
                             SvgPicture.asset(
                               'assets/icons/profile_out.svg',
                             ),
@@ -290,7 +272,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            // ),
           ),
           Positioned(
             left: 273,

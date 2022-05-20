@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class Product extends Equatable {
   final String id;
@@ -28,7 +27,7 @@ class Product extends Equatable {
   });
 
   factory Product.fromSnapShot(DocumentSnapshot snap) {
-    Product product = Product(
+    final Product product = Product(
       id: snap.id,
       name: snap['name'] as String,
       imageUrl: snap['imageUrl'] as String,
@@ -40,12 +39,13 @@ class Product extends Equatable {
       img: snap['img'] as List,
       description: snap['description'] as String,
     );
+
     return product;
   }
 
   @override
   List<Object?> get props => [
-        // id,
+        id,
         name,
         imageUrl,
         category,

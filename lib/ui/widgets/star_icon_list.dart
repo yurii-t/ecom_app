@@ -3,21 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StarIconList extends StatelessWidget {
-  // final int value;
   final String productId;
 
   const StarIconList({
     required this.productId,
-    //required this.value,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final iconStar = SvgPicture.asset(
-      'assets/icons/star.svg',
-    );
-
     return FutureBuilder<QuerySnapshot>(
       future: FirebaseFirestore.instance
           .collection('products')
@@ -25,12 +19,12 @@ class StarIconList extends StatelessWidget {
           .collection('reviews')
           .get(),
       builder: (context, snapshot) {
-        List<DocumentSnapshot>? data = snapshot.data?.docs;
-        int? value = data?.fold<num>(
+        final List<DocumentSnapshot>? data = snapshot.data?.docs;
+        final int? value = data?.fold<num>(
           0,
           (previousValue, element) {
-            return (previousValue +
-                (element['rating'] as num) / (snapshot.data?.docs.length ?? 1));
+            return previousValue +
+                (element['rating'] as num) / (snapshot.data?.docs.length ?? 1);
           },
         ).toInt();
 

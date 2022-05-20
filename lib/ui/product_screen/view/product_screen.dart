@@ -22,9 +22,6 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String pickedProductColor = '';
-    String pickedProductSizes = '';
-
     final _icon = SvgPicture.asset(
       'assets/icons/heart11.svg',
     );
@@ -150,9 +147,7 @@ class ProductScreen extends StatelessWidget {
                                     height: 8,
                                   ),
                                   ProductColorPicker(
-                                    onProductPicked: (val) {
-                                      pickedProductColor = val;
-                                    },
+                                    onProductPicked: (val) => val,
                                   ),
                                   const SizedBox(
                                     height: 16,
@@ -170,9 +165,7 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   SizePicker(
                                     initPick: [],
-                                    onSizePicked: (val) {
-                                      pickedProductSizes = val;
-                                    },
+                                    onSizePicked: (val) => val,
                                   ),
                                 ],
                               ),
