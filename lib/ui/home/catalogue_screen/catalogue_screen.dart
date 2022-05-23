@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/catalogue/bloc/catalogue_screen_bloc.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
@@ -61,10 +63,7 @@ class CatalogueScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigation.mainListNav.currentState
-                                  ?.popAndPushNamed(
-                                'home_screen/home_content_screen',
-                              );
+                              context.router.popUntilRouteWithName('HomeRoute');
                             },
                             child:
                                 SvgPicture.asset('assets/icons/arrow_left.svg'),
@@ -174,6 +173,7 @@ class CatalogueScreen extends StatelessWidget {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(10),
                               onTap: () {
+                                // context.router.push(const ClothingRoute());
                                 showModalBottomSheet<Widget?>(
                                   useRootNavigator: true,
                                   shape: const RoundedRectangleBorder(
@@ -219,13 +219,15 @@ class CatalogueScreen extends StatelessWidget {
                                               ),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Navigation
-                                                      .mainListNav.currentState!
-                                                      .pushNamed(
-                                                    '/home_screen/catalogue_screen/clothing_screen',
-                                                  );
-
-                                                  Navigator.of(context).pop();
+                                                  context.router.push(
+                                                      const ClothingRoute());
+                                                  // Navigation
+                                                  //     .mainListNav.currentState!
+                                                  //     .pushNamed(
+                                                  //   '/home_screen/catalogue_screen/clothing_screen',
+                                                  // );
+                                                  context.router.pop();
+                                                  // Navigator.of(context).pop();
                                                 },
                                                 child: Text(
                                                   category,

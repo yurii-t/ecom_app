@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -88,7 +89,8 @@ class _CategoriesButtonState extends State<CategoriesButton> {
                               setState(() {
                                 widget.initCategory = category;
                               });
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
+                              context.router.pop();
                             },
                             child: Text(
                               category,

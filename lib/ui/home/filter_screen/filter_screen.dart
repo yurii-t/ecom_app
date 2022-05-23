@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/data/models/filter.dart';
 import 'package:ecom_app/style/app_colors.dart';
@@ -85,7 +86,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigation.mainAppNav.currentState?.pop();
+                      context.router.pop();
+                      // Navigation.mainAppNav.currentState?.pop();
                     },
                     child: SvgPicture.asset('assets/icons/arrow_left.svg'),
                   ),
@@ -318,7 +320,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       minimumSize: const Size(360, 50),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      // Navigator.of(context).pop();
+                      context.router.pop();
                     },
                     child: BlocSelector<ClothingScreenBloc, ClothingScreenState,
                         int>(

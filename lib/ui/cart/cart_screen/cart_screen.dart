@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
@@ -51,7 +53,8 @@ class CartScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
+                        context.router.pop();
                       },
                       child: SvgPicture.asset(
                         'assets/icons/arrow_left.svg',
@@ -284,10 +287,11 @@ class CartScreen extends StatelessWidget {
                     minimumSize: const Size(373, 48),
                   ),
                   onPressed: () {
-                    Navigation.mainAppNav.currentState?.pushNamed(
-                      '/home_screen/cart_screen/check_out_screen',
-                      arguments: totalSumm,
-                    );
+                    context.router.push(CheckOutRoute(itemPrice: totalSumm));
+                    // Navigation.mainAppNav.currentState?.pushNamed(
+                    //   '/home_screen/cart_screen/check_out_screen',
+                    //   arguments: totalSumm,
+                    // );
                   },
                   child: Text(
                     LocaleKeys.check_out.tr(),

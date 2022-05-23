@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/search/bloc/search_bloc.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -50,10 +52,11 @@ class SearchScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigation.mainListNav.currentState
-                                    ?.popAndPushNamed(
-                                  'home_screen/home_content_screen',
-                                );
+                                // Navigation.mainListNav.currentState
+                                //     ?.popAndPushNamed(
+                                //   'home_screen/home_content_screen',
+                                // );
+                                context.router.pop();
                                 context
                                     .read<SearchBloc>()
                                     .add(const SearchLoad(''));
@@ -114,10 +117,12 @@ class SearchScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigation.mainAppNav.currentState?.pushNamed(
-                              '/home_screen/product_screen',
-                              arguments: state.products[index].id,
-                            );
+                            // Navigation.mainAppNav.currentState?.pushNamed(
+                            //   '/home_screen/product_screen',
+                            //   arguments: state.products[index].id,
+                            // );
+                            context.router.push(ProductRoute(
+                                productId: state.products[index].id));
                           },
                           child: Stack(
                             children: [

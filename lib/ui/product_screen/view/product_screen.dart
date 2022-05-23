@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
@@ -16,7 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductScreen extends StatelessWidget {
+  final String productId;
   const ProductScreen({
+    required this.productId,
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +28,7 @@ class ProductScreen extends StatelessWidget {
     final _icon = SvgPicture.asset(
       'assets/icons/heart11.svg',
     );
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    // final productId = ModalRoute.of(context)?.settings.arguments as String;
 
     return SafeArea(
       child: Scaffold(
@@ -228,7 +231,8 @@ class ProductScreen extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 child: SvgPicture.asset('assets/icons/arrow_left_bottom.svg'),
               ),
@@ -268,7 +272,8 @@ class ProductScreen extends StatelessWidget {
               }),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 child: _icon,
               ),

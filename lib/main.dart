@@ -6,6 +6,7 @@ import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:ecom_app/domain/repositories/catalogue/catalogue_repository.dart';
 import 'package:ecom_app/domain/repositories/login/phone_auth_repository.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 
 import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 import 'package:ecom_app/ui/cart/check_out_screen/view/check_out_screen.dart';
@@ -73,35 +74,37 @@ Future<void> main() async {
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('en', 'US'),
-        child: const MyApp(),
+        child: MyApp(),
       ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
+  final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: Navigation.mainAppNav,
+    return MaterialApp.router(
+      // navigatorKey: Navigation.mainAppNav,
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const GetStartedScreen(),
-        '/enter_phone_screen': (context) => const EnterPhoneScreen(),
-        '/pin_virification_screen': (context) => const VerificationScreen(),
-        '/home_screen': (context) => const HomeScreen(),
-        '/home_screen/product_screen': (context) => const ProductScreen(),
-        '/home_screen/cart_screen': (context) => const CartScreen(),
-        '/home_screen/cart_screen/check_out_screen': (context) =>
-            const CheckOutScreen(),
-        '/home_screen/catalogue_screen/clothing_screen/filter_screen':
-            (context) => const FilterScreen(),
-      },
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const GetStartedScreen(),
+      //   '/enter_phone_screen': (context) => const EnterPhoneScreen(),
+      //   '/pin_virification_screen': (context) =>  VerificationScreen(),
+      //   '/home_screen': (context) => const HomeScreen(),
+      //   '/home_screen/product_screen': (context) => const ProductScreen(),
+      //   '/home_screen/cart_screen': (context) => const CartScreen(),
+      //   '/home_screen/cart_screen/check_out_screen': (context) =>
+      //       const CheckOutScreen(),
+      //   '/home_screen/catalogue_screen/clothing_screen/filter_screen':
+      //       (context) => const FilterScreen(),
+      // },
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -12,7 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
+  final String phone;
+  final String verId;
   const VerificationScreen({
+    required this.phone,
+    required this.verId,
     Key? key,
   }) : super(key: key);
 
@@ -27,10 +33,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map;
+    // final args = ModalRoute.of(context)?.settings.arguments as Map;
 
-    final String phone = args['phoneNumber'] as String;
-    final String verId = args['verificationId'] as String;
+    // final String phone = args['phoneNumber'] as String;
+    // final String verId = args['verificationId'] as String;
 
     return SafeArea(
       child: Scaffold(
@@ -38,9 +44,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
         body: BlocListener<PhoneAuthBloc, PhoneAuthState>(
           listener: (context, state) {
             if (state is PhoneAuthVerified) {
-              Navigation.mainAppNav.currentState?.pushReplacementNamed(
-                '/home_screen',
-              );
+              // Navigation.mainAppNav.currentState?.pushReplacementNamed(
+              //   '/home_screen',
+              // );
+              context.router.replace(const HomeRoute());
             }
 
             if (state is PhoneAuthError) {
@@ -97,7 +104,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            phone,
+                            widget.phone,
                             style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
@@ -107,7 +114,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            // Navigator.of(context).pop();
+                            context.router.pop();
                           },
                           child: Text(
                             LocaleKeys.change_phone_number.tr(),
@@ -166,7 +174,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       onPrimary: Colors.white,
                       minimumSize: const Size(327, 64),
                     ),
-                    onPressed: () => _verifyOtp(verificationId: verId),
+                    onPressed: () => _verifyOtp(verificationId: widget.verId),
                     child: Text(
                       LocaleKeys.verif_button_text.tr(),
                       // 'Send Verification Code',

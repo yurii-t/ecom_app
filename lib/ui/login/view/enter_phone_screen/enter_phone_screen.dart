@@ -1,4 +1,7 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -40,13 +43,17 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
         body: BlocSelector<PhoneAuthBloc, PhoneAuthState, bool>(
           selector: (state) {
             if (state is PhoneAuthCodeSentSuccess) {
-              Navigation.mainAppNav.currentState?.pushNamed(
-                '/pin_virification_screen',
-                arguments: {
-                  'verificationId': state.verificationId,
-                  'phoneNumber': testNumber,
-                },
-              );
+              // Navigation.mainAppNav.currentState?.pushNamed(
+              //   '/pin_virification_screen',
+              //   arguments: {
+              //     'verificationId': state.verificationId,
+              //     'phoneNumber': testNumber,
+              //   },
+              // );
+              context.router.push(VerificationRoute(
+                phone: testNumber,
+                verId: state.verificationId,
+              ));
             }
             if (state is PhoneAuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -169,10 +176,11 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                         padding: const EdgeInsets.only(left: 24, right: 24),
                         child: TextButton(
                           onPressed: () {
-                            Navigation.mainAppNav.currentState!
-                                .pushReplacementNamed(
-                              '/home_screen',
-                            );
+                            // Navigation.mainAppNav.currentState!
+                            //     .pushReplacementNamed(
+                            //   '/home_screen',
+                            // );
+                            context.router.replace(const HomeRoute());
                           },
                           child: Text(
                             LocaleKeys.phone_skip_button_text.tr(),

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ecom_app/data/models/product.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 
 import 'package:ecom_app/ui/widgets/navigation.dart';
@@ -19,10 +21,11 @@ class ItemContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigation.mainAppNav.currentState?.pushNamed(
-          '/home_screen/product_screen',
-          arguments: product.id,
-        );
+        // Navigation.mainAppNav.currentState?.pushNamed(
+        //   '/home_screen/product_screen',
+        //   arguments: product.id,
+        // );
+        context.router.push(ProductRoute(productId: product.id));
       },
       child: Stack(children: [
         Column(

@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/data/service/firebase_storage_service.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/login/view/enter_phone_screen/enter_phone_screen.dart';
 
 import 'package:ecom_app/ui/widgets/navigation.dart';
 
@@ -109,10 +112,11 @@ class GetStartedScreen extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              Navigation.mainAppNav.currentState
-                                  ?.pushReplacementNamed(
-                                '/enter_phone_screen',
-                              );
+                              // Navigation.mainAppNav.currentState
+                              //     ?.pushReplacementNamed(
+                              //   '/enter_phone_screen',
+                              // );
+                              context.router.replace(const EnterPhoneRoute());
                             },
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.yellow,

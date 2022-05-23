@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
+import 'package:ecom_app/ui/cart/cart_screen/cart_screen.dart';
 
 import 'package:ecom_app/ui/home/catalogue_screen/catalogue_screen.dart';
 import 'package:ecom_app/ui/home/clothing_screen/view/clothing_screen.dart';
@@ -28,330 +31,349 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: AutoTabsScaffold(
+        routes: const [
+          HomeRouter(),
+          CatalogueRouter(),
+          FavoriteRouter(),
+          ProfileRouter(),
+        ],
         backgroundColor: AppColors.backGround,
-        body: Navigator(
-          key: Navigation.mainListNav,
-          initialRoute: 'home_screen/home_content_screen',
-          onGenerateRoute: (settings) {
-            Widget page;
-            switch (settings.name) {
-              case '/':
-                page = const HomeContentScreenColumn();
-                break;
-              case '/home_screen/catalogue_screen':
-                page = const CatalogueScreen();
-                break;
-              case '/home_screen/favorite_screen':
-                page = const FavoriteScreen();
-                break;
-              case '/home_screen/profile_screen':
-                page = const ProfileScreen();
-                break;
-              case '/home_screen/catalogue_screen/clothing_screen':
-                page = const ClothingScreen();
-                break;
+        // body: Navigator(
+        //   key: Navigation.mainListNav,
+        //   initialRoute: 'home_screen/home_content_screen',
+        //   onGenerateRoute: (settings) {
+        //     Widget page;
+        //     switch (settings.name) {
+        //       case '/':
+        //         page = const HomeContentScreenColumn();
+        //         break;
+        //       case '/home_screen/catalogue_screen':
+        //         page = const CatalogueScreen();
+        //         break;
+        //       case '/home_screen/favorite_screen':
+        //         page = const FavoriteScreen();
+        //         break;
+        //       case '/home_screen/profile_screen':
+        //         page = const ProfileScreen();
+        //         break;
+        //       case '/home_screen/catalogue_screen/clothing_screen':
+        //         page = const ClothingScreen();
+        //         break;
 
-              default:
-                page = const HomeContentScreenColumn();
-                break;
-            }
+        //       default:
+        //         page = const HomeContentScreenColumn();
+        //         break;
+        //     }
 
-            return PageRouteBuilder<void>(
-              pageBuilder: (
-                _,
-                __,
-                ___,
-              ) =>
-                  page,
-              transitionDuration: Duration.zero,
-            );
-          },
-        ),
-        bottomNavigationBar: Stack(clipBehavior: Clip.none, children: [
-          Container(
-            padding: const EdgeInsets.only(
-              left: 19,
-              top: 12,
-              right: 135,
-              bottom: 34,
-            ),
-            width: MediaQuery.of(context).size.width,
-            height: 87,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(24)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigation.mainListNav.currentState?.pushNamed(
-                      'home_screen/home_content_screen',
-                    );
-                    setState(() {
-                      _selectedTab = 0;
-                    });
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: _selectedTab == 0
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/home_fill.svg',
-                            ),
-                            Text(
-                              LocaleKeys.home.tr(),
-                              // 'Home',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.bottomBarText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset('assets/icons/home_out.svg'),
-                            Text(
-                              LocaleKeys.home.tr(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.greyText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
+        //     return PageRouteBuilder<void>(
+        //       pageBuilder: (
+        //         _,
+        //         __,
+        //         ___,
+        //       ) =>
+        //           page,
+        //       transitionDuration: Duration.zero,
+        //     );
+        //   },
+
+        // ),
+        bottomNavigationBuilder: (_, tabsRouter) {
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 19,
+                  top: 12,
+                  right: 135,
+                  bottom: 34,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigation.mainListNav.currentState?.pushNamed(
-                      '/home_screen/catalogue_screen',
-                    );
-                    setState(() {
-                      _selectedTab = 1;
-                    });
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: _selectedTab == 1
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/catalogue_fill.svg',
-                            ),
-                            Text(
-                              LocaleKeys.catalogue.tr(),
-                              // 'Catalogue',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.bottomBarText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/catalogue_out.svg',
-                            ),
-                            Text(
-                              LocaleKeys.catalogue.tr(),
-                              // 'Catalogue',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.greyText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigation.mainListNav.currentState?.pushNamed(
-                      '/home_screen/favorite_screen',
-                    );
-                    setState(() {
-                      _selectedTab = 2;
-                    });
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: _selectedTab == 2
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/favorite_fill.svg',
-                            ),
-                            Text(
-                              LocaleKeys.favorite.tr(),
-                              // 'Favorite',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.bottomBarText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/favorite_out.svg',
-                            ),
-                            Text(
-                              LocaleKeys.favorite.tr(),
-                              // 'Favorite',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.greyText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigation.mainListNav.currentState?.pushNamed(
-                      '/home_screen/profile_screen',
-                    );
-                    setState(() {
-                      _selectedTab = 3;
-                    });
-                  },
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: _selectedTab == 3
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/profile_fill.svg',
-                            ),
-                            Text(
-                              LocaleKeys.profile.tr(),
-                              // 'Profile',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.bottomBarText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/profile_out.svg',
-                            ),
-                            Text(
-                              LocaleKeys.profile.tr(),
-                              // 'Profile',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.greyText,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            left: 273,
-            bottom: 42,
-            right: 0,
-            child: GestureDetector(
-              onTap: () => Navigation.mainAppNav.currentState?.pushNamed(
-                '/home_screen/cart_screen',
-              ),
-              //  Navigator.push<void>(
-              //   context,
-              //   SlideRightRoute(page: const CartScreen()),
-              // ),
-              child: Container(
-                width: 116,
-                height: 56,
+                width: MediaQuery.of(context).size.width,
+                height: 87,
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(80),
-                    bottomLeft: Radius.circular(80),
-                  ),
-                  gradient: AppGradient.purpleGradient,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(24)),
                 ),
-                child: Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset('assets/icons/shopping_cart_1.svg'),
-                      BlocSelector<CartBloc, CartState, num>(
-                        selector: (state) => state is CartLoaded
-                            ? state.cartItems.fold(
-                                0,
-                                (previousValue, element) =>
-                                    previousValue +
-                                    (element.price * element.quantity),
-                              )
-                            : 0,
-                        builder: (
-                          context,
-                          totalSum,
-                        ) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '\$ ${totalSum.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        tabsRouter.setActiveIndex(0);
+                        // Navigation.mainListNav.currentState?.pushNamed(
+                        //   'home_screen/home_content_screen',
+                        // );
+                        // setState(() {
+                        //   _selectedTab = 0;
+                        // });
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: tabsRouter.activeIndex == 0 // _selectedTab == 0
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/home_fill.svg',
                                 ),
-                              ),
-                              BlocSelector<CartBloc, CartState, int>(
-                                selector: (state) => state is CartLoaded
-                                    ? state.cartItems.length
-                                    : 0,
-                                builder: (context, length) {
-                                  return Text(
-                                    '${length} ${LocaleKeys.items.tr()}',
+                                Text(
+                                  LocaleKeys.home.tr(),
+                                  // 'Home',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.bottomBarText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset('assets/icons/home_out.svg'),
+                                Text(
+                                  LocaleKeys.home.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.greyText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        // tabsRouter.setActiveIndex([1][0]);
+                        tabsRouter.setActiveIndex(1);
+                        // Navigation.mainListNav.currentState?.pushNamed(
+                        //   '/home_screen/catalogue_screen',
+                        // );
+                        // setState(() {
+                        //   _selectedTab = 1;
+                        // });
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: tabsRouter.activeIndex == 1
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/catalogue_fill.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.catalogue.tr(),
+                                  // 'Catalogue',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.bottomBarText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/catalogue_out.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.catalogue.tr(),
+                                  // 'Catalogue',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.greyText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        tabsRouter.setActiveIndex(2);
+                        // Navigation.mainListNav.currentState?.pushNamed(
+                        //   '/home_screen/favorite_screen',
+                        // );
+                        // setState(() {
+                        //   _selectedTab = 2;
+                        // });
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: tabsRouter.activeIndex == 2
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/favorite_fill.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.favorite.tr(),
+                                  // 'Favorite',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.bottomBarText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/favorite_out.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.favorite.tr(),
+                                  // 'Favorite',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.greyText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        tabsRouter.setActiveIndex(3);
+                        // Navigation.mainListNav.currentState?.pushNamed(
+                        //   '/home_screen/profile_screen',
+                        // );
+                        // setState(() {
+                        //   _selectedTab = 3;
+                        // });
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: tabsRouter.activeIndex == 3
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/profile_fill.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.profile.tr(),
+                                  // 'Profile',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.bottomBarText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/profile_out.svg',
+                                ),
+                                Text(
+                                  LocaleKeys.profile.tr(),
+                                  // 'Profile',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.greyText,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 273,
+                bottom: 42,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () =>
+                      context.router.pushNamed('cart'), //const CartRoute()),
+                  // Navigation.mainAppNav.currentState?.pushNamed(
+                  //   '/home_screen/cart_screen',
+                  // ),
+                  //  Navigator.push<void>(
+                  //   context,
+                  //   SlideRightRoute(page: const CartScreen()),
+                  // ),
+                  child: Container(
+                    width: 116,
+                    height: 56,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                        bottomLeft: Radius.circular(80),
+                      ),
+                      gradient: AppGradient.purpleGradient,
+                    ),
+                    child: Center(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/icons/shopping_cart_1.svg'),
+                          BlocSelector<CartBloc, CartState, num>(
+                            selector: (state) => state is CartLoaded
+                                ? state.cartItems.fold(
+                                    0,
+                                    (previousValue, element) =>
+                                        previousValue +
+                                        (element.price * element.quantity),
+                                  )
+                                : 0,
+                            builder: (
+                              context,
+                              totalSum,
+                            ) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '\$ ${totalSum.toStringAsFixed(2)}',
                                     style: const TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 11,
                                     ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                                  ),
+                                  BlocSelector<CartBloc, CartState, int>(
+                                    selector: (state) => state is CartLoaded
+                                        ? state.cartItems.length
+                                        : 0,
+                                    builder: (context, length) {
+                                      return Text(
+                                        '${length} ${LocaleKeys.items.tr()}',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 11,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ]),
+            ],
+          );
+        },
       ),
     );
   }

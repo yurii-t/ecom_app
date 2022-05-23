@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -67,11 +69,12 @@ class CheckOutPopupDialog extends StatelessWidget {
                 minimumSize: const Size(373, 48),
               ),
               onPressed: () {
-                Navigation.mainAppNav.currentState?.popUntil(
-                  ModalRoute.withName(
-                    '/home_screen',
-                  ),
-                );
+                context.router.popUntilRoot();
+                // Navigation.mainAppNav.currentState?.popUntil(
+                //   ModalRoute.withName(
+                //     '/home_screen',
+                //   ),
+                // );
               },
               child: Text(
                 LocaleKeys.popup_button_text.tr(),
@@ -86,8 +89,11 @@ class CheckOutPopupDialog extends StatelessWidget {
           const SizedBox(height: 24),
           GestureDetector(
             onTap: () {
-              Navigation.mainAppNav.currentState
-                  ?.popUntil(ModalRoute.withName('/home_screen/cart_screen'));
+              // Navigation.mainAppNav.currentState
+              //     ?.popUntil(ModalRoute.withName('/home_screen/cart_screen'));
+              // context.router.popUntilRouteWithName('cartScreen');
+              // context.router.removeLast();
+              context.router.popUntil((route) => route == 'CartRoute');
             },
             child: Text(
               LocaleKeys.popup_textbutton.tr(),

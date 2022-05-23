@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
@@ -62,8 +64,8 @@ class _ClothingScreenState extends State<ClothingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            onTap: () =>
-                                Navigation.mainListNav.currentState?.pop(),
+                            onTap: () => context.router.pop(),
+                            //     Navigation.mainListNav.currentState?.pop(),
                             child: SvgPicture.asset(
                               'assets/icons/arrow_left.svg',
                             ),
@@ -78,9 +80,10 @@ class _ClothingScreenState extends State<ClothingScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigation.mainAppNav.currentState?.pushNamed(
-                                '/home_screen/catalogue_screen/clothing_screen/filter_screen',
-                              );
+                              context.router.push(const FilterRoute());
+                              // Navigation.mainAppNav.currentState?.pushNamed(
+                              //   '/home_screen/catalogue_screen/clothing_screen/filter_screen',
+                              // );
                             },
                             child: SvgPicture.asset(
                               'assets/icons/filter_icon.svg',

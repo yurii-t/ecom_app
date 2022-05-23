@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:ecom_app/style/app_colors.dart';
@@ -103,9 +104,10 @@ class HomeContentScreenColumn extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigation.mainListNav.currentState?.pushNamed(
-                          '/home_screen/catalogue_screen',
-                        );
+                        // Navigation.mainListNav.currentState?.pushNamed(
+                        //   '/home_screen/catalogue_screen',
+                        // );
+                        context.router.pushNamed('catalogue');
                       },
                       child: Row(
                         children: [

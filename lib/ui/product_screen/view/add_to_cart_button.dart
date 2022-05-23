@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/blocs/cart/bloc/cart_bloc.dart';
@@ -200,7 +201,8 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 child: SvgPicture.asset(
                   'assets/icons/arrow_left_bottom.svg',
@@ -224,7 +226,8 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                   );
                   BlocProvider.of<CartBloc>(context)
                       .add(AddProduct(cartItem, widget.productId));
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 child: Text(
                   LocaleKeys.add_to_cart.tr(),
@@ -237,7 +240,8 @@ class _AddToCartButtonState extends State<AddToCartButton> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 child: _icon,
               ),
