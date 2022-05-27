@@ -1,6 +1,8 @@
+// ignore_for_file: avoid-unused-parameters
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:ecom_app/data/models/filter.dart';
 import 'package:ecom_app/data/models/product.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -22,6 +24,7 @@ class ClothingScreenBloc
     on<SortHighToLow>(_onSortHighToLow);
     on<SortLowToHigh>(_onSortLowToHigh);
     on<FiltePriceSelect>(_onFilterPriceSelect);
+    on<GetFilter>(_onGetFilter);
   }
   @override
   Future<void> close() {
@@ -64,7 +67,9 @@ class ClothingScreenBloc
     SortByDateProduct event,
     Emitter<ClothingScreenState> emit,
   ) {
-    productRepository.sortByDateProducts().listen(
+    proudctSubscription?.cancel();
+
+    proudctSubscription = productRepository.sortByDateProducts().listen(
           (val) => add(ClothingScreenUpdateProduct(val)),
         );
   }
@@ -73,7 +78,9 @@ class ClothingScreenBloc
     SortHighToLow event,
     Emitter<ClothingScreenState> emit,
   ) {
-    productRepository.sortPriceHightToLow().listen(
+    proudctSubscription?.cancel();
+
+    proudctSubscription = productRepository.sortPriceHightToLow().listen(
           (val) => add(ClothingScreenUpdateProduct(val)),
         );
   }
@@ -82,7 +89,8 @@ class ClothingScreenBloc
     SortLowToHigh event,
     Emitter<ClothingScreenState> emit,
   ) {
-    productRepository.sortPriceLowToHigh().listen(
+    proudctSubscription?.cancel();
+    proudctSubscription = productRepository.sortPriceLowToHigh().listen(
           (val) => add(ClothingScreenUpdateProduct(val)),
         );
   }
@@ -91,8 +99,19 @@ class ClothingScreenBloc
     FiltePriceSelect event,
     Emitter<ClothingScreenState> emit,
   ) {
-    productRepository
+    proudctSubscription?.cancel();
+    proudctSubscription = productRepository
         .filterPriceSelect(event.startPrice, event.endPrice)
+        .listen((val) => add(ClothingScreenUpdateProduct(val)));
+  }
+
+  void _onGetFilter(
+    GetFilter event,
+    Emitter<ClothingScreenState> emit,
+  ) {
+    proudctSubscription?.cancel();
+    proudctSubscription = productRepository
+        .getFilterProducts(event.filter, event.searchQuery)
         .listen((val) => add(ClothingScreenUpdateProduct(val)));
   }
 }

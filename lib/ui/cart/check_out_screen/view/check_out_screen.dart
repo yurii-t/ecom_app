@@ -11,25 +11,30 @@ import 'package:ecom_app/ui/cart/widgets/delivery_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CheckOutScreen extends StatelessWidget {
+class CheckOutScreen extends StatefulWidget {
   final num itemPrice;
   const CheckOutScreen({
     required this.itemPrice,
     Key? key,
   }) : super(key: key);
+  @override
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
+}
 
-  // int delivery = 0;
-  // ValueNotifier<int> deleiveryNotifier = ValueNotifier(0);
+class _CheckOutScreenState extends State<CheckOutScreen> {
+  final ValueNotifier<int> deleiveryNotifier = ValueNotifier(0);
+
+  @override
+  void dispose() {
+    deleiveryNotifier.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final bool picked = true;
     const String customerName = 'Oleh Chabanov';
     const String address = '225 Highland Ave Springfield, IL 62704, USA';
     const String cardNumber = '5678 5678 5678 5678';
-    final ValueNotifier<int> deleiveryNotifier = ValueNotifier(0);
-
-    // final itemPrice = ModalRoute.of(context)?.settings.arguments as num;
-    // final num totalPrice = itemPrice + delivery;
 
     return Scaffold(
       backgroundColor: AppColors.backGround,
@@ -47,7 +52,6 @@ class CheckOutScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   context.router.pop();
-                  // Navigator.of(context).pop();
                 },
                 child: SvgPicture.asset('assets/icons/arrow_left.svg'),
               ),
@@ -319,7 +323,7 @@ class CheckOutScreen extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: deleiveryNotifier,
           builder: (context, delivery, child) {
-            final num totalPrice = itemPrice + deleiveryNotifier.value;
+            final num totalPrice = widget.itemPrice + deleiveryNotifier.value;
 
             return Column(
               children: [
@@ -336,7 +340,7 @@ class CheckOutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${itemPrice.toStringAsFixed(2)}',
+                      '\$${widget.itemPrice.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -361,7 +365,7 @@ class CheckOutScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      delivery.toString(), // '$delivery',
+                      delivery.toString(),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

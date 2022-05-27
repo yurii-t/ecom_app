@@ -55,7 +55,6 @@ class ProductDetailsContainer extends StatelessWidget {
                     children: [
                       Text(
                         LocaleKeys.product_details.tr(),
-                        // 'Product details',
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,

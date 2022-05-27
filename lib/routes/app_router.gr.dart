@@ -68,8 +68,11 @@ class AppRouter extends _i6.RootStackRouter {
           barrierDismissible: false);
     },
     FilterRoute.name: (routeData) {
+      final args = routeData.argsAs<FilterRouteArgs>();
       return _i6.MaterialPageX<void>(
-          routeData: routeData, child: const _i7.FilterScreen());
+          routeData: routeData,
+          child:
+              _i7.FilterScreen(searchQuery: args.searchQuery, key: args.key));
     },
     SearchRoute.name: (routeData) {
       return _i6.MaterialPageX<void>(
@@ -243,10 +246,26 @@ class CartRouter extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.FilterScreen]
-class FilterRoute extends _i6.PageRouteInfo<void> {
-  const FilterRoute() : super(FilterRoute.name, path: '/filter-screen');
+class FilterRoute extends _i6.PageRouteInfo<FilterRouteArgs> {
+  FilterRoute({required String searchQuery, _i16.Key? key})
+      : super(FilterRoute.name,
+            path: '/filter-screen',
+            args: FilterRouteArgs(searchQuery: searchQuery, key: key));
 
   static const String name = 'FilterRoute';
+}
+
+class FilterRouteArgs {
+  const FilterRouteArgs({required this.searchQuery, this.key});
+
+  final String searchQuery;
+
+  final _i16.Key? key;
+
+  @override
+  String toString() {
+    return 'FilterRouteArgs{searchQuery: $searchQuery, key: $key}';
+  }
 }
 
 /// generated route for

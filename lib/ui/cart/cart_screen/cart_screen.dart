@@ -7,7 +7,6 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,7 +17,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<int> listSize = [0, 1, 2];
-    num totalSumm = 0;
+    num calculatedTotalSum = 0;
 
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       if (state is CartLoading) {
@@ -53,7 +52,6 @@ class CartScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Navigator.of(context).pop();
                         context.router.pop();
                       },
                       child: SvgPicture.asset(
@@ -62,7 +60,6 @@ class CartScreen extends StatelessWidget {
                     ),
                     Text(
                       LocaleKeys.cart.tr(),
-                      // 'Cart',
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 19,
@@ -266,7 +263,7 @@ class CartScreen extends StatelessWidget {
                             )
                           : 0,
                       builder: (context, totalSum) {
-                        totalSumm = totalSum;
+                        calculatedTotalSum = totalSum;
 
                         return Text(
                           '\$ ${totalSum.toStringAsFixed(2)}',
@@ -287,11 +284,8 @@ class CartScreen extends StatelessWidget {
                     minimumSize: const Size(373, 48),
                   ),
                   onPressed: () {
-                    context.router.push(CheckOutRoute(itemPrice: totalSumm));
-                    // Navigation.mainAppNav.currentState?.pushNamed(
-                    //   '/home_screen/cart_screen/check_out_screen',
-                    //   arguments: totalSumm,
-                    // );
+                    context.router
+                        .push(CheckOutRoute(itemPrice: calculatedTotalSum));
                   },
                   child: Text(
                     LocaleKeys.check_out.tr(),

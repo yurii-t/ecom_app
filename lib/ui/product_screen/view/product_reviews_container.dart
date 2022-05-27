@@ -65,7 +65,6 @@ class ProductReviewsContainer extends StatelessWidget {
                   Expanded(
                     child: Text(
                       LocaleKeys.reviews.tr(),
-                      // 'Reviews',
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 19,

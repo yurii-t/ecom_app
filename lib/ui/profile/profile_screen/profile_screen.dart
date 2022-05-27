@@ -125,8 +125,6 @@ class ProfileScreen extends StatelessWidget {
                 icon: SvgPicture.asset(setting.image),
                 label: Text(
                   setting.name,
-                  // LocaleKeys.shipping_addresses.tr(),
-
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
@@ -149,7 +147,6 @@ class ProfileScreen extends StatelessWidget {
                 onTap: null,
                 child: Text(
                   LocaleKeys.privacy_policy.tr(),
-                  // 'Privacy Policy',
                   style: const TextStyle(
                     decoration: TextDecoration.underline,
                     fontSize: 12,

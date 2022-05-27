@@ -7,7 +7,6 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -63,14 +62,13 @@ class CatalogueScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context.router.popUntilRouteWithName('HomeRoute');
+                              context.router.popAndPush(const HomeRoute());
                             },
                             child:
                                 SvgPicture.asset('assets/icons/arrow_left.svg'),
                           ),
                           Text(
                             LocaleKeys.catalogue.tr(),
-                            // 'Catalogue',
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 19,
@@ -107,155 +105,147 @@ class CatalogueScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 36),
-                SizedBox(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.catalogue.length,
-                    itemExtent: 120,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          Container(
-                            height: 176,
-                            margin: const EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                              top: 8,
-                              bottom: 8,
+                ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.catalogue.length,
+                  itemExtent: 120,
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Container(
+                          height: 176,
+                          margin: const EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            top: 8,
+                            bottom: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.2),
                             ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 8,
+                                offset: const Offset(0, 6),
                               ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 6),
+                            ],
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 16,
+                                  ),
+                                  child: Text(
+                                    state.catalogue[index].title,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.darkText,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ],
-                            ),
-                            clipBehavior: Clip.hardEdge,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
+                              ),
+                              Image.network(
+                                state.catalogue[index].imageUrl,
+                                fit: BoxFit.cover,
+                                height: 176,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10),
+                            onTap: () {
+                              showModalBottomSheet<Widget?>(
+                                useRootNavigator: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(24),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
                                     padding: const EdgeInsets.only(
-                                      left: 16,
+                                      left: 24,
                                     ),
-                                    child: Text(
-                                      state.catalogue[index].title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.darkText,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                                Image.network(
-                                  state.catalogue[index].imageUrl,
-                                  fit: BoxFit.cover,
-                                  height: 176,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(10),
-                              onTap: () {
-                                // context.router.push(const ClothingRoute());
-                                showModalBottomSheet<Widget?>(
-                                  useRootNavigator: true,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(24),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (context) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 24,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 33,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 33,
+                                            ),
+                                            child: Text(
+                                              LocaleKeys.womens_fashion.tr(),
+                                              style: const TextStyle(
+                                                fontSize: 19,
+                                                fontWeight: FontWeight.w700,
+                                                color: AppColors.darkText,
                                               ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                        for (final category in categories)
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 15,
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                context.router.push(
+                                                  const ClothingRoute(),
+                                                );
+
+                                                context.router.pop();
+                                              },
                                               child: Text(
-                                                LocaleKeys.womens_fashion.tr(),
+                                                category,
+                                                textAlign: TextAlign.start,
                                                 style: const TextStyle(
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AppColors.darkText,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.darkGreyText,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          for (final category in categories)
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                bottom: 15,
-                                              ),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  context.router.push(
-                                                      const ClothingRoute());
-                                                  // Navigation
-                                                  //     .mainListNav.currentState!
-                                                  //     .pushNamed(
-                                                  //   '/home_screen/catalogue_screen/clothing_screen',
-                                                  // );
-                                                  context.router.pop();
-                                                  // Navigator.of(context).pop();
-                                                },
-                                                child: Text(
-                                                  category,
-                                                  textAlign: TextAlign.start,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color:
-                                                        AppColors.darkGreyText,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ]);
             }

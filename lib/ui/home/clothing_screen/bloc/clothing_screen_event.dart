@@ -55,3 +55,26 @@ class FiltePriceSelect extends ClothingScreenEvent {
         endPrice,
       ];
 }
+
+class GetFilter extends ClothingScreenEvent {
+  final Filter filter;
+  final String searchQuery;
+  const GetFilter(this.filter, this.searchQuery);
+
+  @override
+  List<Object> get props => [
+        filter,
+        searchQuery,
+      ];
+}
+
+class Search extends ClothingScreenEvent {
+  final String searchQuery;
+
+  const Search(this.searchQuery);
+
+  @override
+  List<Object> get props => [
+        searchQuery,
+      ];
+}

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecom_app/data/models/filter.dart';
 import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
@@ -9,7 +10,6 @@ import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart'
 
 import 'package:ecom_app/ui/widgets/item_container.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/sort_popup_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +30,14 @@ class _ClothingScreenState extends State<ClothingScreen> {
   dynamic startPrice = null;
   dynamic endPrice = null;
   int _selectedTab = 0;
+  Filter filterValue = Filter.initial();
+  TextEditingController textcontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    textcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +73,6 @@ class _ClothingScreenState extends State<ClothingScreen> {
                         children: [
                           GestureDetector(
                             onTap: () => context.router.pop(),
-                            //     Navigation.mainListNav.currentState?.pop(),
                             child: SvgPicture.asset(
                               'assets/icons/arrow_left.svg',
                             ),
@@ -79,11 +86,12 @@ class _ClothingScreenState extends State<ClothingScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              context.router.push(const FilterRoute());
-                              // Navigation.mainAppNav.currentState?.pushNamed(
-                              //   '/home_screen/catalogue_screen/clothing_screen/filter_screen',
-                              // );
+                            onTap: () async {
+                              final value =
+                                  await context.router.push(FilterRoute(
+                                searchQuery: textcontroller.text,
+                              ));
+                              filterValue = value as Filter;
                             },
                             child: SvgPicture.asset(
                               'assets/icons/filter_icon.svg',
@@ -99,11 +107,11 @@ class _ClothingScreenState extends State<ClothingScreen> {
                         width: 375,
                         height: 44,
                         child: TextField(
+                          controller: textcontroller,
                           onChanged: (val) {
-                            setState(() {
-                              query = val;
-                              print(query);
-                            });
+                            context
+                                .read<ClothingScreenBloc>()
+                                .add(GetFilter(filterValue, val));
                           },
                           textAlignVertical: TextAlignVertical.bottom,
                           decoration: InputDecoration(

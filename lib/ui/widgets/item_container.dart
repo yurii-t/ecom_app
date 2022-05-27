@@ -3,7 +3,6 @@ import 'package:ecom_app/data/models/product.dart';
 import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/star_icon_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,10 +20,6 @@ class ItemContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigation.mainAppNav.currentState?.pushNamed(
-        //   '/home_screen/product_screen',
-        //   arguments: product.id,
-        // );
         context.router.push(ProductRoute(productId: product.id));
       },
       child: Stack(children: [

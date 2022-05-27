@@ -15,13 +15,13 @@ class SortPopupMenuButton extends StatefulWidget {
 }
 
 class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
-  String dropdownvalue = LocaleKeys.featured.tr(); //'Featured';
+  String dropdownvalue = LocaleKeys.featured.tr();
   List<String> dropButtonItems = [
-    LocaleKeys.featured.tr(), //'Featured',
-    LocaleKeys.new_text.tr(), // 'New',
-    LocaleKeys.popular.tr(), // 'Popular',
-    LocaleKeys.price_high_to_low.tr(), // 'Price high to low',
-    LocaleKeys.price_low_to_high.tr(), // 'Price low to high',
+    LocaleKeys.featured.tr(),
+    LocaleKeys.new_text.tr(),
+    LocaleKeys.popular.tr(),
+    LocaleKeys.price_high_to_low.tr(),
+    LocaleKeys.price_low_to_high.tr(),
   ];
   String _currentItemSelected = LocaleKeys.featured.tr();
 
@@ -32,7 +32,6 @@ class _SortPopupMenuButtonState extends State<SortPopupMenuButton> {
       children: [
         Text(
           LocaleKeys.sort_by.tr(),
-          // 'Sort by: ',
           style: const TextStyle(
             color: AppColors.greyText,
             fontWeight: FontWeight.w700,

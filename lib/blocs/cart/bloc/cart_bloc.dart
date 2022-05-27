@@ -1,8 +1,9 @@
+// ignore_for_file: avoid-unused-parameters
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecom_app/data/models/cart.dart';
-import 'package:ecom_app/data/models/product.dart';
+
 import 'package:ecom_app/domain/repositories/cart/cart_repository.dart';
 import 'package:equatable/equatable.dart';
 

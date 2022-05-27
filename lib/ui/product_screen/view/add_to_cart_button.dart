@@ -14,9 +14,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AddToCartButton extends StatefulWidget {
   final String productId;
-  int item;
-  AddToCartButton({required this.item, required this.productId, Key? key})
-      : super(key: key);
+  int itemQuantity;
+  AddToCartButton({
+    required this.itemQuantity,
+    required this.productId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddToCartButton> createState() => _AddToCartButtonState();
@@ -29,6 +32,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
   List colors = <String>[];
   String colorsJoined = '';
   String sizesJoined = '';
+  List<String> initSize = [];
 
   var _icon = SvgPicture.asset(
     'assets/icons/heart11.svg',
@@ -120,7 +124,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  widget.item++;
+                                  widget.itemQuantity++;
                                 });
                               },
                               child: SvgPicture.asset(
@@ -130,18 +134,18 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                             const SizedBox(
                               height: 4,
                             ),
-                            Text('${widget.item}'),
+                            Text('${widget.itemQuantity}'),
                             const SizedBox(
                               height: 4,
                             ),
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (widget.item == 0) {
+                                  if (widget.itemQuantity == 0) {
                                     return null;
                                   }
 
-                                  widget.item--;
+                                  widget.itemQuantity--;
                                 });
                               },
                               child: SvgPicture.asset(
@@ -186,9 +190,9 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             height: 8,
           ),
           SizePicker(
-            initPick: const [],
+            initPick: initSize,
             onSizePicked: (val) {
-              sizesJoined = val;
+              sizesJoined = val.first;
               print(sizesJoined);
             },
           ),
@@ -201,7 +205,6 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             children: [
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pop();
                   context.router.pop();
                 },
                 child: SvgPicture.asset(
@@ -222,11 +225,11 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                     colors: colorsJoined,
                     sizes: sizesJoined,
                     price: dataPrice,
-                    quantity: widget.item,
+                    quantity: widget.itemQuantity,
                   );
                   BlocProvider.of<CartBloc>(context)
                       .add(AddProduct(cartItem, widget.productId));
-                  // Navigator.of(context).pop();
+
                   context.router.pop();
                 },
                 child: Text(
@@ -240,7 +243,6 @@ class _AddToCartButtonState extends State<AddToCartButton> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pop();
                   context.router.pop();
                 },
                 child: _icon,

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/search_screen/search_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
@@ -17,10 +17,6 @@ class SearchBar extends StatelessWidget {
       child: TextField(
         onTap: () {
           context.router.push(const SearchRoute());
-          // Navigator.push<void>(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const SearchScreen()),
-          // );
         },
         textAlignVertical: TextAlignVertical.bottom,
         decoration: InputDecoration(

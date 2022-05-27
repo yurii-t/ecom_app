@@ -9,14 +9,15 @@ import 'package:ecom_app/ui/home/filter_screen/brand_multi_select_dialog.dart';
 import 'package:ecom_app/ui/home/filter_screen/categories_button.dart';
 import 'package:ecom_app/ui/home/filter_screen/sort_button.dart';
 import 'package:ecom_app/ui/home/filter_screen/widgets/filter_color_picker.dart';
-import 'package:ecom_app/ui/widgets/navigation.dart';
+
 import 'package:ecom_app/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FilterScreen extends StatefulWidget {
-  const FilterScreen({Key? key}) : super(key: key);
+  final String searchQuery;
+  const FilterScreen({required this.searchQuery, Key? key}) : super(key: key);
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
@@ -27,12 +28,15 @@ class _FilterScreenState extends State<FilterScreen> {
   double maxValue = 8000;
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
-  String pickedSize = '';
-  Color initColor = Colors.transparent;
-  String initCategory = LocaleKeys.clothing.tr();
-  String initSortitem = LocaleKeys.featured.tr();
+
   List<String> initSelctedSize = [];
-  List<String> inintBrandItem = [];
+
+  final ValueNotifier<Color> colorNotifier = ValueNotifier(Colors.transparent);
+  final ValueNotifier<String> sortNotifier =
+      ValueNotifier(LocaleKeys.featured.tr());
+  final ValueNotifier<String> categoryNotifier =
+      ValueNotifier(LocaleKeys.clothing.tr());
+
   double _startValue = 0;
   double _endValue = 5000;
 
@@ -64,11 +68,24 @@ class _FilterScreenState extends State<FilterScreen> {
   void dispose() {
     startController.dispose();
     endController.dispose();
+    colorNotifier.dispose();
+    sortNotifier.dispose();
+    categoryNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final Filter filter = Filter(
+      minValue: _startValue,
+      maxValue: _endValue,
+      selectedSizeItems: initSelctedSize,
+      selectedCategoryItem: categoryNotifier.value,
+      selectedSortItem: sortNotifier.value,
+      selectedColor: colorNotifier.value,
+      selectedBrandItem: _selectedItems,
+    );
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backGround,
@@ -87,7 +104,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   GestureDetector(
                     onTap: () {
                       context.router.pop();
-                      // Navigation.mainAppNav.currentState?.pop();
                     },
                     child: SvgPicture.asset('assets/icons/arrow_left.svg'),
                   ),
@@ -109,15 +125,18 @@ class _FilterScreenState extends State<FilterScreen> {
                         endController.text = filterInit.maxValue.toString();
 
                         initSelctedSize = filterInit.selectedSizeItems;
-                        initColor = filterInit.selectedColor;
-                        initCategory = filterInit.selectedCategoryItem;
-                        initSortitem = filterInit.selectedSortItem;
+
+                        colorNotifier.value = filterInit.selectedColor;
+
+                        categoryNotifier.value =
+                            filterInit.selectedCategoryItem;
+
+                        sortNotifier.value = filterInit.selectedSortItem;
                         _selectedItems = filterInit.selectedBrandItem;
                       });
                     },
                     child: Text(
                       LocaleKeys.clear.tr(),
-                      // 'Clear',
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
@@ -216,7 +235,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   CategoriesButton(
-                    initCategory: initCategory,
+                    categoryNotifier: categoryNotifier,
                   ),
                   const SizedBox(
                     height: 24,
@@ -266,9 +285,14 @@ class _FilterScreenState extends State<FilterScreen> {
                     height: 13,
                   ),
                   FilterColorPicker(
-                    initColor: initColor,
+                    onColorPicked: (val) {
+                      setState(() {
+                        colorNotifier.value = val;
+                      });
+                    },
+                    colorNotifier: colorNotifier,
                     availableColors: const [
-                      Colors.blue,
+                      Color.fromRGBO(33, 150, 243, 1),
                       Colors.green,
                       Colors.greenAccent,
                       Colors.yellow,
@@ -293,7 +317,11 @@ class _FilterScreenState extends State<FilterScreen> {
                   SizePicker(
                     initPick: initSelctedSize,
                     onSizePicked: (val) {
-                      pickedSize = val;
+                      setState(() {
+                        initSelctedSize = val;
+                      });
+
+                      print('SIZEEE$initSelctedSize');
                     },
                   ),
                   const SizedBox(
@@ -308,7 +336,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   SortButton(
-                    initSortItem: initSortitem,
+                    onSortPicked: (val) {
+                      setState(() {
+                        sortNotifier.value = val;
+                      });
+                    },
+                    sortNotifier: sortNotifier,
                   ),
                   const SizedBox(
                     height: 32,
@@ -320,8 +353,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       minimumSize: const Size(360, 50),
                     ),
                     onPressed: () {
-                      // Navigator.of(context).pop();
-                      context.router.pop();
+                      context.router.pop(filter);
                     },
                     child: BlocSelector<ClothingScreenBloc, ClothingScreenState,
                         int>(
@@ -331,7 +363,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       builder: (context, state) {
                         context
                             .read<ClothingScreenBloc>()
-                            .add(FiltePriceSelect(_startValue, _endValue));
+                            .add(GetFilter(filter, widget.searchQuery));
 
                         return Text(
                           '${LocaleKeys.result.tr()} ($state)',
@@ -357,7 +389,9 @@ class _FilterScreenState extends State<FilterScreen> {
   }
 
   void _setStartValue() {
-    if (canChangeValue) {
+    if (startControllerValue < minValue) {
+      return;
+    } else if (canChangeValue) {
       setState(() {
         _startValue = startControllerValue;
       });
@@ -365,7 +399,9 @@ class _FilterScreenState extends State<FilterScreen> {
   }
 
   void _setEndValue() {
-    if (canChangeValue) {
+    if (endControllerValue > maxValue) {
+      return;
+    } else if (canChangeValue) {
       setState(() {
         _endValue = endControllerValue;
       });

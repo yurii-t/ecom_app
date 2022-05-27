@@ -5,29 +5,28 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoriesButton extends StatefulWidget {
-  String initCategory;
-  CategoriesButton({required this.initCategory, Key? key}) : super(key: key);
+class CategoriesButton extends StatelessWidget {
+  final ValueNotifier<String> categoryNotifier;
 
-  @override
-  State<CategoriesButton> createState() => _CategoriesButtonState();
-}
-
-class _CategoriesButtonState extends State<CategoriesButton> {
-  final List<String> categories = [
-    LocaleKeys.clothing.tr(),
-    LocaleKeys.shoes.tr(),
-    LocaleKeys.jewelry.tr(),
-    LocaleKeys.watches.tr(),
-    LocaleKeys.handbags.tr(),
-    LocaleKeys.accessories.tr(),
-    LocaleKeys.mens_fashion.tr(),
-    LocaleKeys.girls_fashion.tr(),
-    LocaleKeys.boys_fashion.tr(),
-  ];
+  const CategoriesButton({
+    required this.categoryNotifier,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<String> categories = [
+      LocaleKeys.clothing.tr(),
+      LocaleKeys.shoes.tr(),
+      LocaleKeys.jewelry.tr(),
+      LocaleKeys.watches.tr(),
+      LocaleKeys.handbags.tr(),
+      LocaleKeys.accessories.tr(),
+      LocaleKeys.mens_fashion.tr(),
+      LocaleKeys.girls_fashion.tr(),
+      LocaleKeys.boys_fashion.tr(),
+    ];
+
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.only(left: 16, right: 22),
@@ -42,8 +41,13 @@ class _CategoriesButtonState extends State<CategoriesButton> {
         return GestureDetector(
           child: Row(children: [
             Expanded(
-              child: Text(
-                widget.initCategory,
+              child: ValueListenableBuilder(
+                valueListenable: categoryNotifier,
+                builder: (context, notifierCategoryItem, child) {
+                  return Text(
+                    notifierCategoryItem.toString(),
+                  );
+                },
               ),
             ),
             SvgPicture.asset(
@@ -86,10 +90,7 @@ class _CategoriesButtonState extends State<CategoriesButton> {
                           padding: const EdgeInsets.only(bottom: 15),
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                widget.initCategory = category;
-                              });
-                              // Navigator.of(context).pop();
+                              categoryNotifier.value = category;
                               context.router.pop();
                             },
                             child: Text(

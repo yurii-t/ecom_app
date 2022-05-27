@@ -1,35 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/home/clothing_screen/bloc/clothing_screen_bloc.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SortButton extends StatefulWidget {
-  String initSortItem;
-  SortButton({
-    required this.initSortItem,
+class SortButton extends StatelessWidget {
+  final Function(String) onSortPicked;
+  final ValueNotifier<String> sortNotifier;
+
+  const SortButton({
+    required this.sortNotifier,
+    required this.onSortPicked,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SortButton> createState() => _SortButtonState();
-}
-
-class _SortButtonState extends State<SortButton> {
-  List<String> sortItems = [
-    LocaleKeys.sales.tr(),
-    LocaleKeys.featured.tr(),
-    LocaleKeys.popular.tr(),
-    LocaleKeys.new_text.tr(),
-    LocaleKeys.price_high_to_low.tr(),
-    LocaleKeys.price_low_to_high.tr(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final List<String> sortItems = [
+      LocaleKeys.sales.tr(),
+      LocaleKeys.featured.tr(),
+      LocaleKeys.popular.tr(),
+      LocaleKeys.new_text.tr(),
+      LocaleKeys.price_high_to_low.tr(),
+      LocaleKeys.price_low_to_high.tr(),
+    ];
+
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.only(left: 16, right: 22),
@@ -44,8 +41,13 @@ class _SortButtonState extends State<SortButton> {
         return GestureDetector(
           child: Row(children: [
             Expanded(
-              child: Text(
-                widget.initSortItem,
+              child: ValueListenableBuilder(
+                valueListenable: sortNotifier,
+                builder: (context, notifierSortItem, child) {
+                  return Text(
+                    notifierSortItem.toString(),
+                  );
+                },
               ),
             ),
             SvgPicture.asset(
@@ -88,22 +90,9 @@ class _SortButtonState extends State<SortButton> {
                           padding: const EdgeInsets.only(bottom: 15),
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                widget.initSortItem = sortItem;
-                              });
-                              if (sortItem == sortItems[3]) {
-                                context
-                                    .read<ClothingScreenBloc>()
-                                    .add(SortByDateProduct());
-                              } else if (sortItem == sortItems[4]) {
-                                context
-                                    .read<ClothingScreenBloc>()
-                                    .add(SortHighToLow());
-                              } else if (sortItem == sortItems[5]) {
-                                context
-                                    .read<ClothingScreenBloc>()
-                                    .add(SortLowToHigh());
-                              }
+                              sortNotifier.value = sortItem;
+                              onSortPicked(sortItem);
+
                               Navigator.of(context).pop();
                             },
                             child: Text(

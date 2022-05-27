@@ -20,22 +20,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
   final List<int> delPrice = [15, 18, 20];
 
   final List<Widget> availableDelivery = [
-    // final List<DeliveryOptions> availableDelivery = [
-    // DeliveryOptions(
-    //   image: 'del1.png',
-    //   deliveryPrice: 15,
-    //   deliveryDays: '1-2 days',
-    // ),
-    // DeliveryOptions(
-    //   image: 'del2.png',
-    //   deliveryPrice: 18,
-    //   deliveryDays: '1-2 days',
-    // ),
-    // DeliveryOptions(
-    //   image: 'del3.png',
-    //   deliveryPrice: 20,
-    //   deliveryDays: '1-2 days',
-    // ),
     Center(
       child: Column(
         children: [
@@ -152,7 +136,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
     ),
   ];
   Widget? _pickedDelivery;
-  // DeliveryOptions? _pickedDelivery;
 
   @override
   Widget build(BuildContext context) {
@@ -203,52 +186,6 @@ class _DeliveryPickerState extends State<DeliveryPicker> {
                 ],
               ),
               child: item,
-              //     Center(
-              //   child: Column(
-              //     children: [
-              //       FutureBuilder<dynamic>(
-              //         future: FireBaseStorageService()
-              //             .getImg(availableDelivery[index].image),
-              //         builder: (context, snapshot) {
-              //           if (snapshot.connectionState == ConnectionState.done) {
-              //             return Image.network(
-              //               snapshot.data.toString(),
-              //               width: 71,
-              //               height: 16,
-              //             );
-              //           }
-
-              //           return const Center(
-              //             child: SizedBox(
-              //               width: 24,
-              //               height: 24,
-              //               child: CircularProgressIndicator(),
-              //             ),
-              //           );
-              //         },
-              //       ),
-              //       const SizedBox(
-              //         height: 22,
-              //       ),
-              //       Text(
-              //         '\$ ${availableDelivery[index].deliveryPrice}',
-              //         style: const TextStyle(
-              //           fontSize: 14,
-              //           fontWeight: FontWeight.w600,
-              //           color: AppColors.darkText,
-              //         ),
-              //       ),
-              //       Text(
-              //         '${availableDelivery[index].deliveryDays} ${LocaleKeys.days.tr()}',
-              //         style: const TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w400,
-              //           color: AppColors.greyText,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ),
           );
         },

@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/routes/app_router.gr.dart';
@@ -8,7 +7,6 @@ import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/login/bloc/phone_auth_bloc.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,14 +24,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   String testNumber = '';
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +33,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
         body: BlocSelector<PhoneAuthBloc, PhoneAuthState, bool>(
           selector: (state) {
             if (state is PhoneAuthCodeSentSuccess) {
-              // Navigation.mainAppNav.currentState?.pushNamed(
-              //   '/pin_virification_screen',
-              //   arguments: {
-              //     'verificationId': state.verificationId,
-              //     'phoneNumber': testNumber,
-              //   },
-              // );
               context.router.push(VerificationRoute(
                 phone: testNumber,
                 verId: state.verificationId,
@@ -142,7 +125,7 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                             fontSize: 19,
                           ),
                           initialValue: PhoneNumber(isoCode: 'UA'),
-                          textFieldController: _controller,
+
                           formatInput: true,
                           keyboardType: TextInputType.phone,
 
@@ -176,10 +159,6 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                         padding: const EdgeInsets.only(left: 24, right: 24),
                         child: TextButton(
                           onPressed: () {
-                            // Navigation.mainAppNav.currentState!
-                            //     .pushReplacementNamed(
-                            //   '/home_screen',
-                            // );
                             context.router.replace(const HomeRoute());
                           },
                           child: Text(

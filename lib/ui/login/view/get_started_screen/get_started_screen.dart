@@ -5,9 +5,6 @@ import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
-import 'package:ecom_app/ui/login/view/enter_phone_screen/enter_phone_screen.dart';
-
-import 'package:ecom_app/ui/widgets/navigation.dart';
 
 import 'package:flutter/material.dart';
 
@@ -112,10 +109,6 @@ class GetStartedScreen extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              // Navigation.mainAppNav.currentState
-                              //     ?.pushReplacementNamed(
-                              //   '/enter_phone_screen',
-                              // );
                               context.router.replace(const EnterPhoneRoute());
                             },
                             style: ElevatedButton.styleFrom(

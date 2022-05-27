@@ -11,7 +11,6 @@ import 'package:ecom_app/ui/home/home_screen/view/home_carousel_list.dart';
 import 'package:ecom_app/ui/home/home_screen/view/home_catalogue_list.dart';
 import 'package:ecom_app/ui/widgets/item_container.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,9 +103,6 @@ class HomeContentScreenColumn extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigation.mainListNav.currentState?.pushNamed(
-                        //   '/home_screen/catalogue_screen',
-                        // );
                         context.router.pushNamed('catalogue');
                       },
                       child: Row(

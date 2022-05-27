@@ -1,12 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecom_app/domain/repositories/product/product_repository.dart';
+import 'package:ecom_app/routes/app_router.gr.dart';
 import 'package:ecom_app/style/app_colors.dart';
 import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 import 'package:ecom_app/ui/profile/favorite_screen/bloc/favorite_screen_bloc.dart';
 import 'package:ecom_app/ui/widgets/item_container.dart';
 
-import 'package:ecom_app/ui/widgets/navigation.dart';
 import 'package:ecom_app/ui/widgets/sort_popup_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,17 +52,13 @@ class FavoriteScreen extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigation.mainListNav.currentState!
-                                .popAndPushNamed(
-                              'home_screen/home_content_screen',
-                            );
+                            context.router.popAndPush(const HomeRoute());
                           },
                           child:
                               SvgPicture.asset('assets/icons/arrow_left.svg'),
                         ),
                         Text(
                           LocaleKeys.favorite.tr(),
-                          // 'Favorite',
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 19,

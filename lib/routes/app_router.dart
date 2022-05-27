@@ -42,11 +42,10 @@ import 'package:ecom_app/ui/search_screen/search_screen.dart';
       ],
     ),
     AutoRoute<void>(page: ProductScreen),
-    // AutoRoute<void>(page: CartScreen),
     CustomRoute<void>(
       path: 'cart',
       name: 'cartRouter',
-      page: EmptyRouterPage, //CartScreen,
+      page: EmptyRouterPage,
       transitionsBuilder: TransitionsBuilders.slideLeft,
       children: [
         AutoRoute<void>(path: '', page: CartScreen, name: 'cartScreen'),
@@ -54,7 +53,6 @@ import 'package:ecom_app/ui/search_screen/search_screen.dart';
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),
-    // AutoRoute<void>(page: CheckOutScreen),
     AutoRoute<void>(page: FilterScreen),
     AutoRoute<void>(page: SearchScreen),
   ],

@@ -2,9 +2,9 @@ import 'package:ecom_app/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SizePicker extends StatefulWidget {
-  final Function(String) onSizePicked;
-  final List<String> initPick;
-  const SizePicker({
+  final Function(List<String>) onSizePicked;
+  List<String> initPick;
+  SizePicker({
     required this.initPick,
     required this.onSizePicked,
     Key? key,
@@ -55,7 +55,7 @@ class _SizePickerState extends State<SizePicker> {
                 }
               });
               sizesJioned = widget.initPick.join(',');
-              widget.onSizePicked(sizesJioned);
+              widget.onSizePicked(widget.initPick);
             },
             child: Container(
               width: 50,

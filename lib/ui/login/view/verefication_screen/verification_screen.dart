@@ -6,7 +6,6 @@ import 'package:ecom_app/style/app_gradient.dart';
 import 'package:ecom_app/translations/locale_keys.g.dart';
 
 import 'package:ecom_app/ui/login/bloc/phone_auth_bloc.dart';
-import 'package:ecom_app/ui/widgets/navigation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,20 +32,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)?.settings.arguments as Map;
-
-    // final String phone = args['phoneNumber'] as String;
-    // final String verId = args['verificationId'] as String;
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: BlocListener<PhoneAuthBloc, PhoneAuthState>(
           listener: (context, state) {
             if (state is PhoneAuthVerified) {
-              // Navigation.mainAppNav.currentState?.pushReplacementNamed(
-              //   '/home_screen',
-              // );
               context.router.replace(const HomeRoute());
             }
 
@@ -58,153 +49,143 @@ class _VerificationScreenState extends State<VerificationScreen> {
               );
             }
           },
-          child: BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 197,
-                    padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
-                    child: Text(
-                      LocaleKeys.verif_title.tr(),
-                      // 'Verification Code',
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                    decoration: const BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(300)),
-                      gradient: AppGradient.purpleGradient,
-                    ),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 197,
+                padding: const EdgeInsets.fromLTRB(24, 91, 60, 44),
+                child: Text(
+                  LocaleKeys.verif_title.tr(),
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
                   ),
-                  const SizedBox(
-                    height: 33,
+                ),
+                decoration: const BoxDecoration(
+                  borderRadius:
+                      BorderRadius.only(bottomRight: Radius.circular(300)),
+                  gradient: AppGradient.purpleGradient,
+                ),
+              ),
+              const SizedBox(
+                height: 33,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24, right: 160),
+                child: Text(
+                  LocaleKeys.verif_subtitle.tr(),
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.darkGreyText,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 160),
-                    child: Text(
-                      LocaleKeys.verif_subtitle.tr(),
-                      // 'Please enter Code sent to ',
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.darkGreyText,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 37),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.phone,
-                            style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.darkText,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // Navigator.of(context).pop();
-                            context.router.pop();
-                          },
-                          child: Text(
-                            LocaleKeys.change_phone_number.tr(),
-                            // 'Change Phone Number',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkText,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: Center(
-                      child: PinCodeTextField(
-                        keyboardType: TextInputType.number,
-                        length: 6,
-                        obscureText: false,
-                        animationType: AnimationType.fade,
-                        pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.underline,
-                          borderRadius: BorderRadius.circular(5),
-                          fieldHeight: 50,
-                          fieldWidth: 40,
-                          activeFillColor: Colors.white,
-                        ),
-                        animationDuration: const Duration(milliseconds: 100),
-                        enableActiveFill: false,
-                        controller: pinController,
-                        onCompleted: (v) {
-                          print('Completed');
-                        },
-                        onChanged: print,
-                        beforeTextPaste: (text) {
-                          print('Allowing to paste $text');
-
-                          return true;
-                        },
-                        appContext: context,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppColors.yellow,
-                      onPrimary: Colors.white,
-                      minimumSize: const Size(327, 64),
-                    ),
-                    onPressed: () => _verifyOtp(verificationId: widget.verId),
-                    child: Text(
-                      LocaleKeys.verif_button_text.tr(),
-                      // 'Send Verification Code',
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: TextButton(
-                      onPressed: null,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 8, 24, 37),
+                child: Row(
+                  children: [
+                    Expanded(
                       child: Text(
-                        LocaleKeys.verif_resend_button_text.tr(),
-                        // 'Resend code',
+                        widget.phone,
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.greyText,
+                          color: AppColors.darkText,
                         ),
                       ),
                     ),
+                    TextButton(
+                      onPressed: () {
+                        context.router.pop();
+                      },
+                      child: Text(
+                        LocaleKeys.change_phone_number.tr(),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.darkText,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24, right: 24),
+                child: Center(
+                  child: PinCodeTextField(
+                    keyboardType: TextInputType.number,
+                    length: 6,
+                    obscureText: false,
+                    animationType: AnimationType.fade,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.underline,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      activeFillColor: Colors.white,
+                    ),
+                    animationDuration: const Duration(milliseconds: 100),
+                    enableActiveFill: false,
+                    controller: pinController,
+                    onCompleted: (v) {
+                      print('Completed');
+                    },
+                    onChanged: print,
+                    beforeTextPaste: (text) {
+                      print('Allowing to paste $text');
+
+                      return true;
+                    },
+                    appContext: context,
                   ),
-                ],
-              );
-            },
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: AppColors.yellow,
+                  onPrimary: Colors.white,
+                  minimumSize: const Size(327, 64),
+                ),
+                onPressed: () => _verifyOtp(verificationId: widget.verId),
+                child: Text(
+                  LocaleKeys.verif_button_text.tr(),
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24, right: 24),
+                child: TextButton(
+                  onPressed: null,
+                  child: Text(
+                    LocaleKeys.verif_resend_button_text.tr(),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.greyText,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -216,11 +197,5 @@ class _VerificationScreenState extends State<VerificationScreen> {
           otpCode: pinController.text,
           verificationId: verificationId,
         ));
-    @override
-    void dispose() {
-      pinController.dispose();
-
-      super.dispose();
-    }
   }
 }

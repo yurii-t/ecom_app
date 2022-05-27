@@ -28,7 +28,6 @@ class ProductScreen extends StatelessWidget {
     final _icon = SvgPicture.asset(
       'assets/icons/heart11.svg',
     );
-    // final productId = ModalRoute.of(context)?.settings.arguments as String;
 
     return SafeArea(
       child: Scaffold(
@@ -231,7 +230,6 @@ class ProductScreen extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pop();
                   context.router.pop();
                 },
                 child: SvgPicture.asset('assets/icons/arrow_left_bottom.svg'),
@@ -254,7 +252,7 @@ class ProductScreen extends StatelessWidget {
                       backgroundColor: Colors.white,
                       builder: (context) {
                         return AddToCartButton(
-                          item: 1,
+                          itemQuantity: 1,
                           productId: productId,
                         );
                       },
@@ -272,7 +270,6 @@ class ProductScreen extends StatelessWidget {
               }),
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pop();
                   context.router.pop();
                 },
                 child: _icon,
